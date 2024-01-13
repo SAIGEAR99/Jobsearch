@@ -13,11 +13,11 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
-            <ul class="nav nav-pills w-100">
+            <ul class="nav nav-pills w-100 justify-content-between">
+               
                 <li class="nav-link">ADMIN CONTROL</li>
-                <li class="nav-link ml-auto">
-                    <a href="/location/add" class="nav-link active">Add User</a>
-                </li>
+                
+                <li class="nav-link "><a href="/logout" class="btn btn-outline-danger me-2">Logout</a></li>
             </ul>
         </div>
         <div class="card-body">
@@ -41,8 +41,8 @@
                         <td><%= data[i].email %></td>
                         <td><%= data[i].password %></td>
                         <td>
-                            <a href="../location/edit/<%= data[i].login_id %>" class="btn btn-success edit">Edit</a>
-                            <a href="/location/delete/<%= data[i].login_id %>" class="btn btn-danger delete" onclick="return confirm('Are you sure?')">Delete</a>
+                            <a href="../admin/edit/<%= data[i].login_id %>" class="btn btn-success edit">Edit</a>
+                            <a href="/admin/delete/<%= data[i].login_id %>" class="btn btn-danger delete" onclick="return confirm('Are you sure?')">Delete</a>
                         </td>
                     </tr>
                     <% } %>
@@ -55,6 +55,8 @@
             <p class="text-center">No User found!</p>
             <% } %>
         </div>
+        <li class="nav-link "><a href="/admin/add" class="nav-link active">Add User</a></li>
+        <li class="nav-link"><a href="/user" class="nav-link active">Back Home</a></li>
     </div>
 </div>
 

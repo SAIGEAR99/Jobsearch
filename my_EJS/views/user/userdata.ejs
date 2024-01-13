@@ -18,6 +18,7 @@
                     <h2 class="text-center">User Data</h2>
                 </div>
                 <div class="card-body">
+                    
                     <% if (rows.length > 0) { %>
                         <% rows.forEach(row => { %>
                             <div class="user-info">
@@ -35,8 +36,10 @@
                         <p class="text-center">No data available.</p>
                     <% } %>
 
-                    <!-- เพิ่มปุ่ม Back ไปหน้า Home -->
-                    <a href="/index" class="btn btn-primary">Back to Home</a>
+                    <!-- เพิ่มปุ่ม Back ไปหน้า Home และปุ่ม Logout ในบรรทัดเดียวกัน -->
+                    <a href="/user/people" class="btn btn-primary mr-2">Back to Home</a>
+                    <a href="/logout" class="btn btn-outline-danger">Logout</a>
+                    
                 </div>
             </div>
         </div>

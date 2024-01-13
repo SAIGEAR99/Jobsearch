@@ -1,19 +1,28 @@
+//admin.js
+
 var express = require('express');
 var router = express.Router();
 let dbCon = require('../lib/db');
 
 
+// admin.js
 router.get('/', (req, res, next) => {
+    // ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login');
+    }
+
     dbCon.query('SELECT * FROM login ORDER BY login_id ASC', (err, rows) => {
         if (err) {
             console.error('Error retrieving data:', err);
-            res.render('location', { data: '' });
+            res.render('admin', { data: '' });
         } else {
             console.log('Data from the database:', rows);
-            res.render('location', { data: rows });
+            res.render('admin', { data: rows });
         }
     });
 });
+
 
 
 router.get('/edit/(:login_id)', (req, res, next) => {
@@ -21,11 +30,11 @@ router.get('/edit/(:login_id)', (req, res, next) => {
 
     dbCon.query('SELECT * FROM login WHERE login_id = ' + login_id, (err, rows, fields) => {
         if (rows.length <= 0) {
-            req.flash('error', 'Location not found with id = ' + login_id)
-            res.redirect('/location');
+            req.flash('error', 'User not found with id = ' + login_id)
+            res.redirect('/admin');
         } else {
-            res.render('location/edit', {
-                title: 'Edit Location',
+            res.render('admin/edit', {
+                title: 'Edit User',
                 user: rows[0].user,
                 email: rows[0].email,
                 password: rows[0].password,
@@ -38,7 +47,7 @@ router.get('/edit/(:login_id)', (req, res, next) => {
 
 
 router.get('/add',(req,res) => {
-    res.render('location/add', {
+    res.render('admin/add', {
         user:'',
         email:'',
         password: '',
@@ -57,9 +66,9 @@ router.post('/add', (req, res) => {
     if (user.length === 0 || email.length === 0 || password.length===0 ) {
         errors = true;
         // ตั้งค่าข้อความแฟลช
-        req.flash('error', 'กรุณากรอก');
+        req.flash('error', 'กรุณากรอกข้อมูล');
         // เรียก render ไปที่ add.ejs พร้อมกับข้อความแฟลช
-        res.render('location/add', {
+        res.render('admin/add', {
             user: user,
             email: email,
             password: password,
@@ -81,7 +90,7 @@ router.post('/add', (req, res) => {
             if (err) {
                 req.flash('error', err);
 
-                res.render('location/add', {
+                res.render('admin/add', {
                     user: form_data.user,
                     email: form_data.email,
                     password: form_data.password,
@@ -89,7 +98,7 @@ router.post('/add', (req, res) => {
                 });
             } else {
                 req.flash('success', 'เพิ่มตำแหน่งสำเร็จแล้ว');
-                res.redirect('/index');
+                res.redirect('/admin');
             }
         });
     }
@@ -106,7 +115,7 @@ router.post('/update/:login_id', (req, res, next) => {
     if (user.length === 0 || email.length === 0 || password.length===0 || login_id.length ===0 ) {
         errors = true;
         req.flash('error', 'Please enter Name and ID');
-        res.render('location/edit', {
+        res.render('admin/edit', {
             user: form_data.user,
                     email: form_data.email,
                     password: form_data.password,
@@ -125,7 +134,7 @@ router.post('/update/:login_id', (req, res, next) => {
         dbCon.query("UPDATE login SET ? WHERE login_id = " + login_id, form_data, (err, result) => {
             if (err) {
                 req.flash('error', err);
-                res.render('location/edit', {
+                res.render('admin/edit', {
                     user: form_data.user,
                     email: form_data.email,
                     password: form_data.password,
@@ -133,7 +142,7 @@ router.post('/update/:login_id', (req, res, next) => {
                 })
             } else {
                 req.flash('success', 'Location successfully updated');
-                res.redirect('/location')
+                res.redirect('/admin')
             }
         })
     }
@@ -147,10 +156,10 @@ router.get('/delete/(:login_id)', (req, res, next) => {
     dbCon.query('DELETE FROM login WHERE login_id = ?', login_id, (err, result) => {
         if (err) {
             req.flash('error', err);
-            res.redirect('/location');
+            res.redirect('/admin');
         } else {
             req.flash('success', 'Login successfully deleted! ID = ' + login_id);
-            res.redirect('/location');
+            res.redirect('/admin');
         }
     })
 });

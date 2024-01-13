@@ -10,7 +10,7 @@
 <body class="container" style="margin-top: 50px;">
 
 
-    <a href="/location" class="btn btn-info">Back</a>
+    <a href="/admin" class="btn btn-info">Back</a>
     <br><br>
     
     <div class="card">
@@ -18,7 +18,7 @@
             Edit Location
         </div>
         <div class="card-body">
-            <form action="/location/update/<%= login_id %>" method="post">
+            <form action="/admin/update/<%= login_id %>" method="post">
                 <div class="form-group">
                     <label>Login ID:</label>
                     <input type="text" class="form-control" name="login_id" value="<%= login_id %>" autocomplete="off">

@@ -1,18 +1,24 @@
+//app.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const ejs = require('ejs');
-const session = require('express-session');
 const flash = require('connect-flash');
+const session = require('express-session');
+const cookieSession = require('cookie-session');
+const authRouter = require('../my_EJS/middleware/authRouter');
+const CheackRouter = require('../my_EJS/middleware/checkAdminRights');
+const sessionConfig = require('../my_EJS/models/session-config')
+
 
 const app = express();
 const port = 3000;
 
-app.use(session({
-    secret: '60000', // กำหนดค่า secret key ให้เป็นค่าที่ปลอดภัย
-    resave: true,
-    saveUninitialized: true
-  }));
+
+app.use(sessionConfig);
+
+app.use('/admin', authRouter);
+app.use('/admin', CheackRouter);
 
 
 app.use(flash());
@@ -33,18 +39,56 @@ let root_path = path.resolve(__dirname,'');
 app.use(express.static(root_path));
 
 const indexRoutes = require('../my_EJS/router/index');
-const locationRoutes = require('../my_EJS/router/location');
+const adminRoutes = require('./router/admin');
 const loginRoutes = require('../my_EJS/router/login');
-const userRoutes = require('../my_EJS/router/user');
-//const manufactureRoutes = require('../ex2_router/router/manufacture');
+const homeRoutes = require('../my_EJS/router/home');
+const registerRoutes = require('../my_EJS/router/register');
+const logoutRoutes = require('../my_EJS/router/logout');
+const userRoutes = require('../my_EJS/models/user');
+
+
+//const red_a = require('../my_EJS/middleware/red_a');
+
 //use
 app.use('/index',indexRoutes);
-app.use('/location',locationRoutes);
-app.use('/login',loginRoutes);
+app.use('/admin',adminRoutes);
+app.use('/home', homeRoutes);
+app.use('/login', loginRoutes);
+app.use('/register',registerRoutes);
+app.use('/logout', logoutRoutes);
 app.use('/user',userRoutes);
-//app.use("/manufacture",manufactureRoutes);
+
+///////////////log///////////////
+
+app.use((req, res, next) => {
+  if (req.session) {
+      console.log('Session is set:', req.session);
+  } else {
+      console.log('Session is not set');
+  }
+  next();
+});
+
+app.use((req, res, next) => {
+  if (req.session && req.session.isLoggedIn) {
+      console.log('User is logged in:', req.session.user);
+  } else {
+      console.log('User is not logged in');
+  }
+  next();
+});
+
+app.get('/example-route', (req, res) => {
+  if (req.session && req.session.isLoggedIn) {
+      console.log('User is logged in:', req.session.user);
+  } else {
+      console.log('User is not logged in');
+  }
+  res.send('Example route');
+});
+
 
 
 app.listen(3000,'localhost',()=> {
-    console.log('runnnnnnnnnnnnnn')
+    console.log('runnnnnnnnnnnnn')
 })
