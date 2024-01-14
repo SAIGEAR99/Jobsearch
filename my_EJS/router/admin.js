@@ -7,12 +7,8 @@ let dbCon = require('../lib/db');
 
 // admin.js
 router.get('/', (req, res, next) => {
-    // ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
-    if (!req.session.isLoggedIn) {
-        return res.redirect('/login');
-    }
-
-    dbCon.query('SELECT * FROM login ORDER BY login_id ASC', (err, rows) => {
+   
+   dbCon.query('SELECT * FROM login ORDER BY login_id ASC', (err, rows) => {
         if (err) {
             console.error('Error retrieving data:', err);
             res.render('admin', { data: '' });

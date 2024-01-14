@@ -30,6 +30,7 @@
                         <th scope="col">USER</th>
                         <th scope="col">Email</th>
                         <th scope="col">Password</th>
+                        <th width="200px">Role</th>
                         <th width="200px">Action</th>
                     </tr>
                 </thead>
@@ -40,6 +41,7 @@
                         <td><%= data[i].user %></td>
                         <td><%= data[i].email %></td>
                         <td><%= data[i].password %></td>
+                        <td><%= data[i].role %></td>
                         <td>
                             <a href="../admin/edit/<%= data[i].login_id %>" class="btn btn-success edit">Edit</a>
                             <a href="/admin/delete/<%= data[i].login_id %>" class="btn btn-danger delete" onclick="return confirm('Are you sure?')">Delete</a>
@@ -56,7 +58,7 @@
             <% } %>
         </div>
         <li class="nav-link "><a href="/admin/add" class="nav-link active">Add User</a></li>
-        <li class="nav-link"><a href="/user" class="nav-link active">Back Home</a></li>
+        
     </div>
 </div>
 

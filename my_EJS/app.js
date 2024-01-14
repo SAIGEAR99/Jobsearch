@@ -4,21 +4,13 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const ejs = require('ejs');
 const flash = require('connect-flash');
-const session = require('express-session');
-const cookieSession = require('cookie-session');
-const authRouter = require('../my_EJS/middleware/authRouter');
-const CheackRouter = require('../my_EJS/middleware/checkAdminRights');
-const sessionConfig = require('../my_EJS/models/session-config')
-
+const sessionConfig = require('../my_EJS/middleware/session-config')
 
 const app = express();
 const port = 3000;
 
 
 app.use(sessionConfig);
-
-app.use('/admin', authRouter);
-app.use('/admin', CheackRouter);
 
 
 app.use(flash());
@@ -47,16 +39,22 @@ const logoutRoutes = require('../my_EJS/router/logout');
 const userRoutes = require('../my_EJS/models/user');
 
 
-//const red_a = require('../my_EJS/middleware/red_a');
+//middleware
+const checkAuth  = require('../my_EJS/middleware/checkAuth');
+const checkEmployer  = require('../my_EJS/middleware/Check_Employer');
+const checkEnployee  = require('../my_EJS/middleware/Check_Emplyee');
+
+
 
 //use
+
 app.use('/index',indexRoutes);
-app.use('/admin',adminRoutes);
-app.use('/home', homeRoutes);
-app.use('/login', loginRoutes);
+app.use('/admin',checkAuth,checkEmployer,checkEnployee,adminRoutes);
+app.use('/home',homeRoutes);
+app.use('/login',loginRoutes);
 app.use('/register',registerRoutes);
-app.use('/logout', logoutRoutes);
-app.use('/user',userRoutes);
+app.use('/logout',logoutRoutes);
+app.use('/user',checkEmployer,checkEnployee,userRoutes);
 
 ///////////////log///////////////
 
@@ -73,7 +71,7 @@ app.use((req, res, next) => {
   if (req.session && req.session.isLoggedIn) {
       console.log('User is logged in:', req.session.user);
   } else {
-      console.log('User is not logged in');
+      console.log('User is not [ADMIN] logged in');
   }
   next();
 });
@@ -82,7 +80,7 @@ app.get('/example-route', (req, res) => {
   if (req.session && req.session.isLoggedIn) {
       console.log('User is logged in:', req.session.user);
   } else {
-      console.log('User is not logged in');
+      console.log('User is not [ADMIN] logged in');
   }
   res.send('Example route');
 });

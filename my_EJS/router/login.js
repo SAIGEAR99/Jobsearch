@@ -2,17 +2,25 @@
 var express = require('express');
 var router = express.Router();
 let dbCon = require('../lib/db');
-const red_a = require('../middleware/red_a');
+const checkAuth = require('../middleware/checkAuth');
+
+const checkEmployer  = require('../middleware/Check_Employer');
+const checkEmployee  = require('../middleware/Check_Emplyee');
 
 
-router.get('/', red_a, (req, res) => {
+
+router.get('/',(req, res) => {
     res.render('user/login', { user: "", password: "" });
 });
+
+
+
 
 // loginRoutes.js
 router.post('/log', (req, res) => {
     const user = req.body.user;
     const password = req.body.password;
+    const role = req.body.role; // แก้ไปให้เป็น req.body.role
 
     if (!user || !password) {
         res.redirect('/login');
@@ -28,24 +36,30 @@ router.post('/log', (req, res) => {
         }
 
         if (rows.length > 0) {
-           // req.session.isLoggedIn = true;  // ตรงนี้ต้องตั้งค่าเป็น true เมื่อเข้าสู่ระบบ
             req.session.user = user; // ตั้งค่า user ใน session
             req.session.password = password; // ตั้งค่า password ใน session
-         
-            
+
             if (user === 'admin') {
                 req.session.isLoggedIn = true;
                 req.session.isAdmin = true;
                 res.redirect('/admin');
+
+            } else if (role === 'employer') { // แก้ให้เปรียบเทียบค่า 'employer'
+                req.session.isEmployer = true;
+                res.render('user/userdata_a', { rows: rows });
             } else {
-                req.session.isRegularUser = true;
-                res.render('user/userdata', { rows: rows });
+                req.session.isEmployee = true;
+                res.render('user/userdata_b', { rows: rows });
             }
         } else {
             res.redirect('/login');
         }
     });
 });
+
+router.use(checkEmployee);
+router.use(checkEmployer);
+router.use(checkAuth);
 
 
 module.exports = router;
