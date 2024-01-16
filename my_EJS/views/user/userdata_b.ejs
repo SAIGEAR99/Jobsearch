@@ -1,0 +1,68 @@
+<!-- user/load_data.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Data</title>
+    <!-- ใส่ stylesheet หรือ link อื่น ๆ ที่ต้องการ (ถ้ามี) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Data Employer!</h2>
+                </div>
+                <div class="card-body">
+                    
+                    <% if (rows.length > 0) { %>
+                        <% rows.forEach(row => { %>
+                            <div class="user-info">
+                                <div class="user-inner">
+                                    <strong>User:</strong> <%= row.user %>
+                                </div>
+                            </div>
+                            <div class="email-info">
+                                <div class="email-inner">
+                                    <strong>Email:</strong> <%= row.email %>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p class="text-center">No data available.</p>
+                    <% } %>
+
+                    <!-- เพิ่มปุ่ม Back ไปหน้า Home และปุ่ม Logout ในบรรทัดเดียวกัน -->
+                    <a href="/user/shop" class="btn btn-primary mr-2">Back to Home</a>
+                    <a href="/logout" class="btn btn-outline-danger">Logout</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ใส่ script หรือ javascript ที่ต้องการ (ถ้ามี) -->
+
+    <!-- ใส่ script ของ Bootstrap JS (ถ้าใช้) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .user-info, .email-info {
+            margin-bottom: 20px;
+        }
+
+        .user-inner, .email-inner {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+
+</body>
+</html>
