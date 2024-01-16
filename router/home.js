@@ -1,19 +1,18 @@
-//hone.js
+var express = require('express');
+var router = express.Router();
+let dbCon = require('../lib/db');
+const sessionConfig = require('../middleware/session-config')
 
-const express = require('express');
-const router = express.Router();
-const dbConnection = require('../lib/db');
 
-router.get('/', async (req, res) => {
-    try {
-        const [rows, fields] = await dbConnection.execute('SELECT * FROM login WHERE login_id = ?', [req.session.userId]);
-        const userData = rows[0];
+router.use(sessionConfig);
 
-        res.render('user/home', { userData: userData });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
+
+// แยกสิทธ์
+router.get('/', function(req, res, next) {
+  console.log('----> req.session.user in =: ', req.session.user);
+  res.render('home/all_home', { user_direct: req.session.user });
 });
+
+
 
 module.exports = router;

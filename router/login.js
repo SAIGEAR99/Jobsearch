@@ -14,13 +14,10 @@ router.get('/',(req, res) => {
 });
 
 
-
-
 // loginRoutes.js
 router.post('/log', (req, res) => {
     const user = req.body.user;
     const password = req.body.password;
-    const role = req.body.role; // role from the login form
 
     if (!user || !password) {
         res.redirect('/login');
@@ -29,6 +26,7 @@ router.post('/log', (req, res) => {
 
     // Query the database
     dbCon.query('SELECT * FROM login WHERE user = ? AND password = ?', [user, password], (err, rows) => {
+        
         if (err) {
             console.error(err);
             res.redirect('/login');
@@ -39,6 +37,7 @@ router.post('/log', (req, res) => {
             // Set session variables
             req.session.user = user;
             req.session.password = password;
+          
 
             // Check the role
             if (rows[0].role === 'admin') {
@@ -47,11 +46,11 @@ router.post('/log', (req, res) => {
                 res.redirect('/admin');
             } else if (rows[0].role === 'employer') {
                 req.session.isEmployer = true;
-                res.render('employer/ep_y_home',{ rows: rows});
+                res.render('employer/ep_y_re',{ user_B : user});
                  // Redirect to employer route
             } else if (rows[0].role === 'employee') {
                 req.session.isEmployee = true;
-                res.render('employee/ep_e_home',{ rows: rows}); 
+                res.render('employee/ep_e_re',{ user_A : user}); 
                 // Redirect to employee route
             } else {
                 res.redirect('/login'); // Role does not match
@@ -65,7 +64,6 @@ router.post('/log', (req, res) => {
 router.use(checkAuth);
 router.use(checkEmployer);
 router.use(checkEmployee);
-
 
 
 module.exports = router;

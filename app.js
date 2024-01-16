@@ -5,10 +5,12 @@ const path = require('path');
 const ejs = require('ejs');
 const flash = require('connect-flash');
 const sessionConfig = require('../my_EJS/middleware/session-config')
+const fileUpload = require('express-fileupload')
 
 const app = express();
 const port = 3000;
 
+app.use(fileUpload());
 
 app.use(sessionConfig);
 
@@ -40,10 +42,14 @@ const logoutRoutes = require('../my_EJS/router/logout');
 const employerRoutes = require('../my_EJS/models/employer');
 const employeeRoutes = require('../my_EJS/models/employee');
 
+const imgRoutes = require('../my_EJS/middleware/img');
+
 //middleware
 const checkAuth  = require('../my_EJS/middleware/checkAuth');
 const checkEmployer  = require('../my_EJS/middleware/Check_Employer');
 const checkEnployee  = require('../my_EJS/middleware/Check_Emplyee');
+const checkLog  = require('../my_EJS/middleware/check_login');
+
 
 
 
@@ -51,12 +57,14 @@ const checkEnployee  = require('../my_EJS/middleware/Check_Emplyee');
 
 app.use('/index',indexRoutes);
 app.use('/admin',checkAuth,adminRoutes);
-app.use('/home',homeRoutes);
+app.use('/home',checkLog,homeRoutes);
 app.use('/login',loginRoutes);
 app.use('/register',registerRoutes);
 app.use('/logout',logoutRoutes);
-app.use('/employer',checkAuth,checkEmployer,checkEnployee,employerRoutes);
-app.use('/employee',checkAuth,checkEmployer,checkEnployee,employeeRoutes);
+app.use('/employer',checkEmployer,employerRoutes);
+app.use('/employee',checkEnployee,employeeRoutes);
+
+app.use('/img',imgRoutes );
 
 ///////////////log///////////////
 

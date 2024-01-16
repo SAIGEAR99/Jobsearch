@@ -1,6 +1,6 @@
 // checkAuth.js
-function checkAuth(req, res, next) {
-    if (req.session && req.session.isLoggedIn && req.session.isAdmin) {
+function checklog(req, res, next) {
+    if ((req.session && req.session.isEmployee) ||  req.session.isEmployer || req.session.isLoggedIn  ) {
         // If logged in and isAdmin, proceed to the next middleware or route
         next();
     } else {
@@ -9,5 +9,5 @@ function checkAuth(req, res, next) {
     }
 }
 
-module.exports = checkAuth;
+module.exports = checklog;
 
