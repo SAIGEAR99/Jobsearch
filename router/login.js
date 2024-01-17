@@ -40,15 +40,15 @@ router.post('/log', (req, res) => {
           
 
             // Check the role
-            if (rows[0].role === 'admin') {
+            if (rows[0].role === 1) {
                 req.session.isLoggedIn = true;
                 req.session.isAdmin = true;
                 res.redirect('/admin');
-            } else if (rows[0].role === 'employer') {
+            } else if (rows[0].role === 2 ) {
                 req.session.isEmployer = true;
                 res.render('employer/ep_y_re',{ user_B : user});
                  // Redirect to employer route
-            } else if (rows[0].role === 'employee') {
+            } else if (rows[0].role === 3) {
                 req.session.isEmployee = true;
                 res.render('employee/ep_e_re',{ user_A : user}); 
                 // Redirect to employee route

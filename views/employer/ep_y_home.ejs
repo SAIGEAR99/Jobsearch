@@ -138,13 +138,15 @@
                       <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" required>
                     </div>
                     <div class="mb-3">
-                      <label for="aboutMe" class="form-label">เกี่ยวกับฉัน</label>
-                      <textarea class="form-control" id="aboutMe" name="aboutMe"><%= user.aboutMe %></textarea>
-                    </div>
-                    <div class="mb-3">
                       <label for="phoneNumber" class="form-label">เบอร์โทรศัพท์</label>
                       <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" value="<%= user.phoneNumber %>">
                     </div>
+
+                    <div class="mb-3">
+                      <label for="aboutMe" class="form-label">เกี่ยวกับฉัน</label>
+                      <textarea class="form-control" id="aboutMe" name="aboutMe"><%= user.aboutMe %></textarea>
+                    </div>
+                    
                     <button type="submit" class="btn btn-primary">บันทึก</button>
                   </form>
                 </div>

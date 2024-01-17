@@ -29,7 +29,15 @@ body {
 .center {   
     display: flex;   justify-content: center;   align-items: center;
         }
+        .light-theme {
+    background-color: #fff; /* สีพื้นหลัง: ขาว */
+    color: #000; /* สีตัวหนังสือ: ดำ */
+}
 
+.light-theme button, .light-theme a, .light-theme .form-control {
+    background-color: #fff; /* สีพื้นหลังปุ่ม: ขาว */
+    color: #000; /* สีตัวหนังสือปุ่ม: ดำ */
+}
 /* สไตล์สำหรับธีมมืด */
 .dark-theme {
     background-color: #000; /* สีพื้นหลัง: ดำ */
@@ -41,16 +49,6 @@ body {
     color: #fff; /* สีตัวหนังสือปุ่ม: ขาว */
 }
 
-/* สไตล์สำหรับธีมสว่าง */
-.light-theme {
-    background-color: #fff; /* สีพื้นหลัง: ขาว */
-    color: #000; /* สีตัวหนังสือ: ดำ */
-}
-
-.light-theme button, .light-theme a, .light-theme .form-control {
-    background-color: #fff; /* สีพื้นหลังปุ่ม: ขาว */
-    color: #000; /* สีตัวหนังสือปุ่ม: ดำ */
-}
 
 
 </style>
@@ -136,12 +134,12 @@ body {
       
           themeToggle.addEventListener("click", function() {
               // ตรวจสอบปัจจุบันใช้ธีมใด แล้วสลับไปยังธีมที่ตรงกัน
-              if (body.classList.contains("dark-theme")) {
-                  body.classList.remove("dark-theme");
-                  body.classList.add("light-theme");
-              } else {
+              if (body.classList.contains("light-theme")) {
                   body.classList.remove("light-theme");
                   body.classList.add("dark-theme");
+              } else {
+                  body.classList.remove("dark-theme");
+                  body.classList.add("light-theme");
               }
           });
       });
