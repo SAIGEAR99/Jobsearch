@@ -19,7 +19,7 @@ router.get('/profile', (req, res, next) => {
 
     const user = req.session.user;
    
-    dbCon.query('SELECT *  FROM login WHERE user LIKE ? ',user ,(err, rows) => {
+    dbCon.query('SELECT *  FROM user WHERE username LIKE ? ',user ,(err, rows) => {
          if (err) {
              console.error('Error retrieving data:', err);
              res.render('employee/ep_e_home', { rows : rows 

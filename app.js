@@ -50,6 +50,9 @@ const checkEmployer  = require('../my_EJS/middleware/Check_Employer');
 const checkEnployee  = require('../my_EJS/middleware/Check_Emplyee');
 const checkLog  = require('../my_EJS/middleware/check_login');
 
+//api
+const apiSearch = require('../my_EJS/API/search');
+
 
 
 
@@ -65,6 +68,8 @@ app.use('/employer',checkEmployer,employerRoutes);
 app.use('/employee',checkEnployee,employeeRoutes);
 
 app.use('/img',imgRoutes );
+
+app.use('/search',apiSearch );
 
 ///////////////log///////////////
 

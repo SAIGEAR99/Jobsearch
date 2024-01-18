@@ -70,7 +70,7 @@
                         <% rows.forEach(row => { %>
                             <div class="user-info">
                                 <div class="user-inner">
-                                    <strong>User:</strong> <%= row.user %>
+                                    <strong>User:</strong> <%= row.username %>
                                 </div>
                             </div>
                             <div class="email-info">
@@ -87,6 +87,110 @@
                     
                 </div>
             </div>
+
+
+            <input type="text" class="form-control" id="search" placeholder="ค้นหา...">
+            <div id="search-results" class="list-group"></div>
+
+           
+
+            
+            <script>
+              document.getElementById('search').addEventListener('input', function () {
+    var query = this.value;
+    var resultsDiv = document.getElementById('search-results');
+
+    // ตรวจสอบว่าคำค้นหาไม่ว่าง
+    if (query.trim() !== '') {
+        // ส่งคำค้นหาไปยังเซิร์ฟเวอร์ด้วย AJAX
+        fetch('/search/api?query=' + encodeURIComponent(query))
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(function (data) {
+            // เคลียร์รายการผลลัพธ์เก่า
+            resultsDiv.innerHTML = '';
+
+            // แสดงผลลัพธ์ในรายการใหม่
+            data.results.forEach(function (result) {
+                var resultItem = document.createElement('a');
+                resultItem.href = "javascript:void(0);"; // กำหนดให้ JavaScript ไม่ทำอะไรเมื่อคลิก
+                resultItem.className = 'list-group-item list-group-item-action';
+                resultItem.textContent = result.name_in_thai;
+                resultItem.addEventListener('click', function() {
+                    // เมื่อคลิกที่ auto-suggestion item ให้กำหนดค่าในช่องกรอก
+                    document.getElementById('search').value = result.name_in_thai;
+                    // เคลียร์รายการผลลัพธ์
+                    resultsDiv.innerHTML = '';
+                });
+                resultsDiv.appendChild(resultItem);
+            });
+        })
+        .catch(function (error) {
+            console.error('Fetch error:', error);
+        });
+    } else {
+        // กรณีค้นหาว่างเปล่า ล้างผลลัพธ์
+        resultsDiv.innerHTML = '';
+    }
+});
+
+              </script>
+
+<input type="text" class="form-control" id="a" placeholder="ค้นหา... post">
+<div id="a" class="list-group"></div>
+
+<script>
+  document.getElementById('a').addEventListener('input', function () {
+var query = this.value;
+var resultsDiv = document.getElementById('a');
+
+// ตรวจสอบว่าคำค้นหาไม่ว่าง
+if (query.trim() !== '') {
+// ส่งคำค้นหาไปยังเซิร์ฟเวอร์ด้วย AJAX
+fetch('/search/api2?query=' + encodeURIComponent(query))
+.then(function (response) {
+if (!response.ok) {
+    throw new Error('Network response was not ok');
+}
+return response.json();
+})
+.then(function (data) {
+// เคลียร์รายการผลลัพธ์เก่า
+resultsDiv.innerHTML = '';
+
+// แสดงผลลัพธ์ในรายการใหม่
+data.results.forEach(function (result) {
+    var resultItem = document.createElement('a');
+    resultItem.href = "javascript:void(0);"; // กำหนดให้ JavaScript ไม่ทำอะไรเมื่อคลิก
+    resultItem.className = 'list-group-item list-group-item-action';
+    resultItem.textContent = result.zip_code;
+    resultItem.addEventListener('click', function() {
+        // เมื่อคลิกที่ auto-suggestion item ให้กำหนดค่าในช่องกรอก
+    document.getElementById('a').value = result.zip_code;
+        // เคลียร์รายการผลลัพธ์
+        resultsDiv.innerHTML = '';
+    });
+    resultsDiv.appendChild(resultItem);
+});
+})
+.catch(function (error) {
+console.error('Fetch error:', error);
+});
+} else {
+// กรณีค้นหาว่างเปล่า ล้างผลลัพธ์
+resultsDiv.innerHTML = '';
+}
+});
+
+  </script>
+              
+  
+            
+
 
 
 <br><br>

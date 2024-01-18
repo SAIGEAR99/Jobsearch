@@ -25,7 +25,7 @@ router.post('/log', (req, res) => {
     }
 
     // Query the database
-    dbCon.query('SELECT * FROM login WHERE user = ? AND password = ?', [user, password], (err, rows) => {
+    dbCon.query('SELECT * FROM user WHERE username = ? AND password = ?', [user, password], (err, rows) => {
         
         if (err) {
             console.error(err);
