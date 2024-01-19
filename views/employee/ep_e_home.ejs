@@ -8,14 +8,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="custom.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head>
+    
+  </head>
 <style>
     .drop-zone {
   border: 2px dashed #007bff;
   border-radius: 5px;
   padding: 20px;
   text-align: center;
-  cursor: pointer;
+  cursor: pointe;
 }
 
 </style>
@@ -50,150 +51,67 @@
       </div>
 
       <main >
-        <div class="px-4 py-5 my-5 text-center">
+<div class="px-4 py-5 my-5 text-center">
             <img src="/img/file" class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;">
             <br><br>
             <h1 class="display-5 fw-bold text-body-emphasis">Profile Page</h1>
             <div class="col-lg-6 mx-auto">
               <p class="lead mb-4">
-                ยินดีต้อนรับคุณ, <%= user %>
+                <% if (rows.length > 0) { %>
+                  <% rows.forEach(row => { %>
+                ยินดีต้อนรับคุณ, [<%= user %>] บทบาท: [<%= row.role_name  %>]
               </p>
+              <% }); %>
+              <% } else { %>
+                <% } %>
               <hr>
               
-              <div class="card">
-                <div class="card-header">
-                    <h2 class="text-center">Data Employee!</h2>
-                </div>
-                <div class="card-body">
-                    
-                    <% if (rows.length > 0) { %>
-                        <% rows.forEach(row => { %>
-                            <div class="user-info">
-                                <div class="user-inner">
-                                    <strong>User:</strong> <%= row.username %>
-                                </div>
+              <div class="card-body">
+                <% if (rows.length > 0) { %>
+                    <% rows.forEach(row => { %>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <strong>ชื่อ:</strong> <%= row.name %>
                             </div>
-                            <div class="email-info">
-                                <div class="email-inner">
-                                    <strong>Email:</strong> <%= row.email %>
-                                </div>
+                            <div class="col">
+                                <strong>นามสกุล:</strong> <%= row.surname %>
                             </div>
-                        <% }); %>
-                    <% } else { %>
-                        <p class="text-center">No data available.</p>
-                    <% } %>
-
-    
-                    
-                </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <strong>เพศ:</strong> <%= row.gender_name %>
+                            </div>
+                            <div class="col">
+                                <strong>วันเกิด:</strong> <%= formatDate(row.birthday) %>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <strong>อายุ:</strong> <%= calculateAge(row.birthday) %>
+                            </div>
+                            <div class="col">
+                                <strong>ที่อยู่:</strong> <%= row.home_number %>&nbsp;หมู่&nbsp;<%= row.village %>
+                                &nbsp;ต.<%= row.subdistrict_name %>&nbsp;อ.<%= row.district_name %>
+                                &nbsp;จ.<%= row.province_name %>&nbsp;<%= row.zip_code %>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <strong>เบอร์โทรศัพท์:</strong> <%= row.phone_no %>
+                            </div>
+                            <div class="col">
+                                <strong>เกี่ยวกับฉัน:</strong> <%= row.about %>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p class="text-center">No data available.</p>
+                <% } %>
             </div>
-
-
-            <input type="text" class="form-control" id="search" placeholder="ค้นหา...">
-            <div id="search-results" class="list-group"></div>
-
-           
-
             
-            <script>
-              document.getElementById('search').addEventListener('input', function () {
-    var query = this.value;
-    var resultsDiv = document.getElementById('search-results');
-
-    // ตรวจสอบว่าคำค้นหาไม่ว่าง
-    if (query.trim() !== '') {
-        // ส่งคำค้นหาไปยังเซิร์ฟเวอร์ด้วย AJAX
-        fetch('/search/api?query=' + encodeURIComponent(query))
-        .then(function (response) {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(function (data) {
-            // เคลียร์รายการผลลัพธ์เก่า
-            resultsDiv.innerHTML = '';
-
-            // แสดงผลลัพธ์ในรายการใหม่
-            data.results.forEach(function (result) {
-                var resultItem = document.createElement('a');
-                resultItem.href = "javascript:void(0);"; // กำหนดให้ JavaScript ไม่ทำอะไรเมื่อคลิก
-                resultItem.className = 'list-group-item list-group-item-action';
-                resultItem.textContent = result.name_in_thai;
-                resultItem.addEventListener('click', function() {
-                    // เมื่อคลิกที่ auto-suggestion item ให้กำหนดค่าในช่องกรอก
-                    document.getElementById('search').value = result.name_in_thai;
-                    // เคลียร์รายการผลลัพธ์
-                    resultsDiv.innerHTML = '';
-                });
-                resultsDiv.appendChild(resultItem);
-            });
-        })
-        .catch(function (error) {
-            console.error('Fetch error:', error);
-        });
-    } else {
-        // กรณีค้นหาว่างเปล่า ล้างผลลัพธ์
-        resultsDiv.innerHTML = '';
-    }
-});
-
-              </script>
-
-<input type="text" class="form-control" id="a" placeholder="ค้นหา... post">
-<div id="a" class="list-group"></div>
-
-<script>
-  document.getElementById('a').addEventListener('input', function () {
-var query = this.value;
-var resultsDiv = document.getElementById('a');
-
-// ตรวจสอบว่าคำค้นหาไม่ว่าง
-if (query.trim() !== '') {
-// ส่งคำค้นหาไปยังเซิร์ฟเวอร์ด้วย AJAX
-fetch('/search/api2?query=' + encodeURIComponent(query))
-.then(function (response) {
-if (!response.ok) {
-    throw new Error('Network response was not ok');
-}
-return response.json();
-})
-.then(function (data) {
-// เคลียร์รายการผลลัพธ์เก่า
-resultsDiv.innerHTML = '';
-
-// แสดงผลลัพธ์ในรายการใหม่
-data.results.forEach(function (result) {
-    var resultItem = document.createElement('a');
-    resultItem.href = "javascript:void(0);"; // กำหนดให้ JavaScript ไม่ทำอะไรเมื่อคลิก
-    resultItem.className = 'list-group-item list-group-item-action';
-    resultItem.textContent = result.zip_code;
-    resultItem.addEventListener('click', function() {
-        // เมื่อคลิกที่ auto-suggestion item ให้กำหนดค่าในช่องกรอก
-    document.getElementById('a').value = result.zip_code;
-        // เคลียร์รายการผลลัพธ์
-        resultsDiv.innerHTML = '';
-    });
-    resultsDiv.appendChild(resultItem);
-});
-})
-.catch(function (error) {
-console.error('Fetch error:', error);
-});
-} else {
-// กรณีค้นหาว่างเปล่า ล้างผลลัพธ์
-resultsDiv.innerHTML = '';
-}
-});
-
-  </script>
-              
-  
             
 
-
-
-<br><br>
+      <br><br>
 
         <a href="#" class="btn btn-primary px-4 gap-3" data-bs-toggle="modal" data-bs-target="#editProfileModal">แก้ไขข้อมูลผู้ใช้</a>
         <a href="#" class="btn btn-primary px-4 gap-3" data-bs-toggle="modal" data-bs-target="#profileImageUploadModal">อัพโหลดรูป Profile</a>
@@ -235,20 +153,39 @@ resultsDiv.innerHTML = '';
                   <form action="/update_profile" method="post">
                     <div class="mb-3">
                       <label for="username" class="form-label">ชื่อผู้ใช้</label>
-                      <input type="text" class="form-control" id="username" name="username" value="<%= user.username %>" required>
+                      <input type="text" class="form-control" id="username" name="username" value="" required>
                     </div>
                     <div class="mb-3">
                       <label for="email" class="form-label">อีเมล</label>
-                      <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" required>
+                      <input type="email" class="form-control" id="email" name="email" value="" required>
                     </div>
                     <div class="mb-3">
                       <label for="aboutMe" class="form-label">เกี่ยวกับฉัน</label>
-                      <textarea class="form-control" id="aboutMe" name="aboutMe"><%= user.aboutMe %></textarea>
+                      <textarea class="form-control" id="aboutMe" name="aboutMe"></textarea>
                     </div>
                     <div class="mb-3">
                       <label for="phoneNumber" class="form-label">เบอร์โทรศัพท์</label>
-                      <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" value="<%= user.phoneNumber %>">
+                      <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" value="">
                     </div>
+          
+                    <!-- House Number and Village on the same line -->
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="houseNumber" class="form-label">บ้านเลขที่</label>
+                        <input type="text" class="form-control" id="houseNumber" name="houseNumber" value="">
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="village" class="form-label">หมู่</label>
+                        <input type="text" class="form-control" id="village" name="village" value="">
+                      </div>
+                    </div>
+          
+                    <div class="mb-3">
+                      <label for="search" class="form-label" >ที่อยู่</label>
+                      <input type="text" class="form-control" id="search" name="search">
+                      <div id="search-results" class="list-group"></div>
+                    </div>
+                    
                     <button type="submit" class="btn btn-primary">บันทึก</button>
                   </form>
                 </div>
@@ -256,8 +193,43 @@ resultsDiv.innerHTML = '';
             </div>
           </div>
           
-
           
+        <script>
+            document.getElementById('search').addEventListener('input', function () {
+var query = this.value;
+var resultsDiv = document.getElementById('search-results');
+
+if (query.trim() !== '') {
+  fetch('/search/api?query=' + encodeURIComponent(query))
+  .then(function (response) {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(function (data) {
+    resultsDiv.innerHTML = '';
+    data.results.forEach(function (result) {
+      var resultItem = document.createElement('a');
+      resultItem.href = "javascript:void(0);";
+      resultItem.className = 'list-group-item list-group-item-action';
+      resultItem.textContent = result.subdistrict_name + " - " + result.district_name + " - " + result.province_name + " - " + result.zip_code;
+      resultItem.addEventListener('click', function() {
+        document.getElementById('search').value = result.subdistrict_name + " - " + result.district_name + " - " + result.province_name + " - " + result.zip_code;
+        resultsDiv.innerHTML = '';
+      });
+      resultsDiv.appendChild(resultItem);
+    });
+  })
+  .catch(function (error) {
+    console.error('Fetch error:', error);
+  });
+} else {
+  resultsDiv.innerHTML = '';
+}
+});
+        </script>
+         
         
       </main>
 

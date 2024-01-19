@@ -8,7 +8,10 @@ let dbCon = require('../lib/db');
 // admin.js
 router.get('/', (req, res, next) => {
    
-   dbCon.query('SELECT * FROM login ORDER BY login_id ASC', (err, rows) => {
+   dbCon.query(`SELECT * FROM user
+   JOIN role ON user.role = role.role_id
+   ORDER BY user.user_id ASC;`
+   ,(err, rows) => {
         if (err) {
             console.error('Error retrieving data:', err);
             res.render('admin', { data: '' });
@@ -24,17 +27,17 @@ router.get('/', (req, res, next) => {
 router.get('/edit/(:login_id)', (req, res, next) => {
     let login_id = req.params.login_id;
 
-    dbCon.query('SELECT * FROM login WHERE login_id = ' + login_id, (err, rows, fields) => {
+    dbCon.query('SELECT * FROM user WHERE user_id = ' + login_id, (err, rows, fields) => {
         if (rows.length <= 0) {
             req.flash('error', 'User not found with id = ' + login_id)
             res.redirect('/admin');
         } else {
             res.render('admin/edit', {
                 title: 'Edit User',
-                user: rows[0].user,
+                user: rows[0].username,
                 email: rows[0].email,
                 password: rows[0].password,
-                login_id: rows[0].login_id,
+                login_id: rows[0].user_id,
                 
             })
         }

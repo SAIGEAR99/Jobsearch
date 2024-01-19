@@ -86,22 +86,13 @@ app.use((req, res, next) => {
   if (req.session && req.session.isLoggedIn) {
       console.log('User is logged in:', req.session.user);
   } else {
-      console.log('User is not [ADMIN] logged in');
+      console.log('User is not logged in');
   }
   next();
-});
-
-app.get('/example-route', (req, res) => {
-  if (req.session && req.session.isLoggedIn) {
-      console.log('User is logged in:', req.session.user);
-  } else {
-      console.log('User is not [ADMIN] logged in');
-  }
-  res.send('Example route');
 });
 
 
 
 app.listen(3000,'localhost',()=> {
-    console.log('runnnnnnnnnnnnn')
+    console.log('runnnnnnnnnnnnn now!')
 })
