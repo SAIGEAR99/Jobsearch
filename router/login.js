@@ -4,8 +4,8 @@ var router = express.Router();
 let dbCon = require('../lib/db');
 const checkAuth = require('../middleware/checkAuth');
 
-const checkEmployer  = require('../middleware/Check_Employer');
-const checkEmployee  = require('../middleware/Check_Emplyee');
+const checkmarket  = require('../middleware/Check_Employer');
+const checkuser  = require('../middleware/Check_Emplyee');
 
 
 
@@ -46,11 +46,11 @@ router.post('/log', (req, res) => {
                 res.redirect('/admin');
             } else if (rows[0].role === 2 ) {
                 req.session.isEmployer = true;
-                res.render('employer/ep_y_re',{ user_B : user});
+                res.render('market/feed_market',{ user_B : user});
                  // Redirect to employer route
             } else if (rows[0].role === 3) {
                 req.session.isEmployee = true;
-                res.render('employee/ep_e_re',{ user_A : user}); 
+                res.render('user/feed_user',{ user_A : user}); 
                 // Redirect to employee route
             } else {
                 res.redirect('/login'); // Role does not match
@@ -61,9 +61,11 @@ router.post('/log', (req, res) => {
     });
 });
 
+//ถูกละ
+
 router.use(checkAuth);
-router.use(checkEmployer);
-router.use(checkEmployee);
+router.use(checkmarket);
+router.use(checkuser);
 
 
 module.exports = router;

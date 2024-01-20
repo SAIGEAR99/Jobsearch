@@ -23,7 +23,7 @@ WHERE
     subdistricts.name_in_thai LIKE ? 
 LIMIT 5;
 
-`,[query + '%'], (err, results) => {
+`,['%'+ query + '%'], (err, results) => {
       if (err) {
         console.error('มีข้อผิดพลาดในการค้นหาข้อมูล: ' + err.message);
         return;
@@ -34,6 +34,29 @@ LIMIT 5;
       console.log(results);
     });
   });
+
+
+  router.get('/api/businuess', (req, res) => {
+    const query = req.query.query;
+    
+  
+    // ดำเนินการค้นหาข้อมูลในฐานข้อมูล MySQL
+    dbCon.query(`SELECT * FROM typebusiness
+    WHERE business_name LIKE ?`
+    ,['%'+ query + '%'], (err, results) => {
+      if (err) {
+        console.error('มีข้อผิดพลาดในการค้นหาข้อมูล: ' + err.message);
+        return;
+      }
+  
+      // ส่งข้อมูลผลลัพธ์กลับในรูปแบบ JSON
+      res.json({ results });
+      console.log(results);
+    });
+  });
+
+
+
 
   router.get('/api2', (req, res) => {
     const query = req.query.query;

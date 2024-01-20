@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags and links remain unchanged -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        .sidebar {
+            height: 100vh; /* Full height */
+            width: 30vh; /* Full height */
+            position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+            overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        }
+    
+        /* Custom style for active nav link */
+        .nav-link.active {
+            color: black !important; /* Set the color to black */
+            background-color: #f8f9fa !important; /* Optional: Change the background color if needed */
+        }
+        .drop-zone {
+  border: 2px dashed #007bff;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointe;
+}
+    </style>
+    
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-2 sidebar bg-body-tertiary">
+        <!-- Your sidebar code here -->
+        <!-- (Sidebar content remains unchanged) -->
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+              <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+              <span class="fs-4">Job $earch</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+              <li class="nav-item">
+                <a href="/market/feed" class="nav-link active " aria-current="page">
+                    <i class="bi bi-house"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                  </i> Home
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-body-emphasis">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                  Search
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-body-emphasis">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                  Reels
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-body-emphasis">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                  Notification
+                </a>
+              </li>
+              <li>
+                <div class="dropdown">
+                    <a href="/market/profile" class="d-flex align-items-center link-body-emphasis text-decoration-none " >
+                      <img src="/img/file" alt="" width="32" height="32" class="rounded-circle me-2 st " style="object-fit: cover;">
+                      Profile
+                    </a>
+                  </div>
+              </li>
+            </ul>
+
+          </div>
+          <div class="mt-auto">
+            <button class="btn btn-light dropdown-toggle w-100" type="button" id="sidebarMoreButton" data-bs-toggle="dropdown" aria-expanded="false">
+                More
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="sidebarMoreButton">
+                <li><a class="dropdown-item" href="#">Switch Account</a></li>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>  
+
+        </div>
+
+        <% if (rows.length > 0) { %>
+            <% rows.forEach(row => { %>
+        
+              <main >
+                 <div class="px-4 py-5 my-5 text-center">
+                    <img src="/img/file" class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;">
+                    <br><br>
+                    <h1 class="display-5 fw-bold text-body-emphasis">โปรไฟล์ธุรกิจ</h1>
+                    <h4 class="display-5 fw-bold text-body-emphasis"> <%= row.market_name %></h4>
+                    <div class="col-lg-6 mx-auto">
+                      <p class="lead mb-4">
+                    
+                      </p>
+                      <% }); %>
+                      <% } else { %>
+                        <% } %>
+                      <hr>
+                      
+                      <div class="card-body">
+                        <% if (rows.length > 0) { %>
+                            <% rows.forEach(row => { %>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>ประเภทธุรกิจ: </strong> <%= row.business_name %>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>เกี่ยวกับธุรกิจ </strong> <%= row.market_discript %>
+                                    </div>
+                            
+                            <% }); %>
+                        <% } else { %>
+                            <p class="text-center">No data available.</p>
+                        <% } %>
+                    </div>
+                    
+                    
+        
+              <br><br>
+        
+                <a href="#" class="btn btn-primary px-4 gap-3" data-bs-toggle="modal" data-bs-target="#editProfileModal">แก้ไขข้อมูลผู้ใช้</a>
+                <a href="#" class="btn btn-primary px-4 gap-3" data-bs-toggle="modal" data-bs-target="#profileImageUploadModal">อัพโหลดรูป Profile</a>
+               
+                    </div>
+                  </div>
+        
+        
+                    
+                  <div class="modal fade" id="profileImageUploadModal" tabindex="-1" aria-labelledby="profileImageUploadModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header" style="align-items: center;">
+                          <h5 class="modal-title" id="profileImageUploadModalLabel">อัพโหลดรูป Profile</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="/img/upload" method="post" enctype="multipart/form-data">
+                            <div class="drop-zone">
+                              <p>ลากและวางไฟล์รูปภาพที่นี่หรือคลิกเพื่อเลือกไฟล์</p>
+                              <input type="file" name="uploadedFile" id="uploadedFile" class="form-control" accept="image/*" hidden>
+                            </div>
+                            <img id="selectedImage" src="#" alt="Selected Image" style="max-width: 100%; max-height: 200px; display: none;" />
+                            <input type="submit" value="Upload Image" name="submit" class="btn btn-primary mt-3" />
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+        
+                  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header" style="align-items: center;">
+                          <h5 class="modal-title" id="editProfileModalLabel">แก้ไขข้อมูลผู้ใช้</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="/update_profile" method="post">
+                            <div class="mb-3">
+                              <label for="username" class="form-label">ชื่อผู้ใช้</label>
+                              <input type="text" class="form-control" id="username" name="username" value="" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="email" class="form-label">อีเมล</label>
+                              <input type="email" class="form-control" id="email" name="email" value="" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="aboutMe" class="form-label">เกี่ยวกับฉัน</label>
+                              <textarea class="form-control" id="aboutMe" name="aboutMe"></textarea>
+                            </div>
+                            <div class="mb-3">
+                              <label for="phoneNumber" class="form-label">เบอร์โทรศัพท์</label>
+                              <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" value="">
+                            </div>
+                  
+                            <!-- House Number and Village on the same line -->
+                            <div class="row">
+                              <div class="col-md-6 mb-3">
+                                <label for="houseNumber" class="form-label">บ้านเลขที่</label>
+                                <input type="text" class="form-control" id="houseNumber" name="houseNumber" value="">
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="village" class="form-label">หมู่</label>
+                                <input type="text" class="form-control" id="village" name="village" value="">
+                              </div>
+                            </div>
+                  
+                            <div class="mb-3">
+                              <label for="search" class="form-label" >ที่อยู่</label>
+                              <input type="text" class="form-control" id="search" name="search">
+                              <div id="search-results" class="list-group"></div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  
+                  
+        <script>
+
+        document.getElementById('search').addEventListener('input', function () {
+        var query = this.value;
+        var resultsDiv = document.getElementById('search-results');
+        
+        if (query.trim() !== '') {
+          fetch('/search/api?query=' + encodeURIComponent(query))
+          .then(function (response) {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(function (data) {
+            resultsDiv.innerHTML = '';
+            data.results.forEach(function (result) {
+              var resultItem = document.createElement('a');
+              resultItem.href = "javascript:void(0);";
+              resultItem.className = 'list-group-item list-group-item-action';
+              resultItem.textContent = result.subdistrict_name + " - " + result.district_name + " - " + result.province_name + " - " + result.zip_code;
+              resultItem.addEventListener('click', function() {
+                document.getElementById('search').value = result.subdistrict_name + " - " + result.district_name + " - " + result.province_name + " - " + result.zip_code;
+                resultsDiv.innerHTML = '';
+              });
+              resultsDiv.appendChild(resultItem);
+            });
+          })
+          .catch(function (error) {
+            console.error('Fetch error:', error);
+          });
+        } else {
+          resultsDiv.innerHTML = '';
+        }
+        });
+                </script>
+                 
+                
+              </main>
+                <div class="container">
+                <footer class="py-3 my-4">
+                    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                      
+                    </ul>
+                    <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+                  </footer>
+              </div>
+    
+
+
+              <script>
+                  document.addEventListener("DOMContentLoaded", function() {
+                    var dropZone = document.querySelector('.drop-zone');
+                    var fileInput = document.getElementById('uploadedFile'); // เปลี่ยน id เป็น 'uploadedFile'
+                    var selectedImage = document.getElementById('selectedImage');
+                
+                    dropZone.addEventListener('click', function() {
+                      fileInput.click();
+                    });
+                
+                    fileInput.addEventListener('change', function() {
+                      if (fileInput.files.length > 0) {
+                        var selectedFile = fileInput.files[0];
+                        var objectURL = URL.createObjectURL(selectedFile);
+                        selectedImage.src = objectURL;
+                        selectedImage.style.display = 'block';
+                      } else {
+                        selectedImage.style.display = 'none';
+                      }
+                    });
+                
+                    dropZone.addEventListener('dragover', function(e) {
+                      e.preventDefault();
+                      dropZone.classList.add('drop-zone--over');
+                    });
+                
+                    ['dragleave', 'dragend'].forEach(type => {
+                      dropZone.addEventListener(type, function() {
+                        dropZone.classList.remove('drop-zone--over');
+                      });
+                    });
+                
+                    dropZone.addEventListener('drop', function(e) {
+                      e.preventDefault();
+                      dropZone.classList.remove('drop-zone--over');
+                      if (e.dataTransfer.files.length > 0) {
+                        fileInput.files = e.dataTransfer.files;
+                        var selectedFile = fileInput.files[0];
+                        var objectURL = URL.createObjectURL(selectedFile);
+                        selectedImage.src = objectURL;
+                        selectedImage.style.display = 'block';
+                      } else {
+                        selectedImage.style.display = 'none';
+                      }
+                    });
+                  });
+              </script>
+              
+
+<!-- Footer and Scripts remain unchanged -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

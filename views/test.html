@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Real-time Input with Placeholder</title>
+<style>
+  #outputDiv {
+    color: grey; /* สีของ placeholder */
+  }
+</style>
+</head>
+<body>
+
+<input type="text" id="business" placeholder="พิมพ์ข้อมูลที่นี่">
+<h1 id="outputDiv">Placeholder Text</h1>
+
+<script>
+  document.getElementById('business').addEventListener('input', function() {
+      var inputText = this.value;
+      var outputDiv = document.getElementById('outputDiv');
+      if (inputText) {
+          outputDiv.textContent = inputText;
+          outputDiv.style.color = "black"; // สีของข้อความปกติ
+      } else {
+          outputDiv.textContent = "Placeholder Text";
+          outputDiv.style.color = "grey"; // สีของ placeholder
+      }
+  });
+</script>
+
+</body>
+</html>

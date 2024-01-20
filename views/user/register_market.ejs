@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPE-Band</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Custom Login and register CSS -->
+    <link rel="stylesheet" href="custom.css">
+
+    
+</head>
+<style>
+    html,
+body {
+  height: 100%;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.center1{   
+    display: flex; 
+    justify-content: center;  
+    align-items: center;
+
+        }
+       
+        .sidebar {
+            height: 100vh; /* Full height */
+            width: 30vh; /* Full height */
+            position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+            overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        }
+    
+        /* Custom style for active nav link */
+        .nav-link.active {
+            color: black !important; /* Set the color to black */
+            background-color: #f8f9fa !important; /* Optional: Change the background color if needed */
+        }
+        .drop-zone {
+  border: 2px dashed #007bff;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointe;
+}
+
+#outputDiv {
+    color: grey; /* สีของ placeholder */
+  }
+
+
+
+</style>
+<body>
+
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar bg-body-tertiary">
+                <!-- Your sidebar code here -->
+                <!-- (Sidebar content remains unchanged) -->
+                <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+                    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                      <span class="fs-4">Job $earch</span>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                      <li class="nav-item">
+                        <a href="/user/feed" class="nav-link active " aria-current="page">
+                            <i class="bi bi-house"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                          </i> Home
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="nav-link link-body-emphasis">
+                          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                          Search
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="nav-link link-body-emphasis">
+                          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                          Reels
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="nav-link link-body-emphasis">
+                          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                          Notification
+                        </a>
+                      </li>
+                      <li>
+                        <div class="dropdown">
+                            <a href="/user/profile" class="d-flex align-items-center link-body-emphasis text-decoration-none " >
+                              <img src="/img/file" alt="" width="32" height="32" class="rounded-circle me-2 st " style="object-fit: cover;">
+                              Profile
+                            </a>
+                          </div>
+                      </li>
+                    </ul>
+        
+                  </div>
+                  <div class="mt-auto">
+                    <button class="btn btn-light dropdown-toggle w-100" type="button" id="sidebarMoreButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        More
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="sidebarMoreButton">
+                        <li><a class="dropdown-item" href="#">Switch Account</a></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+ 
+
+
+        <div class="container">
+            <div class="row">
+                <!-- First Column -->
+                <div class="col-md-6">
+                    <form id="addLogin" action="/register/add/business" method="post">
+                        <!-- Your form fields go here -->
+                        <div class="center1">
+                            <img class="mb-4" src="public/img/job-search.png" alt="" width="40%">
+                        </div>
+                        <h1 class="h3 mb-3 fw-normal text-center">โปรไฟล์ธุรกิจ</h1>
+                        <h6>เพจของคุณเป็นที่ที่ผู้คนเข้าไปเรียนรู้เพิ่มเติมเกี่ยวกับคุณ ฉะนั้นตรวจสอบให้แน่ใจว่าเพจของคุณมีข้อมูลทั้งหมดที่ผู้คนอาจจะอยากทราบ</h6>
+    
+                        <div class="form-floating my-2">
+                            <input type="text" class="form-control" id="business" name="user" value="<%= user %>" placeholder="Enter your username" required>
+                            <label for="username">ชื่อบัญชีธุกิจ</label>
+                        </div>
+    
+                        <div class="form-floating my-2">
+                            <input type="text" class="form-control" id="search" name="search" value="<%= search %>" placeholder="name@example.com" required>
+                            <label for="search">ประเภทธุรกิจ</label>
+                            <div id="search-results" class="list-group"></div>
+                        </div>
+    
+                        <div class="form-floating my-2">
+                            <input type="text" class="form-control" id="aboutbusiness" name="about" value="<%= about %>" placeholder="Password" required>
+                            <label for="floatingPassword">เกี่ยวกับธุรกิจ</label>
+                        </div>
+    
+                        <button type="submit" class="btn btn-danger w-100 py-2">สร้างโปรไฟล์</button>
+                        
+                    </form>
+                </div>
+        
+                <!-- Second Column -->
+                <div class="col-md-6">
+                    <h6>พรีวิวบนเดสก์ท็อป</h6>
+                    <div class="px-4 py-5 my-5 text-center border rounded" style="width: 500px; height: 500px;">
+                        <img src="/img/file/market" class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
+                        <br><br>
+                        <h5 type="text" class="display-5 fw-bold text-body-emphasis " > <div id="outputDiv">ชื่อธุรกิจ</div></h5>
+                        <div class="col-lg-6 mx-auto">
+                            <div id="outputDiv3"></div>
+                            <hr>
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class="rows"></div>
+                                        <strong>ประเภทธุรกิจ</strong><div id="outputDiv2"></div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+          <script>
+
+document.getElementById('search').addEventListener('input', function () {
+    var query = this.value;
+    var resultsDiv = document.getElementById('search-results');
+    
+    if (query.trim() !== '') {
+        fetch('/search/api/businuess?query=' + encodeURIComponent(query))
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(function (data) {
+            resultsDiv.innerHTML = '';
+            data.results.forEach(function (result) {
+                var resultItem = document.createElement('a');
+                resultItem.href = "javascript:void(0);";
+                resultItem.className = 'list-group-item list-group-item-action';
+                resultItem.textContent = result.business_name;
+                resultItem.addEventListener('click', function() {
+                    document.getElementById('search').value = result.business_name;
+                    document.getElementById('outputDiv2').textContent = result.business_name; // อัพเดทที่นี่
+                    resultsDiv.innerHTML = '';
+                });
+                resultsDiv.appendChild(resultItem);
+            });
+        })
+        .catch(function (error) {
+            console.error('Fetch error:', error);
+        });
+    } else {
+        resultsDiv.innerHTML = '';
+    }
+});
+
+                    </script>
+    
+    
+    
+
+    <!-- เรียกใช้ Bootstrap JS และ Popper.js และ jQuery (ถ้าต้องการใช้ Modal หรืออื่น ๆ) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js" integrity="sha384-bFj4l4A8NqnxF5R5QVx6cvlkyO5rFEC6cBwI3orFEFtF5foqyz63uqqq5O5F5fF5F5F5F5" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+T6D5CcL6I2/jU5mF0XFeF5F5S5O5F5F5F5F5F5F5F5F5F5F5" crossorigin="anonymous"></script>
+
+    <script>
+        document.getElementById('business').addEventListener('input', function() {
+            var inputText = this.value;
+            var outputDiv = document.getElementById('outputDiv');
+            if (inputText) {
+                outputDiv.textContent = inputText;
+                outputDiv.style.color = "black"; // สีของข้อความปกติ
+            } else {
+                outputDiv.textContent = "ชื่อธุรกิจ";
+                outputDiv.style.color = "grey"; // สีของ placeholder
+            }
+        });
+      </script>
+
+<script>
+    // ดักจับการพิมพ์ข้อมูลและแสดงผลลัพธ์ใน real-time
+    document.getElementById('aboutbusiness').addEventListener('input', function() {
+        var inputText = this.value;
+        document.getElementById('outputDiv3').textContent = inputText;
+    });
+</script>
+
+
+</body>
+</html>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
