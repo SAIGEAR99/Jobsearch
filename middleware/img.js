@@ -90,7 +90,7 @@ router.post('/upload', (req, res) => {
             address.subdistrict_id,
             subdistricts.name_in_thai AS subdistrict_name,
             subdistricts.zip_code,
-            districts.name_in_thai AS district_name,
+            districts.name_in_thai2 AS district_name,
             provinces.name_in_thai AS province_name,
             role.role AS role_name,
             address.home_number,

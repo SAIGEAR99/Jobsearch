@@ -3,9 +3,13 @@
 // ฟังก์ชัน formatDate ซึ่งใช้ในการแปลงวันที่เป็นรูปแบบข้อความ
 const formatDate = (dateString) => {
     if (!dateString) return '';
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-};
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  };
+  
 
 // ฟังก์ชัน calculateAge ซึ่งใช้ในการคำนวณอายุ
 const calculateAge = (birthday) => {
@@ -22,4 +26,12 @@ const calculateAge = (birthday) => {
     }
 };
 
-module.exports = { formatDate, calculateAge };
+
+
+const formatDate2 = (dateString) => {
+    if (!dateString) return '';
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+};
+
+module.exports = { formatDate, calculateAge,formatDate2 };

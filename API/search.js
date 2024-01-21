@@ -11,7 +11,7 @@ router.get('/api', (req, res) => {
     dbCon.query(`SELECT 
     subdistricts.name_in_thai AS subdistrict_name,
     subdistricts.zip_code,
-    districts.name_in_thai AS district_name,
+    districts.name_in_thai2 AS district_name,
     provinces.name_in_thai AS province_name
 FROM 
     subdistricts
@@ -44,26 +44,6 @@ LIMIT 5;
     dbCon.query(`SELECT * FROM typebusiness
     WHERE business_name LIKE ?`
     ,['%'+ query + '%'], (err, results) => {
-      if (err) {
-        console.error('มีข้อผิดพลาดในการค้นหาข้อมูล: ' + err.message);
-        return;
-      }
-  
-      // ส่งข้อมูลผลลัพธ์กลับในรูปแบบ JSON
-      res.json({ results });
-      console.log(results);
-    });
-  });
-
-
-
-
-  router.get('/api2', (req, res) => {
-    const query = req.query.query;
-    
-  
-    // ดำเนินการค้นหาข้อมูลในฐานข้อมูล MySQL
-    dbCon.query('SELECT * FROM subdistricts WHERE zip_code LIKE ? LIMIT 5',[query + '%'], (err, results) => {
       if (err) {
         console.error('มีข้อผิดพลาดในการค้นหาข้อมูล: ' + err.message);
         return;

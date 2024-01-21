@@ -263,6 +263,7 @@
               resultItem.href = "javascript:void(0);";
               resultItem.className = 'list-group-item list-group-item-action';
               resultItem.textContent = result.subdistrict_name + " - " + result.district_name + " - " + result.province_name + " - " + result.zip_code;
+
               resultItem.addEventListener('click', function() {
                 document.getElementById('search').value = result.subdistrict_name + " - " + result.district_name + " - " + result.province_name + " - " + result.zip_code;
                 resultsDiv.innerHTML = '';
