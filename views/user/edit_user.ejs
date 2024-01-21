@@ -230,10 +230,10 @@
                               <div class="col-md-6">
                                 <label for="gender" class="form-label">เพศ</label>
                                 <select class="form-select" id="gender" name="gender">
-                                  <option value="<%= row.gender_name %>">ชาย</option>
-                                  <option value="<%= row.gender_name %>">หญิง</option>
-                                  <option value="<%= row.gender_name %>">LGBTQ+</option>
-                                  <option value="<%= row.gender_name %>">ไม่ระบุ</option>
+                                  <option value="ชาย">ชาย</option>
+                                  <option value="หญิง">หญิง</option>
+                                  <option value="LGBTQ+">LGBTQ+</option>
+                                  <option value="ไม่ระบุ">ไม่ระบุ</option>
                                 </select>
                               </div>
                               <div class="col-md-6">
@@ -312,6 +312,7 @@
         var currentvillage = "<%= row.village %>"; 
         var currentBdate = "<%= formatDate(row.birthday) %>"; 
         var currentaddress = "<%=  row.subdistrict_name + " - " + row.district_name + " - " + row.province_name + " - " + row.zip_code  %>"; 
+        var currenthomegender = "<%= row.gender_name %>";
 
 
         document.getElementById('user_id').value = currentUer_id;
@@ -325,6 +326,7 @@
         document.getElementById('village').value = currentvillage;
         document.getElementById('b_date').value = currentBdate;
         document.getElementById('search').value = currentaddress;
+        document.getElementById('gender').value = currenthomegender;
 
     });
 });

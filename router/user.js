@@ -97,6 +97,8 @@ WHERE user.username LIKE ?`
       const province =  req.body.province;
       const zipcode =  req.body.zipcode;
 
+      const gender = req.body.gender;
+
       console.log('post----->',req.body.gender)
 
         let form_dataUser = {
@@ -168,8 +170,19 @@ WHERE user.username LIKE ?`
                         WHERE u.user_id = ?
                     );
 
-                    `,[form_dataAdress2.name_in_thai,form_dataAdress2.name_in_thai2,form_dataAdress2.user_id], (err) => {
-                        res.redirect('/user/profile');
+                    `,[form_dataAdress2.name_in_thai,
+                        form_dataAdress2.name_in_thai2,
+                        form_dataAdress2.user_id], (err) => {
+
+                            dbCon.query(`UPDATE user 
+                            SET gender = (SELECT gender_id FROM gender WHERE gender = ?) 
+                            WHERE user_id = ?
+                            `,[gender,user_id],(err) => {
+
+                                res.redirect('/user/profile');
+
+                            });
+                       
 
                       
                     });
