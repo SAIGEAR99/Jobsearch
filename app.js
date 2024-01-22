@@ -38,6 +38,7 @@ const loginRoutes = require('../my_EJS/router/login');
 const homeRoutes = require('../my_EJS/router/home');
 const registerRoutes = require('../my_EJS/router/register');
 const logoutRoutes = require('../my_EJS/router/logout');
+const postRoutes = require('../my_EJS/router/post');
 
 const marketRoutes = require('./router/market');
 const userRoutes = require('./router/user');
@@ -66,10 +67,13 @@ app.use('/register',registerRoutes);
 app.use('/logout',logoutRoutes);
 app.use('/market',checkEmployer,marketRoutes);
 app.use('/user',checkEnployee,userRoutes);
+app.use('/post',postRoutes);
 
 app.use('/img',imgRoutes );
 
 app.use('/search',apiSearch );
+
+
 
 ///////////////log///////////////
 

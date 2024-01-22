@@ -30,6 +30,270 @@
             color: black !important; /* Set the color to black */
             background-color: #f8f9fa !important; /* Optional: Change the background color if needed */
         }
+
+        .modal {
+    display: none; 
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal {
+    display: none; 
+    position: fixed; /* ใช้ position fixed เพื่อให้อยู่ตรงกลาง */
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* ป้องกันไม่ให้เลื่อนได้ */
+    background-color: rgba(0, 0, 0, 0.6); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto; /* จัดให้อยู่ตรงกลาง */
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #888;
+    width: 30%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    /* ตั้งค่าเพิ่มเติมเพื่อจัดตำแหน่งให้อยู่ตรงกลาง */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+/* ปรับแต่งปุ่มภายใน modal */
+.modal button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal button:hover {
+    background-color: #0056b3;
+}
+
+/* ปรับแต่งฟอร์มภายใน modal */
+.modal form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal textarea, .modal select, .modal input[type="file"] {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 95%;
+}
+
+.modal input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal input[type="submit"]:hover {
+    background-color: #218838;
+}
+#imageUploadContainer {
+    border: 2px dashed #ddd;
+    padding: 10px;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#imageUploadContainer p {
+    margin: 0;
+    font-size: 16px;
+    color: #666;
+}
+
+#previewImage {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+.modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 15px;
+    position: relative;
+}
+
+
+.postHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.profile-pic {
+    width: 50px; /* หรือขนาดที่ต้องการ */
+    height: 50px; /* หรือขนาดที่ต้องการ */
+    border-radius: 50%;
+}
+
+.postContent textarea {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    resize: none;
+    height: 200px;
+    font-size: 25px;
+    overflow: hidden;
+}
+
+.postContent textarea::placeholder {
+    font-size: 25px;
+}
+
+.postFooter {
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+.modal-title {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.postHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.postContent textarea {
+    resize: none;
+    height: 200px; /* กำหนดความสูงตายตัว */
+    font-size: 25px; /* ขนาดตั้งต้น */
+    overflow: hidden; /* ป้องกันการแสดง scrollbar */
+    border: none; /* ซ่อนกรอบของ textarea */
+    box-shadow: none; /* ซ่อนเงาหากมี */
+}
+
+
+.postContent textarea::placeholder {
+    font-size: 25px;
+}
+
+/* ปรับแต่งให้ขนาดข้อความลดลงตามจำนวนความยาว */
+textarea {
+    font-size: calc(25px - (0.005 * length));
+}
+#previewImage {
+    
+    max-width: 100%; /* กำหนดความกว้างสูงสุดไม่ให้เกินกล่อง modal */
+    max-height: 300px; /* กำหนดความสูงสูงสุด */
+    margin-top: 10px;
+    object-fit: contain; /* รักษาอัตราส่วนของรูปภาพ */
+}
+
+#imageUploadContainer {
+    /* ปรับขนาดและความสูงของกล่องอัปโหลดรูปภาพ */
+    max-height: 350px; /* กำหนดความสูงสูงสุด */
+    overflow-y: auto; /* เพิ่มการเลื่อนเมื่อเนื้อหาเกินความสูงที่กำหนด */
+    border: 2px dashed #ddd;
+    padding: 10px;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    margin-right: 10px; /* หรือระยะห่างที่ต้องการ */
+}
+.modal select, #imageUploadContainer {
+    
+    width: 96%; /* ตั้งค่าความกว้างเท่ากับ 100% ของพื้นที่บรรจุของมัน */
+    margin: auto;
+    margin-left: 9.5px;
+   
+   
+}
+.publish-button{
+    width: 100%;
+    
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.close:hover {
+    background-color: #e0e0e0; /* สีเทาเมื่อเอาเมาส์ไปวาง */
+}
+
+
+
+
+
     </style>
     
 </head>
@@ -61,10 +325,11 @@
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="nav-link link-body-emphasis">
-                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                      Reels
+                    <a href="#" id="postLink" class="nav-link link-body-emphasis" onclick="showPostPopup()">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                        Post
                     </a>
+                    
                   </li>
                   <li>
                     <a href="#" class="nav-link link-body-emphasis">
@@ -95,6 +360,146 @@
         </div>
     </div>
 </div>
+
+
+<div id="postTypeModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>เลือกประเภทโพสต์ของคุณ:</p>
+        <button id="newsFeedButton">ฟีดข่าว</button>
+        <button id="createBoardButton">สร้างกระดาน</button>
+    </div>
+</div>
+
+<div id="newsFeedModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h5 class="modal-title" style="font-weight: 700; font-size: 23px;">สร้างโพสต์</h5>
+        </div>
+        <div class="postHeader">
+            <div class="user-info">
+                <img src="/img/file" alt="Profile Pic" class="profile-pic" style="object-fit: cover;">
+                <span style="font-weight: 600; font-size: 25px;"><%= user %></span>
+            </div>
+           
+        </div>
+        <form id="newsFeedForm" class="postContent">
+            <textarea name="postContent" placeholder="คุณกำลังคิดอะไรอยู่ <%= user %>" maxlength="5000"></textarea>
+            <div id="imageUploadContainer" onclick="document.getElementById('fileInput').click()">
+                <p>คลิกเพื่อเลือกรูปภาพ</p>
+                <img id="previewImage" style="display:none;"/>
+                <button type="button" id="removeImageButton" style="display:none;" onclick="removeImage()">ลบรูปภาพ</button>
+            </div>
+            <input type="file" id="fileInput" name="postImage" style="display:none;" onchange="previewFile()">
+            <select name="postCategory">
+                <option value="category1">หมวดหมู่ 1</option>
+                <option value="category2">หมวดหมู่ 2</option>
+                <!-- เพิ่มหมวดหมู่ตามต้องการ -->
+            </select>
+        </form>
+        <div class="postFooter">
+            <button type="submit" form="newsFeedForm" class="publish-button">เผยแพร่</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function removeImage() {
+    var preview = document.getElementById('previewImage');
+    var fileInput = document.getElementById('fileInput');
+    var removeButton = document.getElementById('removeImageButton');
+
+    preview.src = "";
+    preview.style.display = 'none';
+    removeButton.style.display = 'none';
+    fileInput.value = ""; // ล้างค่าของ input file
+}
+
+</script>
+
+
+
+<script>
+    function previewFile() {
+    var preview = document.getElementById('previewImage');
+    var file = document.getElementById('fileInput').files[0];
+    var reader = new FileReader();
+    var removeButton = document.getElementById('removeImageButton');
+
+    reader.onloadend = function () {
+        if (file) {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+            removeButton.style.display = 'block'; // แสดงปุ่มลบ
+        } else {
+            preview.src = "";
+            preview.style.display = 'none';
+            removeButton.style.display = 'none'; // ซ่อนปุ่มลบ
+        }
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+}
+
+</script>
+
+   
+       <script>
+    // แสดง Modal ตาม ID
+    // แสดง Modal ตาม ID
+function showModal(modalId) {
+    var modal = document.getElementById(modalId);
+    modal.style.display = "block";
+    document.body.style.overflow = 'hidden';
+}
+
+// ซ่อน Modal ตาม ID
+function hideModal(modalId) {
+    var modal = document.getElementById(modalId);
+    modal.style.display = "none";
+    document.body.style.overflow = '';
+}
+
+// ฟังก์ชันเมื่อผู้ใช้กดปุ่ม "Post"
+document.getElementById('postLink').addEventListener('click', function() {
+    showModal('postTypeModal');
+});
+
+// ฟังก์ชันเมื่อผู้ใช้เลือก "ฟีดข่าว"
+document.getElementById('newsFeedButton').addEventListener('click', function() {
+    hideModal('postTypeModal');
+    showModal('newsFeedModal');
+});
+
+// จัดการปุ่มปิดบนทุก Modals
+var closeButtons = document.getElementsByClassName("close");
+for (var i = 0; i < closeButtons.length; i++) {
+    closeButtons[i].onclick = function() {
+        var modal = this.closest('.modal');
+        modal.style.display = "none";
+    }
+}
+
+// ปิด Modal เมื่อผู้ใช้คลิกนอกพื้นที่ Modal
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = "none";
+    }
+}
+
+// จัดการการส่งข้อมูลฟอร์ม
+document.getElementById('newsFeedForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    // ส่งข้อมูลโพสต์ไปยังเซิร์ฟเวอร์
+    // ตัวอย่าง: ใช้ AJAX หรือ FormData ที่นี่
+    alert('ฟอร์มถูกส่ง!'); // ใช้เพื่อทดสอบ
+});
+
+</script>
 
         <!-- Blog Content -->
         <div >
