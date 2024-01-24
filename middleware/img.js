@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 let dbCon = require('../lib/db');
 const { formatDate, calculateAge } = require('../middleware/cal_Date_Age');
+const { getImagePath , getImagePath_b } = require('../middleware/get_img');
+
 
 const path = require('path');
 //const uploadDirectory = path.join(__dirname,  'img');
@@ -186,6 +188,30 @@ router.post('/upload/market', (req, res) => {
         });
     });
 });
+
+
+router.get('/select/:postId', (req, res) => {
+    getImagePath(req.params.postId, (err, filePath) => {
+        if (err) {
+            console.log(err)
+            res.status(404).send("Image not found");
+            return;
+        }
+        res.sendFile(filePath, { root: '.' });
+    });
+});
+
+router.get('/select_b/:postId', (req, res) => {
+    getImagePath_b(req.params.postId, (err, filePath) => {
+        if (err) {
+            console.log(err)
+            res.status(404).send("Image not found");
+            return;
+        }
+        res.sendFile(filePath, { root: '.' });
+    });
+});
+
 
 
 

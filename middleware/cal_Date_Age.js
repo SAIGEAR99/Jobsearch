@@ -1,6 +1,3 @@
-// cal_Date_Age.js
-
-// ฟังก์ชัน formatDate ซึ่งใช้ในการแปลงวันที่เป็นรูปแบบข้อความ
 const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);

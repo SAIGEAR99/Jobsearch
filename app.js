@@ -53,6 +53,7 @@ const checkLog  = require('../my_EJS/middleware/check_login');
 
 //api
 const apiSearch = require('../my_EJS/API/search');
+const apiPost = require('../my_EJS/API/post');
 
 
 
@@ -72,6 +73,7 @@ app.use('/post',postRoutes);
 app.use('/img',imgRoutes );
 
 app.use('/search',apiSearch );
+app.use('/post',apiPost);
 
 
 

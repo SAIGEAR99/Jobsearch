@@ -8,10 +8,11 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+ 
+ 
     <!-- Custom styles -->
     <style>
-
+ 
         .sidebar {
             height: 100vh;
             position: fixed;
@@ -23,16 +24,16 @@
             padding: 20px;
             box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
         }
-
+ 
         .sidebar .nav-item {
             list-style: none;
             margin-bottom: 30px;
             margin-left: -9px;
             font-weight: 400;
-            
-
+           
+ 
         }
-
+ 
         .sidebar .nav-link {
             text-decoration: none;
             color: #000; /* Black text color */
@@ -42,23 +43,23 @@
             border-radius: 5px;
             transition: background-color 0.3s, color 0.3s;
         }
-
+ 
         .sidebar .nav-link:hover {
             background-color: #e9ecef; /* Light hover effect */
             color: #007bff; /* Blue text on hover */
         }
-
+ 
         .sidebar .nav-link img {
               margin-top: 18px;
             margin-right: 10px;
             vertical-align:bottom;
         }
-
+ 
         .main-content {
             margin-left: 300px; /* Adjusted margin to match sidebar width */
             padding: 20px;
-      
-            
+     
+           
         }
         .aa{
               font-size: 20px;
@@ -70,14 +71,14 @@
          /* Adjust width as needed * /* Adjust height as needed */
         object-fit:cover; /* Ensure the image covers the area */
     }
-  
+ 
     .dropdown {
        position: absolute;
        bottom: 10px;
     margin-top: 0; /* ลบ margin-top ที่กำหนดไว้ก่อนหน้านี้ */
     width: 100%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
 }
-
+ 
 .dropdown-menu {
     display: none; /* ซ่อน dropdown menu ไว้เริ่มต้น */
     position: absolute;
@@ -88,7 +89,7 @@
     background-color: white;
     width: 90%; /* ขยายความกว้างเพื่อให้เต็มปุ่ม */
 }
-
+ 
 /* อาจต้องปรับแต่งสไตล์ของปุ่มที่อยู่ภายใน .dropdown ให้สอดคล้องกับปุ่มอื่นๆ */
 .dropdown button {
     width: 50%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
@@ -97,8 +98,8 @@
 .dropdown-toggle::after {
     display: none;
 }
-
-
+ 
+ 
 .post {
     width: 684px;
     height: auto;
@@ -106,70 +107,75 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
-    
+   
 }
-
+ 
 .post-header {
     display: flex;
     align-items: center;
     padding: 15px;
     ;
 }
-
+ 
 .profile-pic {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
-
+ 
 .username {
     font-weight: bold;
     font-size: 16px;
 }
-
+ 
 .post-image {
     width: 100%; /* กว้างเต็มโพสต์ */
     display: flex;
-    justify-content: center;  
+    justify-content: center; 
     overflow: hidden;
 }
-
+ 
 .post-image img {
     width: 100%; /* กว้างเต็มโพสต์ */
     height: auto; /* ความสูงปรับตามรูปภาพ */
-    object-fit: contain; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
-    max-height: 600px; /* ความสูงสูงสุดของรูปภาพ */
+    object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+    max-height: 100%; /* ความสูงสูงสุดของรูปภาพ */
 }
 .post-footer {
     padding: 15px;
     display: flex;
     justify-content: flex-start;
 }
+ 
 
-.like-button {
-    font-size: 16px;
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
+ 
 .post-content {
     flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
     padding: 15px; /* ระยะห่างขอบของกล่องโพสต์ */
     overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
 }
+/* สไตล์เริ่มต้นของปุ่มไลค์ */
+.like-button {
+    color: #333; /* สีข้อความ */
+    background-color: #f5f5f5; /* สีพื้นหลัง */
+    border: 1px solid #ddd; /* สีขอบ */
+    padding: 5px 10px; /* ระยะห่าง */
+    border-radius: 3px; /* มุมโค้ง */
+    cursor: pointer; /* รูปแบบเคอร์เซอร์ */
+    transition: all 0.3s ease; /* ผลลัพธ์การเคลื่อนไหว */
+}
 
 
     </style>
 </head>
-
-
+ 
+ 
 <body style="background-color: #f0f2f5;">
-
+ 
 <div class="container-fluid">
     <div class="row">
-
+ 
         <!-- Custom Sidebar -->
         <div class="sidebar">
             <!-- Sidebar content here -->
@@ -177,42 +183,42 @@
               <a href="/"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
                 <span class="fs-4"><img src="/public/img/Logo-Instagram.png" style="width: 60%; margin-left: -2px; margin-bottom: 10px;"></span>
               </a>
-              
+             
               <ul class="nav">
                 <li class="nav-item">
-              
+             
                   <a href="/user/feed" class="nav-link active" aria-current="page">
                      <img src="/public/img/homepage.png" alt="" style="width: 13%;">
                     <span class="aa">หน้าหลัก</span>
                   </a>
-                
-                
+               
+               
                   <a href="#" class="nav-link active" aria-current="page">
                      <img src="/public/img/search.png" alt="" style="width: 12%;">
                      <span class="aa">ค้นหา </span>
                   </a>
-                
-                
+               
+               
                   <a href="#" class="nav-link">
                      <img src="/public/img/compass.png" alt="" style="width: 12%;">
                      <span class="aa">สำรวจ</span>
                   </a>
-                
-                
+               
+               
                   <a href="#" class="nav-link">
                      <img src="/public/img/bell1.png" alt="" style="width: 14%; margin-right: 5px;" >
                      <span class="aa">การแจ้งเตือน</span>
                   </a>
-
-    
-
+ 
+   
+ 
                   <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
                      <a href="/user/profile" class="nav-link">
                     <img src="/img/file" class="custom-rounded-img" alt="" style="width: 25px; height: 25px; margin-right: 6px; margin-left: 3px;">
                         <span class="aa">โปรไฟล์</span>
                              </a>
-
-
+ 
+ 
                              <div class="dropdown">
                                    <button class="btn dropdown-toggle " type="button" >
                                        <img src="/public/img/more.png" alt="Logo" style="width: 25%; margin-right: 10px;">
@@ -226,74 +232,113 @@
    
                     </li>        
                     </div>
-                
+               
               </ul>
             </div>
           </div>
         </div>
+ 
+       
+ 
+                <div class="main-content" style="width: 684px; margin: 0 auto;"> </div>
 
-        
+ 
 
-                <div class="main-content" style="width: 684px; margin: 0 auto;">
 
+
+            <script>
+
+
+function toggleLike(postId, userId) {
+    fetch(`/post/api/like?postId=${postId}&userId=${userId}`, { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            let likeButton = document.querySelector(`#likeButton-${postId}`);
+            let likeCount = document.querySelector(`#likeCount-${postId}`);
+
+            if (data.liked) {
+                likeButton.classList.add('liked');
+            } else {
+                likeButton.classList.remove('liked');
+            }
+            likeCount.textContent = `Likes: ${data.likeCount}`;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+            let currentPage = 0;
+            const limit = 5;
+            let isFetching = false;
+ 
+    function loadMorePosts() {
+    if (isFetching) return;
+    isFetching = true;
+ 
+    fetch(`/post/api/posts?page=${currentPage}&limit=${limit}`)
+        .then(response => response.json())
+        .then(data => {
+            const mainContent = document.querySelector('.main-content'); // อ้างอิงไปยัง div หลัก
+ 
+            data.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('post');
+                postElement.style.marginTop = "20px";
+                postElement.innerHTML = `
                 <div class="post" style=" margin-top: 20px;">
                   <div class="post-header">
-            <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
-            <span class="username">username</span>
+            <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
+            <span class="username">${post.market_name}</span>
                  </div>
                  <div class="post-content">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam quisquam asperiores non similique eaque laboriosam nisi, dolorem quas. Cumque repellat autem incidunt, facere debitis eaque harum cupiditate quo molestiae sit.
+                    ${post.post_discript}
                 </div>
-                
+               
                   <div class="post-image">
-            <img src="/public/img/Frieren-คำอธิษฐานในวันที่จากลา-visual.jpg" alt="Post" >
+            <img src="/img/select/${post.post_id}" alt="Post" >
                   </div>
-                    <div class="post-footer">
-            <button class="like-button">👍 Like</button>
-         </div>
-     </div>
+                  <div class="post-footer">
+               
+                  <div id="post">
+                    <!-- Your post content here -->
+                    <div style="padding-left: 3px; padding-bottom: 7px ;" id="likeCount-${post.post_id}">Likes: ${post.likes}</div>
+                    <button class ="like-button" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id})">Like</button>
+                    
+
+                </div>
+                </div>
+            </div>
+                `;
+ 
+                mainContent.appendChild(postElement); // เพิ่มลงใน div main-content
+            });
+            currentPage++;
+            isFetching = false;
+        });
+   }
+        window.onscroll = function() {
+            if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 10) {
+        loadMorePosts();
+         }
+            };
+                loadMorePosts();
+            </script>
 
 
 
-     <div class="post" style=" margin-top: 20px;">
-        <div class="post-header">
-  <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
-  <span class="username">username</span>
-       </div>
-       <div class="post-content">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam quisquam asperiores non similique eaque laboriosam nisi, dolorem quas. Cumque repellat autem incidunt, facere debitis eaque harum cupiditate quo molestiae sit.
-      </div>
-      
-        <div class="post-image">
-  <img src="/public/img/Frieren-คำอธิษฐานในวันที่จากลา-visual.jpg" alt="Post" >
-        </div>
-          <div class="post-footer">
-  <button class="like-button">👍 Like</button>
-</div>
-</div>
-
-
-    </div>
-
-             
-
-            
-        </div>
-
-    </div>
-</div>
-
-       <script>
-
+ 
+            <script>
+ 
 document.addEventListener('DOMContentLoaded', function () {
     var dropdown = document.querySelector('.dropdown');
     var dropdownMenu = document.querySelector('.dropdown-menu');
-
+ 
     // เมื่อคลิกที่ปุ่ม dropdown
     dropdown.addEventListener('click', function (event) {
         // ป้องกันเหตุการณ์เริ่มต้นของลิงก์
-        
-        
+       
+       
         // แสดงหรือซ่อน dropdown menu
         if (dropdownMenu.style.display === 'block') {
             dropdownMenu.style.display = 'none';
@@ -301,31 +346,33 @@ document.addEventListener('DOMContentLoaded', function () {
             dropdownMenu.style.display = 'block';
         }
     });
-
+ 
     // ซ่อน dropdown เมื่อคลิกนอกเขต dropdown
     document.addEventListener('click', function (event) {
         var isClickInside = dropdown.contains(event.target);
-
+ 
         if (!isClickInside) {
             dropdownMenu.style.display = 'none';
         }
     });
 });
-
+ 
        </script>
+ 
 
-<!-- Footer and Scripts -->
-<!-- Your existing script tags -->
-
+ 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.1.16/dist/umd/popper.min.js"></script>
 <script src="script.js"></script>
+
+
 <script>
     function viewStory(storyElement) {
         alert("Viewing story: " + storyElement.querySelector('.story-image img').alt);
     }
 </script>
 
+ 
 </body>
 </html>

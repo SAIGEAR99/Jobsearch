@@ -37,6 +37,7 @@ router.post('/log', (req, res) => {
             // Set session variables
             req.session.user = user;
             req.session.password = password;
+            req.session.userId = rows[0].user_id;
           
 
             // Check the role
