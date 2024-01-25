@@ -81,7 +81,7 @@ WHERE user.username LIKE ?`
   router.post('/update_profileEdit', (req, res, next) => {
   
 
-        const user_id = req.body.user_id;
+      const user_id = req.body.user_id;
       const username = req.body.username;
       const name = req.body.name;
       const surname = req.body.surname;
@@ -94,8 +94,7 @@ WHERE user.username LIKE ?`
 
       const subdistrict_client = req.body.subdistrict;
       const district =  req.body.district;
-      const province =  req.body.province;
-      const zipcode =  req.body.zipcode;
+      
 
       const gender = req.body.gender;
 

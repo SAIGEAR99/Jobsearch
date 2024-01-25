@@ -10,8 +10,26 @@ router.use(sessionConfig);
 
 // แยกสิทธ์
 router.get('/feed', function(req, res, next) {
-  console.log('----> req.session.user in =: ', req.session.user);
-  res.render('market/feed_market', { user: req.session.user});
+  console.log('----> req.session.user in =: ', req.session.userId);
+
+  dbCon.query(`
+  
+  SELECT market.*
+FROM market
+INNER JOIN user ON market.market_id = user.market_id
+WHERE user.user_id = ?`,[req.session.userId],(err,rows) =>{
+
+
+    
+    res.render('market/feed_market', { 
+        market_name: rows[0].market_name,
+        userId: req.session.userId,
+        market_id: rows[0].market_id
+    
+    
+    });
+  });
+  
 });
 
 router.get('/profile', (req, res, next) => {

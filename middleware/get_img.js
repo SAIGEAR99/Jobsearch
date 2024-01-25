@@ -42,4 +42,29 @@ const getImagePath_b = (postId, callback) => {
     });
 };
 
-module.exports = { getImagePath,getImagePath_b };
+
+
+const getImageMk = (userId, callback) => {
+
+    let from_b = {
+        user_id: userId
+    }
+    dbCon.query(`SELECT market.*
+    FROM market
+    INNER JOIN user ON market.market_id = user.market_id
+    WHERE user.user_id = ?
+    
+    `, [from_b.user_id], (err, rows) => {
+        if (err) {
+            return callback(err, null);
+        }
+        if (rows.length > 0) {
+            return callback(null, rows[0].mk_img);
+        } else {
+            console.log("----------> err : ", err);
+            return callback(new Error("No image found"), null);
+        }
+    });
+};
+
+module.exports = { getImagePath,getImagePath_b,getImageMk };

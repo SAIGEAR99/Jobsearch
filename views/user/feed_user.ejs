@@ -113,8 +113,7 @@
 .post-header {
     display: flex;
     align-items: center;
-    padding: 15px;
-    ;
+    padding-left: 12px;
 }
  
 .profile-pic {
@@ -152,7 +151,7 @@
  
 .post-content {
     flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
-    padding: 15px; /* ระยะห่างขอบของกล่องโพสต์ */
+    padding: 20px; /* ระยะห่างขอบของกล่องโพสต์ */
     overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
 }
 /* สไตล์เริ่มต้นของปุ่มไลค์ */
@@ -164,6 +163,35 @@
     border-radius: 3px; /* มุมโค้ง */
     cursor: pointer; /* รูปแบบเคอร์เซอร์ */
     transition: all 0.3s ease; /* ผลลัพธ์การเคลื่อนไหว */
+}
+.like-button {
+  padding: 5px 10px;
+  border: none; /* ลบขอบ */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 50px;
+  background-image: url('/public/img/heart_T.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 60px;
+  height: 30px;
+  background-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
+  box-shadow: none; /* ลบเงา (ถ้ามี) */
+  margin-left: -13px;
+}
+
+
+
+.like-button:hover {
+  transform: scale(1.05);
+}
+.like-button.liked {
+    background-image: url('/public/img/heartsB.png');
+}
+
+.like-button.liked:hover {
+    transform: scale(1.05);
 }
 
 
@@ -258,10 +286,14 @@ function toggleLike(postId, userId) {
 
             if (data.liked) {
                 likeButton.classList.add('liked');
+                
+             
             } else {
                 likeButton.classList.remove('liked');
+                
+                
             }
-            likeCount.textContent = `Likes: ${data.likeCount}`;
+            likeCount.textContent = `${data.likeCount} Likes`;
         })
         .catch(error => {
             console.error('Error:', error);
@@ -272,51 +304,54 @@ function toggleLike(postId, userId) {
             const limit = 5;
             let isFetching = false;
  
-    function loadMorePosts() {
+            function loadMorePosts() {
     if (isFetching) return;
     isFetching = true;
- 
+
     fetch(`/post/api/posts?page=${currentPage}&limit=${limit}`)
         .then(response => response.json())
         .then(data => {
-            const mainContent = document.querySelector('.main-content'); // อ้างอิงไปยัง div หลัก
- 
+            const mainContent = document.querySelector('.main-content');
+
             data.forEach(post => {
                 const postElement = document.createElement('div');
                 postElement.classList.add('post');
                 postElement.style.marginTop = "20px";
-                postElement.innerHTML = `
-                <div class="post" style=" margin-top: 20px;">
-                  <div class="post-header">
-            <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
-            <span class="username">${post.market_name}</span>
-                 </div>
-                 <div class="post-content">
-                    ${post.post_discript}
-                </div>
-               
-                  <div class="post-image">
-            <img src="/img/select/${post.post_id}" alt="Post" >
-                  </div>
-                  <div class="post-footer">
-               
-                  <div id="post">
-                    <!-- Your post content here -->
-                    <div style="padding-left: 3px; padding-bottom: 7px ;" id="likeCount-${post.post_id}">Likes: ${post.likes}</div>
-                    <button class ="like-button" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id})">Like</button>
-                    
 
-                </div>
-                </div>
-            </div>
+                // กำหนดคลาส CSS และข้อความสำหรับปุ่มการถูกใจ
+                let likeButtonClass = post.userLiked ? 'like-button liked' : 'like-button';
+                let likeButtonText = post.userLiked ? '' : '';
+
+                postElement.innerHTML = `
+                    <div class="post" style="margin-top: 20px;">
+                        <div class="post-header">
+                            <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
+                            <span class="username">${post.market_name}</span>
+                        </div>
+                        <div class="post-content">
+                            ${post.post_discript}
+                            
+                        </div>
+                        <div class="post-image">
+                            <img src="/img/select/${post.post_id}" alt="Post">
+                            
+                        </div>
+                        
+                        <div class="post-footer">
+                            <div id="post">
+                                <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
+                                <button class ="${likeButtonClass}" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id},${post.user_id});">${likeButtonText}</button>
+                        </div>
+                    </div>
                 `;
- 
-                mainContent.appendChild(postElement); // เพิ่มลงใน div main-content
+                mainContent.appendChild(postElement);
             });
+
             currentPage++;
             isFetching = false;
         });
-   }
+}
+
         window.onscroll = function() {
             if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 10) {
         loadMorePosts();

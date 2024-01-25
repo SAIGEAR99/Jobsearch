@@ -47,11 +47,28 @@ router.post('/log', (req, res) => {
                 res.redirect('/admin');
             } else if (rows[0].role === 2 ) {
                 req.session.isEmployer = true;
-                res.render('market/feed_market',{ user_B : user});
-                 // Redirect to employer route
+                dbCon.query(`
+  
+                SELECT market.*
+              FROM market
+              INNER JOIN user ON market.market_id = user.market_id
+              WHERE user.user_id = ?`,[req.session.userId],(err,rows) =>{
+              
+              
+                  
+                  res.render('market/feed_market', { 
+                      market_name: rows[0].market_name,
+                      userId: req.session.userId,
+                      market_id: rows[0].market_id
+                  
+                  
+                  });
+                });
+                
+                 
             } else if (rows[0].role === 3) {
                 req.session.isEmployee = true;
-                res.render('user/feed_user',{ user_A : user}); 
+                res.render('user/feed_user',{ user : user}); 
                 // Redirect to employee route
             } else {
                 res.redirect('/login'); // Role does not match

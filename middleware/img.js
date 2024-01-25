@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 let dbCon = require('../lib/db');
-const { formatDate, calculateAge } = require('../middleware/cal_Date_Age');
-const { getImagePath , getImagePath_b } = require('../middleware/get_img');
+const { formatDate, calculateAge,formatDate2 } = require('../middleware/cal_Date_Age');
+const { getImagePath , getImagePath_b,getImageMk } = require('../middleware/get_img');
 
 
 const path = require('path');
@@ -109,7 +109,7 @@ router.post('/upload', (req, res) => {
                 if (empY) {
                     console.error('Error retrieving data:', err);
                     res.render('user/edit_user', { 
-                        formatDate , calculateAge,
+                        formatDate , calculateAge,formatDate2,
                         rows: rows ,
                         user: req.session.user
                         
@@ -117,7 +117,7 @@ router.post('/upload', (req, res) => {
                 } else {
                     console.log('Data from the database-->:', rows);
                     res.render('user/edit_user', { 
-                        formatDate , calculateAge,
+                        formatDate , calculateAge,formatDate2,
                         rows: rows ,
                         user: req.session.user 
                     });
@@ -130,7 +130,7 @@ router.post('/upload', (req, res) => {
 
 
 router.post('/upload/market', (req, res) => {
-    const user = req.session``.user;
+    const user = req.session.user;
     const empY = req.session.isEmployer;
    
     
@@ -153,7 +153,7 @@ router.post('/upload/market', (req, res) => {
             address.subdistrict_id,
             subdistricts.name_in_thai AS subdistrict_name,
             subdistricts.zip_code,
-            districts.name_in_thai AS district_name,
+            districts.name_in_thai2 AS district_name,
             provinces.name_in_thai AS province_name,
             role.role AS role_name,
             address.home_number,
@@ -169,16 +169,16 @@ router.post('/upload/market', (req, res) => {
         , user, (err, rows) => {
                 if (empY) {
                     console.error('Error retrieving data:', err);
-                    res.render('user/edit_user', { 
-                        formatDate , calculateAge,
+                    res.render('market/edit_market', { 
+                        formatDate , calculateAge,formatDate2,
                         rows: rows ,
                         user: req.session.user
                         
                     });
                 } else {
                     console.log('Data from the database-->:', rows);
-                    res.render('user/edit_user', { 
-                        formatDate , calculateAge,
+                    res.render('market/edit_market', { 
+                        formatDate , calculateAge,formatDate2,
                         rows: rows ,
                         user: req.session.user 
                     });
@@ -203,6 +203,17 @@ router.get('/select/:postId', (req, res) => {
 
 router.get('/select_b/:postId', (req, res) => {
     getImagePath_b(req.params.postId, (err, filePath) => {
+        if (err) {
+            console.log('-->',err)
+            res.status(404).send("Image not found");
+            return;
+        }
+        res.sendFile(filePath, { root: '.' });
+    });
+});
+
+router.get('/mk_img/:userId', (req, res) => {
+    getImageMk(req.params.userId, (err, filePath) => {
         if (err) {
             console.log(err)
             res.status(404).send("Image not found");

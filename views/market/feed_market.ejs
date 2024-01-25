@@ -1,37 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta tags and links remain unchanged -->
+    <!-- Meta tags remain unchanged -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
-    <!-- <style>
-        .sidebar {
-            height: 100vh; /* Full height */
-            position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-            overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        }
-    </style> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+ 
+ 
+    <!-- Custom styles -->
     <style>
+ 
         .sidebar {
-            height: 100vh; /* Full height */
-            position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-            overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-            width: 250px;
+            height: 100vh;
+            position: fixed;
+            width: 250px; /* Adjusted width */
+            overflow-x:hidden;
+            overflow-y:hidden;
+            z-index: 1000;
+            background-color: #ffffff; /* Light gray background */
+            padding: 20px;
+            box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
         }
+ 
+        .sidebar .nav-item {
+            list-style: none;
+            margin-bottom: 30px;
+            margin-left: -9px;
+            font-weight: 400;
+           
+ 
+        }
+ 
+        .sidebar .nav-link {
+            text-decoration: none;
+            color: #000; /* Black text color */
+            font-size: 18px;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+ 
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef; /* Light hover effect */
+            color: #007bff; /* Blue text on hover */
+        }
+ 
+        .sidebar .nav-link img {
+              margin-top: 18px;
+            margin-right: 10px;
+            vertical-align:bottom;
+        }
+ 
+        .main-content {
+            margin-left: 300px; /* Adjusted margin to match sidebar width */
+            padding: 20px;
+     
+           
+        }
+        .aa{
+              font-size: 20px;
+        }
+        .custom-rounded-img {
+        border-radius: 50%; /* Make the image round */
+        width: 40px;
+        height: 40px;
+         /* Adjust width as needed * /* Adjust height as needed */
+        object-fit:cover; /* Ensure the image covers the area */
+    }
+ 
+    .dropdown {
+       position: absolute;
+       bottom: 10px;
+    margin-top: 0; /* ลบ margin-top ที่กำหนดไว้ก่อนหน้านี้ */
+    width: 100%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+}
+ 
+.dropdown-menu {
+    display: none; /* ซ่อน dropdown menu ไว้เริ่มต้น */
+    position: absolute;
+    bottom: 100%; /* ตั้งค่าให้ปรากฏด้านล่างของปุ่ม */
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    width: 90%; /* ขยายความกว้างเพื่อให้เต็มปุ่ม */
+}
+ 
+/* อาจต้องปรับแต่งสไตล์ของปุ่มที่อยู่ภายใน .dropdown ให้สอดคล้องกับปุ่มอื่นๆ */
+.dropdown button {
+    width: 50%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+    /* สไตล์อื่นๆ ตามที่ต้องการ */
+}
+.dropdown-toggle::after {
+    display: none;
+}
+ 
+ 
+.post {
+    width: 684px;
+    height: auto;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+   
+}
+ 
+.post-header {
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
     
-        /* Custom style for active nav link */
-        .nav-link.active {
-            color: black !important; /* Set the color to black */
-            background-color: #f8f9fa !important; /* Optional: Change the background color if needed */
-        }
+}
+ 
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+ 
+.username {
+    font-weight: bold;
+    font-size: 16px;
+}
+ 
+.post-image {
+    width: 100%; /* กว้างเต็มโพสต์ */
+    display: flex;
+    justify-content: center; 
+    overflow: hidden;
+}
+ 
+.post-image img {
+    width: 100%; /* กว้างเต็มโพสต์ */
+    height: auto; /* ความสูงปรับตามรูปภาพ */
+    object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+    max-height: 100%; /* ความสูงสูงสุดของรูปภาพ */
+}
+.post-footer {
+    padding: 15px;
+    display: flex;
+    justify-content: flex-start;
+}
+ 
 
-        .modal {
+ 
+.post-content {
+    flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
+    padding: 20px; /* ระยะห่างขอบของกล่องโพสต์ */
+    overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
+    
+}
+/* สไตล์เริ่มต้นของปุ่มไลค์ */
+.like-button {
+    color: #333; /* สีข้อความ */
+    background-color: #f5f5f5; /* สีพื้นหลัง */
+    border: 1px solid #ddd; /* สีขอบ */
+    padding: 5px 10px; /* ระยะห่าง */
+    border-radius: 3px; /* มุมโค้ง */
+    cursor: pointer; /* รูปแบบเคอร์เซอร์ */
+    transition: all 0.3s ease; /* ผลลัพธ์การเคลื่อนไหว */
+}
+.modal {
     display: none; 
     position: fixed;
     z-index: 1; 
@@ -43,7 +178,6 @@
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4); 
 }
-
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto;
@@ -51,21 +185,18 @@
     border: 1px solid #888;
     width: 80%;
 }
-
 .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
 }
-
 .modal {
     display: none; 
     position: fixed; /* ใช้ position fixed เพื่อให้อยู่ตรงกลาง */
@@ -77,7 +208,6 @@
     overflow: hidden; /* ป้องกันไม่ให้เลื่อนได้ */
     background-color: rgba(0, 0, 0, 0.6); 
 }
-
 .modal-content {
     background-color: #fefefe;
     margin: auto; /* จัดให้อยู่ตรงกลาง */
@@ -92,9 +222,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
-
-
 /* ปรับแต่งปุ่มภายใน modal */
 .modal button {
     background-color: #007bff;
@@ -105,17 +232,14 @@
     border-radius: 5px;
     cursor: pointer;
 }
-
 .modal button:hover {
     background-color: #0056b3;
 }
-
 /* ปรับแต่งฟอร์มภายใน modal */
 .modal form {
     display: flex;
     flex-direction: column;
 }
-
 .modal textarea, .modal select, .modal input[type="file"] {
     margin-top: 10px;
     padding: 10px;
@@ -123,7 +247,6 @@
     border: 1px solid #ddd;
     width: 95%;
 }
-
 .modal input[type="submit"] {
     background-color: #28a745;
     color: white;
@@ -133,7 +256,6 @@
     border-radius: 5px;
     cursor: pointer;
 }
-
 .modal input[type="submit"]:hover {
     background-color: #218838;
 }
@@ -144,13 +266,11 @@
     margin-top: 10px;
     cursor: pointer;
 }
-
 #imageUploadContainer p {
     margin: 0;
     font-size: 16px;
     color: #666;
 }
-
 #previewImage {
     max-width: 100%;
     height: auto;
@@ -163,21 +283,17 @@
     padding-bottom: 15px;
     position: relative;
 }
-
-
 .postHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
 }
-
 .profile-pic {
     width: 50px; /* หรือขนาดที่ต้องการ */
     height: 50px; /* หรือขนาดที่ต้องการ */
     border-radius: 50%;
 }
-
 .postContent textarea {
     border: none;
     outline: none;
@@ -187,29 +303,24 @@
     font-size: 25px;
     overflow: hidden;
 }
-
 .postContent textarea::placeholder {
     font-size: 25px;
 }
-
 .postFooter {
     display: flex;
     justify-content: flex-end;
     
 }
-
 .modal-title {
     text-align: center;
     flex-grow: 1;
 }
-
 .postHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
 }
-
 .postContent textarea {
     resize: none;
     height: 200px; /* กำหนดความสูงตายตัว */
@@ -217,13 +328,12 @@
     overflow: hidden; /* ป้องกันการแสดง scrollbar */
     border: none; /* ซ่อนกรอบของ textarea */
     box-shadow: none; /* ซ่อนเงาหากมี */
+    padding-left: 20px;
 }
-
-
 .postContent textarea::placeholder {
     font-size: 25px;
+    padding-left: 0px;
 }
-
 /* ปรับแต่งให้ขนาดข้อความลดลงตามจำนวนความยาว */
 textarea {
     font-size: calc(25px - (0.005 * length));
@@ -235,7 +345,6 @@ textarea {
     margin-top: 10px;
     object-fit: contain; /* รักษาอัตราส่วนของรูปภาพ */
 }
-
 #imageUploadContainer {
     /* ปรับขนาดและความสูงของกล่องอัปโหลดรูปภาพ */
     max-height: 350px; /* กำหนดความสูงสูงสุด */
@@ -250,15 +359,14 @@ textarea {
     display: flex;
     align-items: center;
 }
-
 .user-info img {
     margin-right: 10px; /* หรือระยะห่างที่ต้องการ */
 }
 .modal select, #imageUploadContainer {
     
-    width: 96%; /* ตั้งค่าความกว้างเท่ากับ 100% ของพื้นที่บรรจุของมัน */
+    width: 95%; /* ตั้งค่าความกว้างเท่ากับ 100% ของพื้นที่บรรจุของมัน */
     margin: auto;
-    margin-left: 9.5px;
+    margin-left: 10.5px;
    
    
 }
@@ -285,9 +393,37 @@ textarea {
     top: 10px;
     right: 10px;
 }
-
 .close:hover {
     background-color: #e0e0e0; /* สีเทาเมื่อเอาเมาส์ไปวาง */
+}
+.like-button {
+  padding: 5px 10px;
+  border: none; /* ลบขอบ */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 50px;
+  background-image: url('/public/img/heart_T.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 60px;
+  height: 30px;
+  background-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
+  box-shadow: none; /* ลบเงา (ถ้ามี) */
+  margin-left: -13px;
+}
+
+
+
+.like-button:hover {
+  transform: scale(1.05);
+}
+.like-button.liked {
+    background-image: url('/public/img/heartsB.png');
+}
+
+.like-button.liked:hover {
+    transform: scale(1.05);
 }
 
 
@@ -295,313 +431,369 @@ textarea {
 
 
     </style>
-    
 </head>
-<body>
-
+ 
+ 
+<body style="background-color: #f0f2f5;">
+ 
 <div class="container-fluid">
     <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-2 sidebar bg-body-tertiary">
-            <!-- Your sidebar code here -->
-            <!-- (Sidebar content remains unchanged) -->
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                  <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-                  <span class="fs-4">Job $earch</span>
-                </a>
-                <hr>
-                <ul class="nav nav-pills flex-column mb-auto">
-                  <li class="nav-item">
-                    <a href="/market/feed" class="nav-link active " aria-current="page">
-                        <i class="bi bi-house"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                      </i> Home
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="nav-link link-body-emphasis">
-                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                      Search
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" id="postLink" class="nav-link link-body-emphasis" onclick="showPostPopup()">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                        Post
-                    </a>
-                    
-                  </li>
-                  <li>
-                    <a href="#" class="nav-link link-body-emphasis">
-                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                      Notification
-                    </a>
-                  </li>
-                  <li>
-                    <div class="dropdown">
-                        <a href="/market/profile" class="d-flex align-items-center link-body-emphasis text-decoration-none " >
-                          <img src="/img/file" alt="" width="32" height="32" class="rounded-circle me-2 st " style="object-fit: cover;">
-                          Profile
-                        </a>
-                      </div>
-                  </li>
-                </ul>
-    
-              </div>
-              <div class="mt-auto">
-                <button class="btn btn-light dropdown-toggle w-100" type="button" id="sidebarMoreButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    More
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="sidebarMoreButton">
-                    <li><a class="dropdown-item" href="#">Switch Account</a></li>
-                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+ 
+        <!-- Custom Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar content here -->
+            <div>
+              <a href="/"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
+                <span class="fs-4"><img src="/public/img/Logo-Instagram.png" style="width: 60%; margin-left: -2px; margin-bottom: 10px;"></span>
+              </a>
+             
+              <ul class="nav">
+                <li class="nav-item">
+             
+                  <a href="/user/feed" class="nav-link active" aria-current="page">
+                     <img src="/public/img/homepage.png" alt="" style="width: 13%;">
+                    <span class="aa">หน้าหลัก</span>
+                  </a>
+               
+               
+                  <a href="#" class="nav-link active" aria-current="page">
+                     <img src="/public/img/search.png" alt="" style="width: 12%;">
+                     <span class="aa">ค้นหา </span>
+                  </a>
+               
+               
+                  <a href="#" class="nav-link">
+                     <img src="/public/img/compass.png" alt="" style="width: 12%;">
+                     <span class="aa">สำรวจ</span>
+                  </a>
+               
+               
+                  <a href="#" class="nav-link">
+                     <img src="/public/img/heart-2.png" alt="" style="width: 12%;" >
+                     <span class="aa">การแจ้งเตือน</span>
+                  </a>
 
-
-<div id="postTypeModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>เลือกประเภทโพสต์ของคุณ:</p>
-        <button id="newsFeedButton">ฟีดข่าว</button>
-        <button id="createBoardButton">สร้างกระดาน</button>
-    </div>
-</div>
-
-<div id="newsFeedModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <span class="close">&times;</span>
-            <h5 class="modal-title" style="font-weight: 700; font-size: 23px;">สร้างโพสต์</h5>
-        </div>
-        <div class="postHeader">
-            <div class="user-info">
-                <img src="/img/file" alt="Profile Pic" class="profile-pic" style="object-fit: cover;">
-                <span style="font-weight: 600; font-size: 25px;"><%= user %></span>
-            </div>
-           
-        </div>
-        <form id="newsFeedForm" class="postContent">
-            <textarea name="postContent" placeholder="คุณกำลังคิดอะไรอยู่ <%= user %>" maxlength="5000"></textarea>
-            <div id="imageUploadContainer" onclick="document.getElementById('fileInput').click()">
-                <p>คลิกเพื่อเลือกรูปภาพ</p>
-                <img id="previewImage" style="display:none;"/>
-                <button type="button" id="removeImageButton" style="display:none;" onclick="removeImage()">ลบรูปภาพ</button>
-            </div>
-            <input type="file" id="fileInput" name="postImage" style="display:none;" onchange="previewFile()">
-            <select name="postCategory">
-                <option value="category1">หมวดหมู่ 1</option>
-                <option value="category2">หมวดหมู่ 2</option>
-                <!-- เพิ่มหมวดหมู่ตามต้องการ -->
-            </select>
-        </form>
-        <div class="postFooter">
-            <button type="submit" form="newsFeedForm" class="publish-button">เผยแพร่</button>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    function removeImage() {
-    var preview = document.getElementById('previewImage');
-    var fileInput = document.getElementById('fileInput');
-    var removeButton = document.getElementById('removeImageButton');
-
-    preview.src = "";
-    preview.style.display = 'none';
-    removeButton.style.display = 'none';
-    fileInput.value = ""; // ล้างค่าของ input file
-}
-
-</script>
-
-
-
-<script>
-    function previewFile() {
-    var preview = document.getElementById('previewImage');
-    var file = document.getElementById('fileInput').files[0];
-    var reader = new FileReader();
-    var removeButton = document.getElementById('removeImageButton');
-
-    reader.onloadend = function () {
-        if (file) {
-            preview.src = reader.result;
-            preview.style.display = 'block';
-            removeButton.style.display = 'block'; // แสดงปุ่มลบ
-        } else {
-            preview.src = "";
-            preview.style.display = 'none';
-            removeButton.style.display = 'none'; // ซ่อนปุ่มลบ
-        }
-    }
-
-    if (file) {
-        reader.readAsDataURL(file);
-    }
-}
-
-</script>
-
+                  <a href="#" id="postLink" class="nav-link link-body-emphasis" onclick="showPostPopup()">
+                    <img src="/public/img/post.png" alt="" style="width: 12%; " >
+                    <span class="aa">สร้าง</span>
+                 </a>
+ 
    
-       <script>
-    // แสดง Modal ตาม ID
-    // แสดง Modal ตาม ID
-function showModal(modalId) {
-    var modal = document.getElementById(modalId);
-    modal.style.display = "block";
-    document.body.style.overflow = 'hidden';
-}
-
-// ซ่อน Modal ตาม ID
-function hideModal(modalId) {
-    var modal = document.getElementById(modalId);
-    modal.style.display = "none";
-    document.body.style.overflow = '';
-}
-
-// ฟังก์ชันเมื่อผู้ใช้กดปุ่ม "Post"
-document.getElementById('postLink').addEventListener('click', function() {
-    showModal('postTypeModal');
-});
-
-// ฟังก์ชันเมื่อผู้ใช้เลือก "ฟีดข่าว"
-document.getElementById('newsFeedButton').addEventListener('click', function() {
-    hideModal('postTypeModal');
-    showModal('newsFeedModal');
-});
-
-// จัดการปุ่มปิดบนทุก Modals
-var closeButtons = document.getElementsByClassName("close");
-for (var i = 0; i < closeButtons.length; i++) {
-    closeButtons[i].onclick = function() {
-        var modal = this.closest('.modal');
-        modal.style.display = "none";
-    }
-}
-
-// ปิด Modal เมื่อผู้ใช้คลิกนอกพื้นที่ Modal
-window.onclick = function(event) {
-    if (event.target.classList.contains('modal')) {
-        event.target.style.display = "none";
-    }
-}
-
-// จัดการการส่งข้อมูลฟอร์ม
-document.getElementById('newsFeedForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    // ส่งข้อมูลโพสต์ไปยังเซิร์ฟเวอร์
-    // ตัวอย่าง: ใช้ AJAX หรือ FormData ที่นี่
-    alert('ฟอร์มถูกส่ง!'); // ใช้เพื่อทดสอบ
-});
-
-</script>
-
-        <!-- Blog Content -->
-        <div >
-            <!-- Navbar, Hero, and Cards content here -->
-            <div class="container">
-                <!-- Navbar -->
-        
-                <!-- Navbar -->
-        
-              </div>
-        
-
-              <!-- Hero -->
-        
-              <div class="container">
-                <div class="row">
-                    <div class="d-flex justify-content-center mt-4 mb-3">
-                        <div class="d-flex justify-content-center mt-4 mb-3">
-                            <div class="col-sm-12 col-md-6 col-lg-4">
-                                <div class="card">
-                                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-dark">Go somewhere</a>
-                                    </div>
-                                </div>
+ 
+                  <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
+                     <a href="/market/profile" class="nav-link">
+                    <img src="/img/file" class="custom-rounded-img" alt="" style="width: 25px; height: 25px; margin-right: 6px; margin-left: 3px;">
+                        <span class="aa">โปรไฟล์</span>
+                             </a>
+ 
+ 
+                             <div class="dropdown">
+                                   <button class="btn dropdown-toggle " type="button" >
+                                       <img src="/public/img/more.png" alt="Logo" style="width: 25%; margin-right: 10px;">
+                                       <span class="aa">เพิ่มเติม</span>
+                                   </button>
+                                   <ul class="dropdown-menu" style="display: none;">
+                                       <li><a class="dropdown-item " href="/logout" >สลับบัญชี</a></li>
+                                       <li><a class="dropdown-item " href="/logout">ออกจากระบบ</a></li>
+                                   </ul>
                             </div>
-                        </div>
+   
+                    </li>        
+                    </div>
+               
+              </ul>
+            </div>
+          </div>
+        </div>
+ 
+       
+ 
+                <div class="main-content" style="width: 684px; margin: 0 auto;"> </div>
 
-                        
 
+                <div id="postTypeModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>เลือกประเภทโพสต์ของคุณ:</p>
+                        <button id="newsFeedButton">ฟีดข่าว</button>
+                        <button id="createBoardButton">สร้างกระดาน</button>
+                    </div>
+                </div>
+                
+                <div id="newsFeedModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h5 class="modal-title" style="font-weight: 700; font-size: 23px;">สร้างโพสต์</h5>
                         </div>
-                        <div class="d-flex justify-content-center mt-4 mb-3">
-                            <div class="col-sm-12 col-md-6 col-lg-4">
-                                <div class="card">
-                                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-dark">Go somewhere</a>
-                                    </div>
-                                </div>
+                        <div class="postHeader">
+                            <div class="user-info">
+                                <img src="/img/mk_img/<%= userId %>" alt="Profile Pic" class="profile-pic" style="object-fit: cover;">
+                                <span style="font-weight: 600; font-size: 25px;"><%= market_name %></span>
                             </div>
+                
                         </div>
-
-                        <div class="d-flex justify-content-center mt-4 mb-3">
-                            <div class="col-sm-12 col-md-6 col-lg-4">
-                                <div class="card">
-                                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-dark">Go somewhere</a>
-                                    </div>
-                                </div>
+                        <form id="newsFeedForm" class="postContent">
+                            <textarea name="postContent" placeholder="คุณกำลังคิดอะไรอยู่ <%= market_name %>" maxlength="5000"></textarea>
+                            <div id="imageUploadContainer" onclick="document.getElementById('fileInput').click()">
+                                <p>คลิกเพื่อเลือกรูปภาพ</p>
+                                <img id="previewImage" style="display:none;"/>
+                                <button type="button" id="removeImageButton" style="display:none;" onclick="removeImage()">ลบรูปภาพ</button>
                             </div>
-                        </div>
-
-                        <div class="d-flex justify-content-center mt-4 mb-3">
-                            <div class="col-sm-12 col-md-6 col-lg-4">
-                                <div class="card">
-                                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-dark">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-center mt-4 mb-3">
-                            <div class="col-sm-12 col-md-6 col-lg-4">
-                                <div class="card">
-                                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-dark">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
+                            <input type="file" id="fileInput" name="postImage" style="display:none;" onchange="previewFile()">
+                        </form>
+                        <div class="postFooter">
+                            <button type="submit" form="newsFeedForm" class="publish-button">เผยแพร่</button>
                         </div>
                     </div>
-        
-                    
                 </div>
-        
-                  <footer class="py-3 my-4">
-                    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                      
-                    </ul>
-                    <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
-                  </footer>
-              </div>
-        </div>
-    </div>
-</div>
+                
+                
+                <script>
+                    function removeImage() {
+                    var preview = document.getElementById('previewImage');
+                    var fileInput = document.getElementById('fileInput');
+                    var removeButton = document.getElementById('removeImageButton');
+                    preview.src = "";
+                    preview.style.display = 'none';
+                    removeButton.style.display = 'none';
+                    fileInput.value = ""; // ล้างค่าของ input file
+                }
+                </script>
+                <script>
+                    function previewFile() {
+                    var preview = document.getElementById('previewImage');
+                    var file = document.getElementById('fileInput').files[0];
+                    var reader = new FileReader();
+                    var removeButton = document.getElementById('removeImageButton');
+                    reader.onloadend = function () {
+                        if (file) {
+                            preview.src = reader.result;
+                            preview.style.display = 'block';
+                            removeButton.style.display = 'block'; // แสดงปุ่มลบ
+                        } else {
+                            preview.src = "";
+                            preview.style.display = 'none';
+                            removeButton.style.display = 'none'; // ซ่อนปุ่มลบ
+                        }
+                    }
+                    if (file) {
+                        reader.readAsDataURL(file);
+                    }
+                }
+                </script>
+                   
+                       <script>
+                    // แสดง Modal ตาม ID
+                    // แสดง Modal ตาม ID
+                function showModal(modalId) {
+                    var modal = document.getElementById(modalId);
+                    modal.style.display = "block";
+                    document.body.style.overflow = 'hidden';
+                }
+                // ซ่อน Modal ตาม ID
+                function hideModal(modalId) {
+                    var modal = document.getElementById(modalId);
+                    modal.style.display = "none";
+                    document.body.style.overflow = '';
+                }
+                // ฟังก์ชันเมื่อผู้ใช้กดปุ่ม "Post"
+                document.getElementById('postLink').addEventListener('click', function() {
+                    showModal('postTypeModal');
+                });
+                // ฟังก์ชันเมื่อผู้ใช้เลือก "ฟีดข่าว"
+                document.getElementById('newsFeedButton').addEventListener('click', function() {
+                    hideModal('postTypeModal');
+                    showModal('newsFeedModal');
+                });
+                // จัดการปุ่มปิดบนทุก Modals
+                var closeButtons = document.getElementsByClassName("close");
+                for (var i = 0; i < closeButtons.length; i++) {
+                    closeButtons[i].onclick = function() {
+                        var modal = this.closest('.modal');
+                        modal.style.display = "none";
+                    }
+                }
+                // ปิด Modal เมื่อผู้ใช้คลิกนอกพื้นที่ Modal
+                window.onclick = function(event) {
+                    if (event.target.classList.contains('modal')) {
+                        event.target.style.display = "none";
+                    }
+                }
+                // จัดการการส่งข้อมูลฟอร์ม
+                document.getElementById('newsFeedForm').addEventListener('submit', function(event) {
+    // ป้องกันการส่งฟอร์มแบบปกติ
+    
 
-<!-- Footer and Scripts remain unchanged -->
+    // ดึงข้อมูลโพสต์จากฟอร์ม
+    const postContent = document.querySelector('textarea[name="postContent"]').value;
+    const postImage = document.getElementById('fileInput').files[0];
+
+    // ตรวจสอบว่า postContent มีข้อมูลหรือไม่
+    if (!postContent.trim()) {
+        alert('โปรดใส่เนื้อหาของโพสต์ก่อนเผยแพร่');
+        return; // หยุดการทำงานของฟังก์ชัน
+    }
+
+    // ตรงนี้เป็นโค้ดสำหรับส่งข้อมูลไปยังเซิร์ฟเวอร์
+    const formData = new FormData();
+    formData.append('postContent', postContent);
+    formData.append('postImage', postImage);
+
+    fetch('/post/api/post_Content', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data); // แสดงข้อมูลที่ได้รับจากเซิร์ฟเวอร์
+    })
+    .catch(error => {
+        console.error('เกิดข้อผิดพลาด:', error);
+        // สามารถจัดการข้อผิดพลาดได้ตามต้องการ
+    });
+});
+
+                </script>
+
+ 
+
+
+
+            <script>
+
+
+function toggleLike(postId, userId) {
+    fetch(`/post/api/like?postId=${postId}&userId=${userId}`, { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            let likeButton = document.querySelector(`#likeButton-${postId}`);
+            let likeCount = document.querySelector(`#likeCount-${postId}`);
+
+            if (data.liked) {
+                likeButton.classList.add('liked');
+                
+             
+            } else {
+                likeButton.classList.remove('liked');
+                
+                
+            }
+            likeCount.textContent = `${data.likeCount} Likes`;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+            let currentPage = 0;
+            const limit = 5;
+            let isFetching = false;
+ 
+            function loadMorePosts() {
+    if (isFetching) return;
+    isFetching = true;
+
+    fetch(`/post/api/posts?page=${currentPage}&limit=${limit}`)
+        .then(response => response.json())
+        .then(data => {
+            const mainContent = document.querySelector('.main-content');
+
+            data.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('post');
+                postElement.style.marginTop = "20px";
+
+                // กำหนดคลาส CSS และข้อความสำหรับปุ่มการถูกใจ
+                let likeButtonClass = post.userLiked ? 'like-button liked' : 'like-button';
+                let likeButtonText = post.userLiked ? '' : '';
+
+                postElement.innerHTML = `
+                <div class="post" style="margin-top: 20px;">
+                        <div class="post-header">
+                            <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
+                            <span class="username">${post.market_name}</span>
+                        </div>
+                        <div class="post-content">
+                            ${post.post_discript}
+                            
+                        </div>
+                        <div class="post-image">
+                            <img src="/img/select/${post.post_id}" alt="Post">
+                            
+                        </div>
+                        
+                        <div class="post-footer">
+                            <div id="post">
+                                <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
+                                <button class ="${likeButtonClass}" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id},${post.user_id});">${likeButtonText}</button>
+                        </div>
+                    </div>
+                `;
+                mainContent.appendChild(postElement);
+            });
+
+            currentPage++;
+            isFetching = false;
+        });
+}
+
+        window.onscroll = function() {
+            if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 10) {
+        loadMorePosts();
+         }
+            };
+                loadMorePosts();
+            </script>
+
+
+
+ 
+            <script>
+ 
+document.addEventListener('DOMContentLoaded', function () {
+    var dropdown = document.querySelector('.dropdown');
+    var dropdownMenu = document.querySelector('.dropdown-menu');
+ 
+    // เมื่อคลิกที่ปุ่ม dropdown
+    dropdown.addEventListener('click', function (event) {
+        // ป้องกันเหตุการณ์เริ่มต้นของลิงก์
+       
+       
+        // แสดงหรือซ่อน dropdown menu
+        if (dropdownMenu.style.display === 'block') {
+            dropdownMenu.style.display = 'none';
+        } else {
+            dropdownMenu.style.display = 'block';
+        }
+    });
+ 
+    // ซ่อน dropdown เมื่อคลิกนอกเขต dropdown
+    document.addEventListener('click', function (event) {
+        var isClickInside = dropdown.contains(event.target);
+ 
+        if (!isClickInside) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+});
+ 
+       </script>
+ 
+
+ 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.1.16/dist/umd/popper.min.js"></script>
+<script src="script.js"></script>
+
+
+<script>
+    function viewStory(storyElement) {
+        alert("Viewing story: " + storyElement.querySelector('.story-image img').alt);
+    }
+</script>
+
+ 
 </body>
 </html>
-
