@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 let dbCon = require('../lib/db');
 const sessionConfig = require('../middleware/session-config')
-const { formatDate, calculateAge } = require('../middleware/cal_Date_Age');
+const { formatDate, calculateAge,formatDate2 } = require('../middleware/cal_Date_Age');
 
 
 router.use(sessionConfig);
@@ -47,14 +47,14 @@ router.get('/profile', (req, res, next) => {
          if (err) {
              console.error('Error retrieving data:', err);
              res.render('market/edit_market', { 
-                formatDate , calculateAge,
+                formatDate , calculateAge,formatDate2,
                 rows : rows ,
                 user: req.session.user 
             });
          } else {
              console.log('Data from the database:', rows);
              res.render('market/edit_market', {
-                formatDate , calculateAge,
+                formatDate , calculateAge,formatDate2,
                 rows : rows ,
                 user: req.session.user
             });
@@ -78,14 +78,14 @@ router.get('/profile', (req, res, next) => {
            if (err) {
                console.error('Error retrieving data:', err);
                res.render('market/edit_business', { 
-                  formatDate , calculateAge,
+                  formatDate , calculateAge,formatDate2,
                   rows : rows ,
                   user: req.session.user 
               });
            } else {
                console.log('Data from the database:', rows);
                res.render('market/edit_business', {
-                  formatDate , calculateAge,
+                  formatDate , calculateAge,formatDate2,
                   rows : rows ,
                   user: req.session.user
               });
