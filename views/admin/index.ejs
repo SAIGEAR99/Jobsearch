@@ -1,66 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Information</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- ... -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+        .card-header {
+            background-color: #343a40; /* Darker header */
+        }
+        .btn-custom {
+            background-color: #ffffff; /* Green color */
+            color: white;
+        }
+        .btn-custom:hover {
+            background-color: #dfdfdf; /* Darker green on hover */
+            color: white;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f8f9fa; /* Hover effect for table rows */
+        }
+        .table th, .table td {
+            text-align: center; /* Center align table cells */
+        }
+        .table th:nth-child(1), .table td:nth-child(1) {
+            width: 5%; /* NO. column width */
+        }
+        .table th:nth-child(2), .table td:nth-child(2) {
+            width: 20%; /* USER column width */
+        }
+        .table th:nth-child(6), .table td:nth-child(6) {
+            width: 20%; /* ACTION column width */
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-header">
-            <ul class="nav nav-pills w-100 justify-content-between">
-               
-                <li class="nav-link">ADMIN CONTROL</li>
-                
-                <li class="nav-link "><a href="/logout" class="btn btn-outline-danger me-2">Logout</a></li>
-            </ul>
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">ADMIN CONTROL</h5>
+                <div>
+                    <a href="/admin/add" class="btn btn-custom me-2 text-dark">Add User</a>
+                    <a href="/logout" class="btn btn-outline-light">Logout</a>
+                </div>
+            </div>
         </div>
         <div class="card-body">
-            <!-- Check if data exists and has a length greater than 0 -->
-            <% if(data && data.length) { %>
-            <table class="table">
+            <% if(rows && rows.length) { %>
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">NO.</th>
                         <th scope="col">USER</th>
                         <th scope="col">Email</th>
                         <th scope="col">Password</th>
-                        <th width="200px">Role</th>
-                        <th width="200px">Action</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% for(let i = 0; i < data.length; i++) { %>
+                    <% rows.forEach((row, index) => { %>
                     <tr>
-                        <th scope="row"><%= data[i].user_id %></th>
-                        <td><%= data[i].username %></td>
-                        <td><%= data[i].email %></td>
-                        <td><%= data[i].password %></td>
-                        <td><%= data[i].role %></td>
+                        <th scope="row"><%= index + 1 %></th>
+                        <td><%= row.username %></td>
+                        <td><%= row.email %></td>
+                        <td><%= row.password %></td>
+                        <td><%= row.role %></td>
                         <td>
-                            <a href="../admin/edit/<%= data[i].login_id %>" class="btn btn-success edit">Edit</a>
-                            <a href="/admin/delete/<%= data[i].login_id %>" class="btn btn-danger delete" onclick="return confirm('Are you sure?')">Delete</a>
+                            <a href="/admin/edit/<%= row.user_id %>" class="btn btn-success"><span class="bi bi-pencil-square"></span> Edit</a>
+                            <a href="/admin/delete/<%= row.user_id %>" class="btn btn-danger" onclick="return confirm('Are you sure?')"><span class="bi bi-trash"></span> Delete</a>
                         </td>
                     </tr>
-                    <% } %>
+                    <% }); %>
                 </tbody>
             </table>
-            <% } %>
-
-            <!-- If the result is empty -->
-            <% if(!data || !data.length) { %>
+            <% } else { %>
             <p class="text-center">No User found!</p>
             <% } %>
         </div>
-        <li class="nav-link "><a href="/admin/add" class="nav-link active">Add User</a></li>
-        
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
 </body>
 </html>

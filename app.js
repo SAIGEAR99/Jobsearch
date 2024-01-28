@@ -35,7 +35,6 @@ app.use(express.static(root_path));
 const indexRoutes = require('../my_EJS/router/index');
 const adminRoutes = require('./router/admin');
 const loginRoutes = require('../my_EJS/router/login');
-const homeRoutes = require('../my_EJS/router/home');
 const registerRoutes = require('../my_EJS/router/register');
 const logoutRoutes = require('../my_EJS/router/logout');
 
@@ -61,7 +60,6 @@ const apiPost = require('../my_EJS/API/post');
 
 app.use('/index',indexRoutes);
 app.use('/admin',checkAuth,adminRoutes);
-app.use('/home',checkLog,homeRoutes);
 app.use('/login',loginRoutes);
 app.use('/register',registerRoutes);
 app.use('/logout',logoutRoutes);

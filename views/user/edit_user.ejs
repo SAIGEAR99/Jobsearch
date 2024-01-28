@@ -162,7 +162,7 @@
             display: block;
             width: 24px; /* กำหนดขนาดกว้างของ pseudo-element */
             height: 24px; /* กำหนดขนาดสูงของ pseudo-element */
-            background-image: url(/my_EJS/public/img/camera.png); /* ตั้งค่ารูปภาพเป็น background */
+            background-image: url('/public/img/camera.png'); /* ตั้งค่ารูปภาพเป็น background */
             background-size: cover; /* หรือใช้ contain ตามความต้องการ */
             font-family: 'FontAwesome';
             position: absolute;
@@ -478,7 +478,7 @@
 
                     <div class="card-body-Info related-div" >
                         <div style="padding-bottom: 20px ; position: relative;">
-                            <strong class="nameinfo" style="font-size: 30px;">ข้อมูลส่วนตัว <img src="/my_EJS/public/img/info.png" alt="" style="width: 30px; height: 30px;"></strong>
+                            <strong class="nameinfo" style="font-size: 30px;">ข้อมูลส่วนตัว <img src="/public/img/info.png" alt="" style="width: 30px; height: 30px;"></strong>
                         </div>
                         <% if (rows.length > 0) { %>
                             <% rows.forEach(row => { %>
@@ -712,6 +712,8 @@
             
                 <% if (rows.length > 0) { %>
                     <% rows.forEach(row => { %>
+
+
                         <script>
                             document.addEventListener("DOMContentLoaded", function() {
                                 var editProfileModal = document.getElementById('editProfileModal');

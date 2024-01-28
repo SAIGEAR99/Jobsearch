@@ -14,10 +14,10 @@ router.get('/', (req, res, next) => {
    ,(err, rows) => {
         if (err) {
             console.error('Error retrieving data:', err);
-            res.render('admin', { data: '' });
+            res.render('admin', { rows: '' });
         } else {
             console.log('Data from the database:', rows);
-            res.render('admin', { data: rows });
+            res.render('admin', { rows: rows });
         }
     });
 });
@@ -71,21 +71,23 @@ router.post('/add', (req, res) => {
             user: user,
             email: email,
             password: password,
-            login_id: login_id
+            user_id: login_id
         });
     }
 
     // หากไม่มีข้อผิดพลาด
     if (!errors) {
         let form_data = {
-            user: user,
+            user_id: login_id,
+            username: user,
             email: email,
             password: password,
-            login_id: login_id
+            role: 3
+            
         };
 
         // คำสั่งใส่ข้อมูล
-        dbCon.query('INSERT INTO login SET ?', form_data, (err, result) => {
+        dbCon.query('INSERT INTO user SET ?', form_data, (err, result) => {
             if (err) {
                 req.flash('error', err);
 
@@ -107,37 +109,38 @@ router.post('/update/:login_id', (req, res, next) => {
     let user = req.body.user;
     let email = req.body.email;
     let password = req.body.password;
-    let login_id = req.body.login_id;
+    let user_id = req.body.login_id;
 
     let errors = false;
 
-    if (user.length === 0 || email.length === 0 || password.length===0 || login_id.length ===0 ) {
+    if (user.length === 0 || email.length === 0 || password.length===0 || user_id.length ===0 ) {
         errors = true;
         req.flash('error', 'Please enter Name and ID');
         res.render('admin/edit', {
-            user: form_data.user,
+                    user: form_data.user,
                     email: form_data.email,
                     password: form_data.password,
-                    login_id: form_data.login_id,
+                    login_id: form_data.user_id,
         })
     }
     // if no error
     if (!errors) {
         let form_data = {
-                    user: user,
+                    user_id:user_id,
+                    username: user,
                     email: email,
                     password:password,
-                    login_id:login_id,
+                    
         }
         // update query
-        dbCon.query("UPDATE login SET ? WHERE login_id = " + login_id, form_data, (err, result) => {
+        dbCon.query("UPDATE user SET ? WHERE user_id = " + user_id, form_data, (err, result) => {
             if (err) {
                 req.flash('error', err);
                 res.render('admin/edit', {
                     user: form_data.user,
                     email: form_data.email,
                     password: form_data.password,
-                    login_id: form_data.login_id,
+                    login_id: form_data.user_id,
                 })
             } else {
                 req.flash('success', 'Location successfully updated');
@@ -150,14 +153,14 @@ router.post('/update/:login_id', (req, res, next) => {
 
 
 router.get('/delete/(:login_id)', (req, res, next) => {
-    let login_id = req.params.login_id;
+    const user_id = req.params.login_id;
 
-    dbCon.query('DELETE FROM login WHERE login_id = ?', login_id, (err, result) => {
+    dbCon.query('DELETE FROM user WHERE user_id = ?', user_id, (err, result) => {
         if (err) {
             req.flash('error', err);
             res.redirect('/admin');
         } else {
-            req.flash('success', 'Login successfully deleted! ID = ' + login_id);
+            req.flash('success', 'Login successfully deleted! ID = ' + user_id);
             res.redirect('/admin');
         }
     })

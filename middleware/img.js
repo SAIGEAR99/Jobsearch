@@ -88,42 +88,7 @@ router.post('/upload', (req, res) => {
         let query = 'UPDATE user SET img_profile = ? WHERE username = ?;';
         dbCon.query(query, [uploadPath,user], (err, result) => {
             if (err) return res.status(500).send(err);
-            dbCon.query(`SELECT user.*, gender.gender AS gender_name,
-            address.subdistrict_id,
-            subdistricts.name_in_thai AS subdistrict_name,
-            subdistricts.zip_code,
-            districts.name_in_thai2 AS district_name,
-            provinces.name_in_thai AS province_name,
-            role.role AS role_name,
-            address.home_number,
-            address.village
-        FROM user
-        LEFT JOIN gender ON user.gender = gender.gender_id
-        LEFT JOIN address ON user.address_id = address.address_id
-        LEFT JOIN subdistricts ON address.subdistrict_id = subdistricts.id
-        LEFT JOIN districts ON subdistricts.district_id = districts.id
-        LEFT JOIN provinces ON districts.province_id = provinces.id
-        LEFT JOIN role ON user.role = role.role_id
-        WHERE user.username LIKE ?`
-        , user, (err, rows) => {
-                if (empY) {
-                    console.error('Error retrieving data:', err);
-                    res.render('user/edit_user', { 
-                        formatDate , calculateAge,formatDate2,
-                        rows: rows ,
-                        user: req.session.user
-                        
-                    });
-                } else {
-                    console.log('Data from the database-->:', rows);
-                    res.render('user/edit_user', { 
-                        formatDate , calculateAge,formatDate2,
-                        rows: rows ,
-                        user: req.session.user 
-                    });
-                }
-                
-            });
+            res.redirect('/user/profile')
         });
     });
 });
@@ -149,42 +114,7 @@ router.post('/upload/market', (req, res) => {
         let query = 'UPDATE user SET img_profile = ? WHERE username = ?;';
         dbCon.query(query, [uploadPath,user], (err, result) => {
             if (err) return res.status(500).send(err);
-            dbCon.query(`SELECT user.*, gender.gender AS gender_name,
-            address.subdistrict_id,
-            subdistricts.name_in_thai AS subdistrict_name,
-            subdistricts.zip_code,
-            districts.name_in_thai2 AS district_name,
-            provinces.name_in_thai AS province_name,
-            role.role AS role_name,
-            address.home_number,
-            address.village
-        FROM user
-        LEFT JOIN gender ON user.gender = gender.gender_id
-        LEFT JOIN address ON user.address_id = address.address_id
-        LEFT JOIN subdistricts ON address.subdistrict_id = subdistricts.id
-        LEFT JOIN districts ON subdistricts.district_id = districts.id
-        LEFT JOIN provinces ON districts.province_id = provinces.id
-        LEFT JOIN role ON user.role = role.role_id
-        WHERE user.username LIKE ?`
-        , user, (err, rows) => {
-                if (empY) {
-                    console.error('Error retrieving data:', err);
-                    res.render('market/edit_market', { 
-                        formatDate , calculateAge,formatDate2,
-                        rows: rows ,
-                        user: req.session.user
-                        
-                    });
-                } else {
-                    console.log('Data from the database-->:', rows);
-                    res.render('market/edit_market', { 
-                        formatDate , calculateAge,formatDate2,
-                        rows: rows ,
-                        user: req.session.user 
-                    });
-                }
-                
-            });
+            res.redirect('/market/profile')
         });
     });
 });

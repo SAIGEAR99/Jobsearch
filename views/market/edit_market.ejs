@@ -162,7 +162,7 @@
             display: block;
             width: 24px; /* กำหนดขนาดกว้างของ pseudo-element */
             height: 24px; /* กำหนดขนาดสูงของ pseudo-element */
-            background-image: url(/my_EJS/public/img/camera.png); /* ตั้งค่ารูปภาพเป็น background */
+            background-image: url('/public/img/camera.png'); /* ตั้งค่ารูปภาพเป็น background */
             background-size: cover; /* หรือใช้ contain ตามความต้องการ */
             font-family: 'FontAwesome';
             position: absolute;
@@ -459,7 +459,8 @@
                                     </div>
                                     <div class="profile-actions">
                                         <a href="#" class="btn custom-button" data-bs-toggle="modal" data-bs-target="#editProfileModal">แก้ไขข้อมูลผู้ใช้</a>
-                                        <a href="/user/register/market" class="btn custom-button">ตั้งค่าบัญชีธุรกิจ</a>
+                                        <a href="#" class="btn custom-button" data-bs-toggle="modal" data-bs-target="#businessSettingsModal">ตั้งค่าบัญชีธุรกิจ</a>
+
                                     </div>
                                 </div>
                                 
@@ -491,7 +492,7 @@
 
                     <div class="card-body-Info related-div" id="personalInfo"  style="display: none;">
                         <div style="padding-bottom: 20px ; position: relative;">
-                            <strong class="nameinfo" style="font-size: 30px;">ข้อมูลส่วนตัว <img src="/my_EJS/public/img/info.png" alt="" style="width: 30px; height: 30px;"></strong>
+                            <strong class="nameinfo" style="font-size: 30px;">ข้อมูลส่วนตัว <img src="/public/img/info.png" alt="" style="width: 30px; height: 30px;"></strong>
                         </div>
                         <% if (rows.length > 0) { %>
                             <% rows.forEach(row => { %>
@@ -550,7 +551,7 @@
 
                     <div class="card-body-business related-div" id="businessInfo"   style="display: none;">
                         <div style="padding-bottom: 20px ; position: relative;">
-                            <strong class="nameinfo" style="font-size: 30px;">ข้อมูลธุรกิจ <img src="/my_EJS/public/img/shop.png" alt="" style="width: 30px; height: 30px;"></strong>
+                            <strong class="nameinfo" style="font-size: 30px;">ข้อมูลธุรกิจ <img src="/public/img/shop.png" alt="" style="width: 30px; height: 30px;"></strong>
                         </div>
                         <% if (rows.length > 0) { %>
                             <% rows.forEach(row => { %>
@@ -558,19 +559,19 @@
                                 <div class="row mb-3">
                                     <!-- รายละเอียดผู้ใช้ -->
                                     <div class="col">
-                                        <strong>ชื่อร้าน:</strong> <span>DontreeShop</span>
+                                        <strong>ชื่อร้าน:</strong> <span><%= row.market_name %></span>
                                     </div>
                                     <hr>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <strong>ประเภท:</strong> <span>อาหารและเครื่องดื่ม</span>
+                                        <strong>ประเภท:</strong> <span><%= row.business_name %></span>
                                     </div>
                                     <hr>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <strong>เวลาทำการ:</strong> <span>10.00 - 23.00 น.</span>
+                                        <strong>เวลาทำการ:</strong> <span><%= row.mk_time_op%> - <%= row.mk_time_close %></span>
                                     </div>
                                     <hr>
                                 </div>
@@ -599,7 +600,7 @@
 
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <strong>เกี่ยวกับร้าน:</strong> <span>ร้านส้มตำ บรรยากาศดีเกิน100</span>
+                                        <strong>เกี่ยวกับร้าน:</strong> <span><%= row.mk_discript %></span>
                                     </div>
                                     
                                 </div>
@@ -676,7 +677,7 @@
                         </div>
                         <div class="modal-body">
                             <!-- ฟอร์มอัพโหลดรูปภาพ -->
-                            <form action="/img/upload" method="post" enctype="multipart/form-data">
+                            <form action="/img/upload/market" method="post" enctype="multipart/form-data">
                                 <div class="drop-zone">
                                     <p>ลากและวางไฟล์รูปภาพที่นี่หรือคลิกเพื่อเลือกไฟล์</p>
                                     <input type="file" name="uploadedFile" id="uploadedFile" class="form-control" accept="image/*" hidden>
@@ -701,7 +702,7 @@
                                 <% rows.forEach(row => { %>
                                     <!-- ฟอร์มแก้ไขข้อมูลผู้ใช้ -->
                                     <div class="modal-body">
-                                        <form action="/user/update_profileEdit" method="post">
+                                        <form action="/market/update_profileEdit" method="post">
                                             <input type="hidden" id="user_id" name="user_id" value="">
                                             <div class="mb-3">
                                                 <label for="username" class="form-label">ชื่อผู้ใช้</label>
@@ -782,6 +783,98 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+                <!-- Modal ตั้งค่าบัญชีธุรกิจ -->
+<div class="modal fade" id="businessSettingsModal" tabindex="-1" aria-labelledby="businessSettingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="businessSettingsModalLabel">ตั้งค่าบัญชีธุรกิจ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- ฟอร์มตั้งค่าธุรกิจ -->
+                <form>
+                    <div class="mb-3">
+                        <label for="businessName" class="form-label">ชื่อร้าน</label>
+                        <input type="text" class="form-control" id="businessName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="businessType" class="form-label">ประเภท</label>
+                        <input type="text" class="form-control" id="businessType">
+                    </div>
+                    <div class="mb-3">
+                        <label for="businessHours" class="form-label">เวลาทำการ</label>
+                        <input type="text" class="form-control" id="businessHours">
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactChannel" class="form-label">ช่องทางการติดต่อ</label>
+                        <input type="text" class="form-control" id="contactChannel">
+                    </div>
+                    <div class="mb-3">
+                        <label for="businessPhone" class="form-label">เบอร์โทรศัพท์</label>
+                        <input type="tel" class="form-control" id="businessPhone">
+                    </div>
+                    <div class="mb-3">
+                        <label for="businessAddress" class="form-label">ที่อยู่ร้าน</label>
+                        <textarea class="form-control" id="businessAddress"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="aboutBusiness" class="form-label">เกี่ยวกับร้าน</label>
+                        <textarea class="form-control" id="aboutBusiness"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                <button type="button" class="btn btn-primary">บันทึกการเปลี่ยนแปลง</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+    var saveButton = document.querySelector('#businessSettingsModal .btn-primary');
+
+    saveButton.addEventListener('click', function () {
+        var businessName = document.getElementById('businessName').value;
+        var businessType = document.getElementById('businessType').value;
+        var businessHours = document.getElementById('businessHours').value;
+        var contactChannel = document.getElementById('contactChannel').value;
+        var businessPhone = document.getElementById('businessPhone').value;
+        var businessAddress = document.getElementById('businessAddress').value;
+        var aboutBusiness = document.getElementById('aboutBusiness').value;
+
+        // แสดงข้อมูลใน console สำหรับทดสอบ
+        console.log('ชื่อร้าน:', businessName);
+        console.log('ประเภท:', businessType);
+        console.log('เวลาทำการ:', businessHours);
+        console.log('ช่องทางการติดต่อ:', contactChannel);
+        console.log('เบอร์โทรศัพท์:', businessPhone);
+        console.log('ที่อยู่ร้าน:', businessAddress);
+        console.log('เกี่ยวกับร้าน:', aboutBusiness);
+
+        // ที่นี่คุณสามารถเพิ่มโค้ดเพื่อส่งข้อมูลไปยังเซิร์ฟเวอร์ผ่าน AJAX หรือ API
+
+        // ปิด modal หลังจากบันทึกข้อมูล
+        $('#businessSettingsModal').modal('hide');
+    });
+});
+
+
+
+        </script>
+
+
+
+
+
             
                 <% if (rows.length > 0) { %>
                     <% rows.forEach(row => { %>
