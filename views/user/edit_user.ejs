@@ -508,14 +508,7 @@
                                     </div>
                                     <hr>
                                 </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <strong>ที่อยู่:</strong> <%= row.home_number %>&nbsp;หมู่&nbsp;<%= row.village %>
-                                        &nbsp;ต.<%= row.subdistrict_name %>&nbsp;อ.<%= row.district_name %>
-                                        &nbsp;จ.<%= row.province_name %>&nbsp;<%= row.zip_code %>
-                                    </div>
-                                    <hr>
-                                </div>
+                                
                                 <div class="row mb-3">
                                     <div class="col">
                                         <strong>เบอร์โทรศัพท์:</strong> <%= row.phone_no %>
@@ -671,27 +664,8 @@
                                                 <label for="phoneNumber" class="form-label">เบอร์โทรศัพท์</label>
                                                 <input type="tel" class="form-control" id="phonenumber" name="phoneNumber" value="">
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="houseNumber" class="form-label">บ้านเลขที่</label>
-                                                    <input type="text" class="form-control" id="h_num" name="homeNumber" value="">
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="village" class="form-label">หมู่</label>
-                                                    <input type="text" class="form-control" id="village" name="village" value="">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="search" class="form-label" >ที่อยู่</label>
-                                                <input type="text" class="form-control" id="search" name="search" placeholder="ป้อนชื่อตำบล...">
-                                                <div id="search-results" class="list-group"></div>
-                                                <!-- Hidden fields for address components -->
-                                                <input type="hidden" id="subdistrict" name="subdistrict" value="">
-                                                <input type="hidden" id="district" name="district" value="">
-                                                <input type="hidden" id="province" name="province" value="">
-                                                <input type="hidden" id="zipcode" name="zipcode" value="">
-                
-                                            </div>
+                                            
+                                          
 
                                             <script>
                                                 document.getElementById('b_date').addEventListener('change', function() {
@@ -793,6 +767,10 @@
                         }
                     });
                 </script>
+
+
+
+
         </main>
         <div class="container">
             <footer class="py-3 my-4">

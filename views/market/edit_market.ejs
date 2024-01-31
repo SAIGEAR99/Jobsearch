@@ -522,14 +522,7 @@
                                     </div>
                                     <hr>
                                 </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <strong>ที่อยู่:</strong> <%= row.home_number %>&nbsp;หมู่&nbsp;<%= row.village %>
-                                        &nbsp;ต.<%= row.subdistrict_name %>&nbsp;อ.<%= row.district_name %>
-                                        &nbsp;จ.<%= row.province_name %>&nbsp;<%= row.zip_code %>
-                                    </div>
-                                    <hr>
-                                </div>
+                               
                                 <div class="row mb-3">
                                     <div class="col">
                                         <strong>เบอร์โทรศัพท์:</strong> <%= row.phone_no %>
@@ -745,27 +738,7 @@
                                                 <label for="phoneNumber" class="form-label">เบอร์โทรศัพท์</label>
                                                 <input type="tel" class="form-control" id="phonenumber" name="phoneNumber" value="">
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="houseNumber" class="form-label">บ้านเลขที่</label>
-                                                    <input type="text" class="form-control" id="h_num" name="homeNumber" value="">
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="village" class="form-label">หมู่</label>
-                                                    <input type="text" class="form-control" id="village" name="village" value="">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="search" class="form-label" >ที่อยู่</label>
-                                                <input type="text" class="form-control" id="search" name="search" placeholder="ป้อนชื่อตำบล...">
-                                                <div id="search-results" class="list-group"></div>
-                                                <!-- Hidden fields for address components -->
-                                                <input type="hidden" id="subdistrict" name="subdistrict" value="">
-                                                <input type="hidden" id="district" name="district" value="">
-                                                <input type="hidden" id="province" name="province" value="">
-                                                <input type="hidden" id="zipcode" name="zipcode" value="">
-                
-                                            </div>
+                                            
 
                                             <script>
                                                 document.getElementById('b_date').addEventListener('change', function() {
@@ -788,88 +761,207 @@
 
 
 
-                <!-- Modal ตั้งค่าบัญชีธุรกิจ -->
+<!-- Modal ตั้งค่าบัญชีธุรกิจ -->
 <div class="modal fade" id="businessSettingsModal" tabindex="-1" aria-labelledby="businessSettingsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="align-items: center;">
                 <h5 class="modal-title" id="businessSettingsModalLabel">ตั้งค่าบัญชีธุรกิจ</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- ฟอร์มตั้งค่าธุรกิจ -->
-                <form>
+                    <form id="businessSettingsForm" action="/market/update_profile/business" method="post">
                     <div class="mb-3">
                         <label for="businessName" class="form-label">ชื่อร้าน</label>
-                        <input type="text" class="form-control" id="businessName">
+                        <input type="text" class="form-control" id="businessName" name="businessName">
                     </div>
                     <div class="mb-3">
                         <label for="businessType" class="form-label">ประเภท</label>
-                        <input type="text" class="form-control" id="businessType">
+                        <input type="text" class="form-control" id="businessType" name="businessType">
+                        <div id="search-resultsA" class="list-group"></div>
+
+                        <input type="hidden" id="typeBus" name="typeBus" value="">
                     </div>
-                    <div class="mb-3">
-                        <label for="businessHours" class="form-label">เวลาทำการ</label>
-                        <input type="text" class="form-control" id="businessHours">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="businessHours" class="form-label">เวลาทำการ</label>
+                            <input type="text" class="form-control" id="businessHours" name="businessHours">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="businessPhone" class="form-label">เบอร์โทรศัพท์</label>
+                            <input type="tel" class="form-control" id="businessPhone" name="businessPhone">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="contactChannel" class="form-label">ช่องทางการติดต่อ</label>
-                        <input type="text" class="form-control" id="contactChannel">
+                        <input type="text" class="form-control" id="contactChannel" name="contactChannel">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="houseNumber" class="form-label">บ้านเลขที่</label>
+                            <input type="text" class="form-control" id="h_num" name="homeNumber" value="">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="village" class="form-label">หมู่</label>
+                            <input type="text" class="form-control" id="village" name="village" value="">
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <label for="businessPhone" class="form-label">เบอร์โทรศัพท์</label>
-                        <input type="tel" class="form-control" id="businessPhone">
-                    </div>
-                    <div class="mb-3">
-                        <label for="businessAddress" class="form-label">ที่อยู่ร้าน</label>
-                        <textarea class="form-control" id="businessAddress"></textarea>
+                        <label for="search" class="form-label" >ที่อยู่</label>
+                        <input type="text" class="form-control" id="search" name="search" placeholder="ป้อนชื่อตำบล...">
+                        <div id="search-results" class="list-group"></div>
+                        <!-- Hidden fields for address components -->
+                        <input type="hidden" id="subdistrict" name="subdistrict" value="">
+                        <input type="hidden" id="district" name="district" value="">
+                        <input type="hidden" id="province" name="province" value="">
+                        <input type="hidden" id="zipcode" name="zipcode" value="">
+
                     </div>
                     <div class="mb-3">
                         <label for="aboutBusiness" class="form-label">เกี่ยวกับร้าน</label>
-                        <textarea class="form-control" id="aboutBusiness"></textarea>
+                        <textarea class="form-control" id="aboutBusiness" name="aboutBusiness"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                <button type="button" class="btn btn-primary">บันทึกการเปลี่ยนแปลง</button>
+                
+                <button type="submit" form="businessSettingsForm" class="btn btn-primary">บันทึกการเปลี่ยนแปลง</button>
             </div>
         </div>
     </div>
 </div>
 
-        <script>
 
-document.addEventListener('DOMContentLoaded', function () {
-    var saveButton = document.querySelector('#businessSettingsModal .btn-primary');
+<script>
 
-    saveButton.addEventListener('click', function () {
-        var businessName = document.getElementById('businessName').value;
-        var businessType = document.getElementById('businessType').value;
-        var businessHours = document.getElementById('businessHours').value;
-        var contactChannel = document.getElementById('contactChannel').value;
-        var businessPhone = document.getElementById('businessPhone').value;
-        var businessAddress = document.getElementById('businessAddress').value;
-        var aboutBusiness = document.getElementById('aboutBusiness').value;
+    document.getElementById('businessType').addEventListener('input', function () {
+        var query = this.value;
+        var resultsDiv = document.getElementById('search-resultsA');
+        
+        if (query.trim() !== '') {
+            fetch('/search/api/businuess?query=' + encodeURIComponent(query))
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(function (data) {
+                resultsDiv.innerHTML = '';
+                data.results.forEach(function (result) {
+                    var resultItem = document.createElement('b');
+                    resultItem.href = "javascript:void(0);";
+                    resultItem.className = 'list-group-item list-group-item-action';
+                    resultItem.textContent = result.business_name;
+                    resultItem.addEventListener('click', function() {
+                        document.getElementById('businessType').value = result.business_name;
 
-        // แสดงข้อมูลใน console สำหรับทดสอบ
-        console.log('ชื่อร้าน:', businessName);
-        console.log('ประเภท:', businessType);
-        console.log('เวลาทำการ:', businessHours);
-        console.log('ช่องทางการติดต่อ:', contactChannel);
-        console.log('เบอร์โทรศัพท์:', businessPhone);
-        console.log('ที่อยู่ร้าน:', businessAddress);
-        console.log('เกี่ยวกับร้าน:', aboutBusiness);
-
-        // ที่นี่คุณสามารถเพิ่มโค้ดเพื่อส่งข้อมูลไปยังเซิร์ฟเวอร์ผ่าน AJAX หรือ API
-
-        // ปิด modal หลังจากบันทึกข้อมูล
-        $('#businessSettingsModal').modal('hide');
+                        document.getElementById('subdistrict').value = result.business_name;
+                        
+                        resultsDiv.innerHTML = '';
+                    });
+                    resultsDiv.appendChild(resultItem);
+                });
+            })
+            .catch(function (error) {
+                console.error('Fetch error:', error);
+            });
+        } else {
+            resultsDiv.innerHTML = '';
+        }
     });
-});
+    
+                        </script>
+
+
+<script>
+    // สคริปต์สำหรับการค้นหาที่อยู่
+    document.getElementById('search').addEventListener('input', function () {
+        var query = this.value;
+        var resultsDiv = document.getElementById('search-results');
+
+        if (query.trim() !== '') {
+            fetch('/search/api?query=' + encodeURIComponent(query))
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(function (data) {
+                resultsDiv.innerHTML = '';
+                data.results.forEach(function (result) {
+                    var resultItem = document.createElement('a');
+                    resultItem.href = "javascript:void(0);";
+                    resultItem.className = 'list-group-item list-group-item-action';
+                    resultItem.textContent = result.subdistrict_name + " - " + result.district_name + " - " + result.province_name + " - " + result.zip_code;
+
+                    resultItem.addEventListener('click', function() {
+                        document.getElementById('search').value = result.subdistrict_name + " - " + result.district_name + " - " + result.province_name + " - " + result.zip_code;
+                        // Update hidden fields
+                        document.getElementById('subdistrict').value = result.subdistrict_name;
+                        document.getElementById('district').value = result.district_name;
+                        document.getElementById('province').value = result.province_name;
+                        document.getElementById('zipcode').value = result.zip_code;
+                        resultsDiv.innerHTML = '';
+                    });
+
+                    resultsDiv.appendChild(resultItem);
+                });
+            })
+            .catch(function (error) {
+                console.error('Fetch error:', error);
+            });
+        } else {
+            resultsDiv.innerHTML = '';
+        }
+    });
+</script>
 
 
 
+
+
+
+<% if (rows.length > 0) { %>
+    <% rows.forEach(row => { %>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var editProfileModal = document.getElementById('businessSettingsModal');
+                editProfileModal.addEventListener('show.bs.modal', function (event) {
+                    var currentUserId = "<%= row.market_name %>"; 
+                    var currentUsername = "<%= row.business_name %>"; 
+                    var currentName = "<%= row.name %>";   
+                    var currentSurname = "<%= row.surname %>"; 
+                    var currentEmail = "<%= row.email %>"; 
+                    var currentAboutMe = "<%= row.about %>"; 
+                    var currentPhoneNumber = "<%= row.phone_no %>"; 
+                    var currentHomeNumber = "<%= row.home_number %>"; 
+                    var currentVillage = "<%= row.village %>"; 
+                    var currentBDate = "<%= formatDate(row.birthday) %>"; 
+                    var currentAddress = "<%= row.subdistrict_name + ' - ' + row.district_name + ' - ' + row.province_name + ' - ' + row.zip_code %>"; 
+                    var currentGender = "<%= row.gender_name %>";
+        
+                    // ตั้งค่าค่าเริ่มต้นในฟอร์มแก้ไขข้อมูลผู้ใช้
+                    document.getElementById('businessName').value = currentUserId;
+                    document.getElementById('businessType').value = currentUsername;
+                    document.getElementById('name').value = currentName;
+                    document.getElementById('surname').value = currentSurname;
+                    document.getElementById('email').value = currentEmail;
+                    document.getElementById('aboutMe').value = currentAboutMe;
+                    document.getElementById('phonenumber').value = currentPhoneNumber;
+                    document.getElementById('h_num').value = currentHomeNumber;
+                    document.getElementById('village').value = currentVillage;
+                    document.getElementById('b_date').value = currentBDate;
+                    document.getElementById('search').value = currentAddress;
+                    document.getElementById('gender').value = currentGender;
+                });
+            });
         </script>
+    <% }); %>
+<% } %>
 
 
 
@@ -914,49 +1006,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <% }); %>
                 <% } %>
             
-                <script>
-                    // สคริปต์สำหรับการค้นหาที่อยู่
-                    document.getElementById('search').addEventListener('input', function () {
-                        var query = this.value;
-                        var resultsDiv = document.getElementById('search-results');
-
-                        if (query.trim() !== '') {
-                            fetch('/search/api?query=' + encodeURIComponent(query))
-                            .then(function (response) {
-                                if (!response.ok) {
-                                    throw new Error('Network response was not ok');
-                                }
-                                return response.json();
-                            })
-                            .then(function (data) {
-                                resultsDiv.innerHTML = '';
-                                data.results.forEach(function (result) {
-                                    var resultItem = document.createElement('a');
-                                    resultItem.href = "javascript:void(0);";
-                                    resultItem.className = 'list-group-item list-group-item-action';
-                                    resultItem.textContent = result.subdistrict_name + " - " + result.district_name + " - " + result.province_name + " - " + result.zip_code;
-
-                                    resultItem.addEventListener('click', function() {
-                                        document.getElementById('search').value = result.subdistrict_name + " - " + result.district_name + " - " + result.province_name + " - " + result.zip_code;
-                                        // Update hidden fields
-                                        document.getElementById('subdistrict').value = result.subdistrict_name;
-                                        document.getElementById('district').value = result.district_name;
-                                        document.getElementById('province').value = result.province_name;
-                                        document.getElementById('zipcode').value = result.zip_code;
-                                        resultsDiv.innerHTML = '';
-                                    });
-
-                                    resultsDiv.appendChild(resultItem);
-                                });
-                            })
-                            .catch(function (error) {
-                                console.error('Fetch error:', error);
-                            });
-                        } else {
-                            resultsDiv.innerHTML = '';
-                        }
-                    });
-                </script>
+            
         </main>
         <div class="container">
             <footer class="py-3 my-4">

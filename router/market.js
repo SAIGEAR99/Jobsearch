@@ -36,13 +36,38 @@ router.get('/profile', (req, res, next) => {
 
     const user = req.session.user;
    
-    dbCon.query(`SELECT user.*, market.*, role.*, typebusiness.*,gender.*,role.role AS role_name,gender.gender AS gender_name
-    FROM user
-    JOIN market ON user.market_id = market.market_id
-    JOIN role ON user.role = role.role_id
-    JOIN typebusiness ON market.market_type = typebusiness.business_id
-    JOIN gender ON user.gender = gender.gender_id
-    WHERE user.username = ?`
+    dbCon.query(`SELECT 
+    u.*,
+    m.*,
+    r.role AS role_name,
+    tb.business_name AS business_name,
+    g.gender AS gender_name,
+    a.*,
+    s.name_in_thai AS subdistrict_name,
+    d.name_in_thai2 AS district_name,
+    p.name_in_thai AS province_name,
+    s.zip_code AS zip_code
+FROM 
+    user u
+JOIN 
+    market m ON u.market_id = m.market_id
+JOIN 
+    role r ON u.role = r.role_id
+JOIN 
+    typebusiness tb ON m.market_type = tb.business_id
+JOIN 
+    gender g ON u.gender = g.gender_id
+JOIN 
+    address a ON m.mk_address = a.address_id
+JOIN 
+    subdistricts s ON a.subdistrict_id = s.id
+JOIN 
+    districts d ON s.district_id = d.id
+JOIN 
+    provinces p ON d.province_id = p.id
+WHERE 
+    u.username = ?
+`
     ,user ,(err, rows) => {
          if (err) {
              console.error('Error retrieving data:', err);
@@ -62,36 +87,6 @@ router.get('/profile', (req, res, next) => {
      });
  });
 
-  
-  router.get('/profile/business', (req, res, next) => {
-  
-      const user = req.session.user;
-     
-      dbCon.query(`SELECT user.*, market.*, role.*, typebusiness.*,gender.*,role.role AS role_name,gender.gender AS gender_name
-      FROM user
-      JOIN market ON user.market_id = market.market_id
-      JOIN role ON user.role = role.role_id
-      JOIN typebusiness ON market.market_type = typebusiness.business_id
-      JOIN gender ON user.gender = gender.gender_id
-      WHERE user.username = ?`
-      ,user ,(err, rows) => {
-           if (err) {
-               console.error('Error retrieving data:', err);
-               res.render('market/edit_business', { 
-                  formatDate , calculateAge,formatDate2,
-                  rows : rows ,
-                  user: req.session.user 
-              });
-           } else {
-               console.log('Data from the database:', rows);
-               res.render('market/edit_business', {
-                  formatDate , calculateAge,formatDate2,
-                  rows : rows ,
-                  user: req.session.user
-              });
-           }
-       });
-   });
 
 
    router.post('/update_profileEdit', (req, res, next) => {
@@ -206,6 +201,89 @@ router.get('/profile', (req, res, next) => {
      });
  });
 
+
+
+ router.post('/update_profile/business', (req, res, next) => {
+
+    const user_id = req.session.userId;
+
+
+    
+    const b_name = req.body.businessName;
+
+    const b_type = req.body.businessType;
+    const b_time = req.body.businessHours;
+
+
+    const b_phone = req.body.businessPhone;
+    const b_contact = req.body.contactChannel;
+    const h_num = req.body.homeNumber;
+    const village = req.body.village;
+    const about = req.body.aboutBusiness;
+
+    const subdistrict_client = req.body.subdistrict;
+    const district =  req.body.district;
+
+      let form_dataUser = {
+        market_name : b_name ,
+        mk_phone : b_phone,
+        mk_contact : b_contact,
+        mk_discript : about,
+          user_id : user_id, 
+      }
+    dbCon.query(`
+    UPDATE market m
+JOIN user u ON m.market_id = u.market_id
+SET 
+    m.market_name = ?, 
+    m.mk_phone = ?, 
+    m.mk_contact = ?, 
+    m.mk_discript = ?
+WHERE u.user_id = ?;
+
+`
+    ,[form_dataUser.market_name,form_dataUser.mk_phone,form_dataUser.mk_contact,form_dataUser.mk_discript,form_dataUser.user_id],(err) => {
+
+          let form_dataAdress1 = {
+              home_number: h_num   ,
+              village: village,
+              user_id: user_id,
+          }
+
+          dbCon.query(`UPDATE address
+          SET 
+              home_number = ? , 
+              village = ?
+          WHERE address_id = (
+              SELECT address_id
+              FROM user
+              WHERE user_id = ?
+          );
+          `, [form_dataAdress1.home_number,
+              form_dataAdress1.village,
+              form_dataAdress1.user_id],(err) => {
+
+  
+    dbCon.query(`
+    UPDATE address AS addr
+INNER JOIN market AS mkt ON addr.address_id = mkt.mk_address
+INNER JOIN user AS usr ON mkt.market_id = usr.market_id
+SET addr.subdistrict_id = (
+    SELECT s.id
+    FROM subdistricts s
+    INNER JOIN districts d ON s.district_id = d.id
+    WHERE s.name_in_thai = ? AND d.name_in_thai2 = ?
+)
+WHERE usr.user_id = ?
+`
+    ,[subdistrict_client,district,user_id],(err) => { 
+
+            res.redirect('/market/profile');
+       });
+    });
+});
+   
+ });
 
 
 module.exports = router;
