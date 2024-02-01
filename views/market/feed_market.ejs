@@ -660,9 +660,9 @@ textarea {
 
 
 
-            <script>
 
 
+<script>
 function toggleLike(postId, userId) {
     fetch(`/post/api/like?postId=${postId}&userId=${userId}`, { method: 'POST' })
         .then(response => response.json())

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 let dbCon = require('../lib/db');
 const sessionConfig = require('../middleware/session-config')
-const { formatDate, calculateAge,formatDate2 } = require('../middleware/cal_Date_Age');
+const { formatDate, calculateAge,formatDate2,formatTimeToZero } = require('../middleware/cal_Date_Age');
 
 
 router.use(sessionConfig);
@@ -72,14 +72,14 @@ WHERE
          if (err) {
              console.error('Error retrieving data:', err);
              res.render('market/edit_market', { 
-                formatDate , calculateAge,formatDate2,
+                formatDate , calculateAge,formatDate2,formatTimeToZero,
                 rows : rows ,
                 user: req.session.user 
             });
          } else {
              console.log('Data from the database:', rows);
              res.render('market/edit_market', {
-                formatDate , calculateAge,formatDate2,
+                formatDate , calculateAge,formatDate2,formatTimeToZero,
                 rows : rows ,
                 user: req.session.user
             });
@@ -212,8 +212,14 @@ WHERE
     const b_name = req.body.businessName;
 
     const b_type = req.body.businessType;
-    const b_time = req.body.businessHours;
 
+
+    const b_timeO = req.body.businessOpenTime;
+    const b_timeC = req.body.businessCloseTime;
+    const b_dayO= req.body.businessDaysOpen;
+    const b_darC = req.body.businessDaysClosed;
+
+    console.log('----------------------->>',b_timeO,b_dayO)
 
     const b_phone = req.body.businessPhone;
     const b_contact = req.body.contactChannel;
@@ -229,6 +235,14 @@ WHERE
         mk_phone : b_phone,
         mk_contact : b_contact,
         mk_discript : about,
+
+        mk_day_op:b_dayO,
+        mk_day_close:b_darC,
+        mk_time_op:b_timeO,
+        mk_time_close:b_timeC,
+        mk_contact:b_contact,
+        mk_phone:b_phone,
+
           user_id : user_id, 
       }
     dbCon.query(`
@@ -238,11 +252,21 @@ SET
     m.market_name = ?, 
     m.mk_phone = ?, 
     m.mk_contact = ?, 
-    m.mk_discript = ?
+    m.mk_discript = ?,
+
+    m.mk_day_op = ?,
+    m.mk_day_close = ?,
+    m.mk_time_op = ?,
+    m.mk_time_close = ?,
+    m.mk_contact = ?,
+    m.mk_phone = ?
+
 WHERE u.user_id = ?;
 
 `
-    ,[form_dataUser.market_name,form_dataUser.mk_phone,form_dataUser.mk_contact,form_dataUser.mk_discript,form_dataUser.user_id],(err) => {
+    ,[form_dataUser.market_name,form_dataUser.mk_phone,form_dataUser.mk_contact,form_dataUser.mk_discript,
+        form_dataUser.mk_day_op,form_dataUser.mk_day_close,form_dataUser.mk_time_op,form_dataUser.mk_time_close,
+        form_dataUser.mk_contact,form_dataUser.mk_phone,form_dataUser.user_id],(err) => {
 
           let form_dataAdress1 = {
               home_number: h_num   ,
@@ -251,14 +275,11 @@ WHERE u.user_id = ?;
           }
 
           dbCon.query(`UPDATE address
-          SET 
-              home_number = ? , 
-              village = ?
-          WHERE address_id = (
-              SELECT address_id
-              FROM user
-              WHERE user_id = ?
-          );
+          JOIN market ON address.address_id = market.mk_address
+          JOIN user ON market.market_id = user.market_id
+          SET address.home_number = ?, 
+              address.village = ?
+          WHERE user.user_id = ?
           `, [form_dataAdress1.home_number,
               form_dataAdress1.village,
               form_dataAdress1.user_id],(err) => {
@@ -278,7 +299,28 @@ WHERE usr.user_id = ?
 `
     ,[subdistrict_client,district,user_id],(err) => { 
 
+        let ff = {
+            business_name: b_type,
+            user_id: user_id
+        }
+
+        dbCon.query(`
+        UPDATE market 
+JOIN user ON market.market_id = user.market_id 
+JOIN typebusiness ON market.market_type = typebusiness.business_id
+SET market.market_type = (
+    SELECT business_id 
+    FROM typebusiness 
+    WHERE business_name = ?
+)
+WHERE user.user_id = ?
+
+`,[ff.business_name,ff.user_id],(err)=> {
             res.redirect('/market/profile');
+
+        });
+
+        
        });
     });
 });

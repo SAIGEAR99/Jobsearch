@@ -364,8 +364,177 @@
         }
 
         .post-container {
-            margin-left: -200px; /* หรือค่าที่เหมาะสมกับการออกแบบของคุณ */
+            margin-left: 55px; /* หรือค่าที่เหมาะสมกับการออกแบบของคุณ */
         }
+
+    
+    #displayBusinessHours {
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+        color: #333;
+        font-size: 16px;
+        text-align: center;
+    }
+    /* Style the button */
+.btn.edit-business-hours {
+    background-color: #007bff; /* Set the background color to a desired color */
+    color: #fff; /* Set the text color to white or any contrasting color */
+    border: none; /* Remove the border */
+    padding: 10px 20px; /* Adjust the padding as needed */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Add a pointer cursor on hover */
+}
+
+/* Style the pencil icon inside the button */
+.btn.edit-business-hours i {
+    margin-right: 5px; /* Add some spacing between the icon and text */
+}
+
+/* Hover effect - Change the background color on hover */
+.btn.edit-business-hours:hover {
+    background-color: #0056b3; /* Change to a slightly darker color on hover */
+}
+ 
+.post {
+    width: 684px;
+    height: auto;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+   
+}
+ 
+.post-header {
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    
+}
+ 
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+ 
+.username {
+    font-weight: bold;
+    font-size: 16px;
+}
+ 
+.post-image {
+    width: 100%; /* กว้างเต็มโพสต์ */
+    display: flex;
+    justify-content: center; 
+    overflow: hidden;
+}
+ 
+.post-image img {
+    width: 100%; /* กว้างเต็มโพสต์ */
+    height: auto; /* ความสูงปรับตามรูปภาพ */
+    object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+    max-height: 100%; /* ความสูงสูงสุดของรูปภาพ */
+}
+.post-footer {
+    padding: 15px;
+    display: flex;
+    justify-content: flex-start;
+}
+ 
+
+ 
+.post-content {
+    flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
+    padding: 20px; /* ระยะห่างขอบของกล่องโพสต์ */
+    overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
+    
+}
+/* สไตล์เริ่มต้นของปุ่มไลค์ */
+.like-button {
+    color: #333; /* สีข้อความ */
+    background-color: #f5f5f5; /* สีพื้นหลัง */
+    border: 1px solid #ddd; /* สีขอบ */
+    padding: 5px 10px; /* ระยะห่าง */
+    border-radius: 3px; /* มุมโค้ง */
+    cursor: pointer; /* รูปแบบเคอร์เซอร์ */
+    transition: all 0.3s ease; /* ผลลัพธ์การเคลื่อนไหว */
+}
+.like-button {
+  padding: 5px 10px;
+  border: none; /* ลบขอบ */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 50px;
+  background-image: url('/public/img/heart_T.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 60px;
+  height: 30px;
+  background-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
+  box-shadow: none; /* ลบเงา (ถ้ามี) */
+  margin-left: -13px;
+}
+
+
+
+.like-button:hover {
+  transform: scale(1.05);
+}
+.like-button.liked {
+    background-image: url('/public/img/heartsB.png');
+}
+
+.like-button.liked:hover {
+    transform: scale(1.05);
+}
+.post-options {
+    position: relative;
+    display: inline-block;
+    /* สไตล์อื่นๆ ตามต้องการ */
+    margin-left: 530px;
+}
+
+.dropbtn {
+    /* สไตล์ของปุ่ม */
+    background: none;
+    border: none;
+    font-size: 24px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover { background-color: #f1f1f1; }
+
+.post-options:hover .dropdown-content {
+    display: block;
+}
+
+
+
+
+</style>
+
 
 
     </style>
@@ -531,6 +700,12 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
+                                        <strong>Email:</strong> <%= row.email %>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
                                         <strong>เกี่ยวกับฉัน:</strong> <%= row.about %>
                                     </div>
                                     
@@ -564,20 +739,20 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <strong>เวลาทำการ:</strong> <span><%= row.mk_time_op%> - <%= row.mk_time_close %></span>
+                                        <strong>เวลาทำการ:</strong> <span> <%= row.mk_day_op%> - <%= row.mk_day_close %>  เวลา: <%= formatTimeToZero(row.mk_time_op) %> - <%= formatTimeToZero(row.mk_time_close) %> น.</span>
                                     </div>
                                     <hr>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <strong>ช่องทางการติดต่อ:</strong> <span>Facebook : Tree EKP</span>
+                                        <strong>ช่องทางการติดต่อ:</strong> <span><%= row.mk_contact %></span>
                                     </div>
                                     <hr>
                                 </div>
                                 
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <strong>เบอร์โทรศัพท์:</strong> <span>099-999-9999</span>
+                                        <strong>เบอร์โทรศัพท์:</strong> <span><%= row.mk_phone %></span>
                                     </div>
                                     <hr>
                                 </div>
@@ -606,55 +781,129 @@
 
                     <div class="card-body-post related-div" id="posts"   style="display: none;">
                         <div class="post-container">
-                            <div class="d-flex justify-content-center">
-                                <div class="post-all" style="width: 935px;">
-                                    <div class="post-1">
-                                        <a href="#" class="post-image-link" data-bs-toggle="modal" data-bs-target="#postImageUploadModal">
-                                            <img src="https://images.unsplash.com/photo-1682685797660-3d847763208e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8" class="post-image" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="post-1">
-                                        <img src="https://images.unsplash.com/photo-1706016869327-651c2c18650b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHx8" alt="" class="post-image">
-                                    </div>
-                                    <div class="post-1">
-                                        <img src="https://images.unsplash.com/photo-1706158634402-7790851d177e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8" alt="" class="post-image">
-                                     </div>
-                                </div>
-                            </div>
-                         
-                            <div class="d-flex justify-content-center">
-                                <div class="post-all" style="width: 935px;">
-                                    <div class="post-1">
-                                        <img src="https://plus.unsplash.com/premium_photo-1702910931271-2ed8ef023fd0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="post-image">
-                                    </div>
-                                    <div class="post-1">
-                                        <img src="https://images.unsplash.com/photo-1703159453462-8a2d2866afaf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHx8" alt="" class="post-image">
-                                    </div>
-                                    <div class="post-1">
-                                        <img src="https://images.unsplash.com/photo-1705939924260-70e1c3ba4c63?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D" alt="" class="post-image">
-                                     </div>
-                                </div>
-                            </div>
-                         
-                            <div class="d-flex justify-content-center">
-                                <div class="post-all" style="width: 935px;">
-                                    <div class="post-1">
-                                        <img src="https://images.unsplash.com/photo-1706087270134-436d8b4fc15b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHx8" alt="" class="post-image">
-                                    </div>
-                                    <div class="post-1">
-                                        <img src="https://images.unsplash.com/photo-1700224673906-36185dafec8a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHx8" alt="" class="post-image">
-                                    </div>
-                                    <div class="post-1">
-                                        <img src="https://plus.unsplash.com/premium_photo-1700248829431-0078ceb1a8a7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMnx8fGVufDB8fHx8fA%3D%3D" alt="" class="post-image">
-                                     </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
 
-                    <!-- <div class="card-body-saved related-div" id="saved"   style="display: none;">
-                        777777777777777777
-                    </div> -->
+                    
+                    <script>
+                        function toggleLike(postId, userId) {
+                            fetch(`/post/api/like?postId=${postId}&userId=${userId}`, { method: 'POST' })
+                                .then(response => response.json())
+                                .then(data => {
+                                    let likeButton = document.querySelector(`#likeButton-${postId}`);
+                                    let likeCount = document.querySelector(`#likeCount-${postId}`);
+                        
+                                    if (data.liked) {
+                                        likeButton.classList.add('liked');
+                                        
+                                     
+                                    } else {
+                                        likeButton.classList.remove('liked');
+                                        
+                                        
+                                    }
+                                    likeCount.textContent = `${data.likeCount} Likes`;
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        }
+                        
+                                    let currentPage = 0;
+                                    const limit = 5;
+                                    let isFetching = false;
+                         
+                                    function loadMorePosts() {
+                            if (isFetching) return;
+                            isFetching = true;
+                        
+                            fetch(`/post/api/posts/own?page=${currentPage}&limit=${limit}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    const mainContent = document.querySelector('.post-container');
+                        
+                                    data.forEach(post => {
+                                        const postElement = document.createElement('div');
+                                        postElement.classList.add('post');
+                                        postElement.style.marginTop = "20px";
+                        
+                                        // กำหนดคลาส CSS และข้อความสำหรับปุ่มการถูกใจ
+                                        let likeButtonClass = post.userLiked ? 'like-button liked' : 'like-button';
+                                        let likeButtonText = post.userLiked ? '' : '';
+                        
+                                        postElement.innerHTML = `
+                                        <div class="post" style="margin-top: 20px;">
+                                        <div class="post-header">
+                                            <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
+                                            <span class="username">${post.market_name}</span>
+                                            
+                                            <!-- ปุ่มจุดสามจุด -->
+                                            <div class="post-options">
+                                                <button class="dropbtn">⋮</button>
+                                                <div class="dropdown-content">
+                                                    <a href="#" onclick="reportPost(${post.post_id});">รายงาน</a>
+                                                    <a href="#" onclick="deletePost(${post.post_id});">ลบโพสต์</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="post-content">
+                                            ${post.post_discript}
+                                        </div>
+                                        <div class="post-image">
+                                            <img src="/img/select/${post.post_id}" alt="Post">
+                                        </div>
+                                        <div class="post-footer">
+                                            <div id="post">
+                                                <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
+                                                <button class ="${likeButtonClass}" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id},${post.user_id});">${likeButtonText}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                        `;
+                                        mainContent.appendChild(postElement);
+                                    });
+                        
+                                    currentPage++;
+                                    isFetching = false;
+                                });
+                        }
+                        
+                                window.onscroll = function() {
+                                    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 10) {
+                                loadMorePosts();
+                                 }
+                                    };
+                                        loadMorePosts();
+
+</script>
+
+
+<script>
+                
+                function deletePost(postId) {
+    if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้?")) {
+        fetch('/post/delete-post/' + postId, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("โพสต์ถูกลบแล้ว");
+                // ทำการอัปเดต UI หรือรีโหลดหน้า
+            } else {
+                console.error("เกิดข้อผิดพลาดในการลบโพสต์");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    }
+}
+
+</script>
+
+
                 
                 </div>
         
@@ -671,17 +920,19 @@
                         <div class="modal-body">
                             <!-- ฟอร์มอัพโหลดรูปภาพ -->
                             <form action="/img/upload/market" method="post" enctype="multipart/form-data">
-                                <div class="drop-zone">
+                                <div class="drop-zone1">
                                     <p>ลากและวางไฟล์รูปภาพที่นี่หรือคลิกเพื่อเลือกไฟล์</p>
-                                    <input type="file" name="uploadedFile" id="uploadedFile" class="form-control" accept="image/*" hidden>
+                                    <input type="file" name="uploadedFile1" id="uploadedFile1" class="form-control" accept="image/*" hidden>
                                 </div>
-                                <img id="selectedImage" src="#" alt="Selected Image" style="max-width: 100%; max-height: 200px; display: none;" />
+                                <img id="selectedImage1" src="#" alt="Selected Image" style="max-width: 100%; max-height: 200px; display: none;" />
                                 <input type="submit" value="Upload Image" name="submit" class="btn btn-primary mt-3" />
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
+           
             
                 <!-- Modal แก้ไขโปรไฟล์ -->
                 <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
@@ -759,7 +1010,8 @@
 
 
 
-
+                <% if (rows.length > 0) { %>
+                    <% rows.forEach(row => { %>
 
 <!-- Modal ตั้งค่าบัญชีธุรกิจ -->
 <div class="modal fade" id="businessSettingsModal" tabindex="-1" aria-labelledby="businessSettingsModalLabel" aria-hidden="true">
@@ -773,30 +1025,60 @@
             <div class="modal-body">
                 <!-- ฟอร์มตั้งค่าธุรกิจ -->
                     <form id="businessSettingsForm" action="/market/update_profile/business" method="post">
+
+                        <div class="row" style="background-color: #eeeeee;  padding: 2%; margin: 0.5%; ">
+                            
+                            <div class="col-md-3">
+                                <a href="#" class="profile-image-link" data-bs-toggle="modal" data-bs-target="#profileImageUploadMarket">
+                                    <img src="/img/mk_img/<%= row.user_id %>" class="profile-image rounded-circle" alt="Profile Picture" style="width: 100px; height: 100px;">
+                                </a>
+                            </div>
+                        
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="businessName" class="form-label">ชื่อร้าน</label>
+                                    <input type="text" class="form-control" id="businessName" name="businessName">
+                                </div>
+                            </div>
+                            
+                        </div>
+
+
+                        <br>
                     <div class="mb-3">
-                        <label for="businessName" class="form-label">ชื่อร้าน</label>
-                        <input type="text" class="form-control" id="businessName" name="businessName">
-                    </div>
-                    <div class="mb-3">
+                        
                         <label for="businessType" class="form-label">ประเภท</label>
                         <input type="text" class="form-control" id="businessType" name="businessType">
                         <div id="search-resultsA" class="list-group"></div>
 
-                        <input type="hidden" id="typeBus" name="typeBus" value="">
+                        <input type="hidden" id="businessTypehi" name="businessTypehi">
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="businessHours" class="form-label">เวลาทำการ</label>
-                            <input type="text" class="form-control" id="businessHours" name="businessHours">
+
+                    <div class="row">
+                    <div class="col-md-12">
+                        <label for="displayBusinessHours" class="form-label">เวลาทำการของร้าน:</label>
+                        <div id="displayBusinessHours">
+                            <!-- Display business hours here -->
                         </div>
+                    </div>
+                     <!-- ตำแหน่งที่จะแสดงเวลาทำการ -->
+                      <!-- ฟิลด์ซ่อนสำหรับส่งข้อมูลเวลาทำการ -->
+                    <input type="hidden" id="hiddenBusinessOpenTime" name="businessOpenTime">
+                    <input type="hidden" id="hiddenBusinessCloseTime" name="businessCloseTime">
+                    <input type="hidden" id="hiddenBusinessDaysOpen" name="businessDaysOpen">
+                    <input type="hidden" id="hiddenBusinessDaysClosed" name="businessDaysClosed">
+                    </div>
+                     <br>
+                    <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="businessPhone" class="form-label">เบอร์โทรศัพท์</label>
                             <input type="tel" class="form-control" id="businessPhone" name="businessPhone">
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="contactChannel" class="form-label">ช่องทางการติดต่อ</label>
+
+                        <div class="col-md-6">
+                            <label for="contactChannel" class="form-label">ช่องทางการติดต่อ</label>
                         <input type="text" class="form-control" id="contactChannel" name="contactChannel">
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -834,6 +1116,149 @@
 </div>
 
 
+<div class="modal fade" id="businessHoursModal" tabindex="-1" aria-labelledby="businessHoursModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="businessHoursModalLabel">ตั้งค่าเวลาและวันทำการ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- ฟอร์มสำหรับเวลาและวันทำการ -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="businessOpenTime" class="form-label">เวลาเปิด</label>
+                        <input type="time" class="form-control" id="businessOpenTime" name="businessOpenTime">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="businessCloseTime" class="form-label">เวลาปิด</label>
+                        <input type="time" class="form-control" id="businessCloseTime" name="businessCloseTime">
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="businessDaysOpen" class="form-label">วันทำการ</label>
+                        <select class="form-control" id="businessDaysOpen" name="businessDaysOpen">
+                            <option value="วันจันทร์">จันทร์</option>
+                            <option value="วันอังคาร">อังคาร</option>
+                            <option value="วันพุธ">พุธ</option>
+                            <option value="วันพฤหัสบดี">พฤหัสบดี</option>
+                            <option value="วันศุกร์">ศุกร์</option>
+                            <option value="วันเสาร์">เสาร์</option>
+                            <option value="วันอาทิตย์">อาทิตย์</option>
+                           
+                            
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="businessDaysClosed" class="form-label">วันปิดทำการ</label>
+                        <select class="form-control" id="businessDaysClosed" name="businessDaysClosed">
+                            <option value="วันจันทร์">จันทร์</option>
+                            <option value="วันอังคาร">อังคาร</option>
+                            <option value="วันพุธ">พุธ</option>
+                            <option value="วันพฤหัสบดี">พฤหัสบดี</option>
+                            <option value="วันศุกร์">ศุกร์</option>
+                            <option value="วันเสาร์">เสาร์</option>
+                            <option value="วันอาทิตย์">อาทิตย์</option>
+                        </select>
+                    </div>
+                </div>
+                
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">บันทึกการเปลี่ยนแปลง</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="profileImageUploadMarket" tabindex="-1" aria-labelledby="profileImageUploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="align-items: center;">
+                <h5 class="modal-title" id="profileImageUploadModalLabel">อัพโหลดรูป Profile Business</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- ฟอร์มอัพโหลดรูปภาพ -->
+                <form action="/img/upload/market/bussiness" method="post" enctype="multipart/form-data">
+                    <div class="drop-zone2">
+                        <p>ลากและวางไฟล์รูปภาพที่นี่หรือคลิกเพื่อเลือกไฟล์</p>
+                        <input type="file" name="uploadedFile2" id="uploadedFile2" class="form-control" accept="image/*" hidden>
+                    </div>
+                    <img id="selectedImage2" src="#" alt="Selected Image" style="max-width: 100%; max-height: 200px; display: none;" />
+                    <input type="submit" value="Upload Image" name="submit" class="btn btn-primary mt-3" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<% }); %>
+                            <% } else { %>
+                        <p class="text-center">No data available.</p>
+                            <% } %>
+
+
+<% if (rows.length > 0) { %>
+    <% rows.forEach(row => { %>
+<!-- ตำแหน่งที่เพิ่มโค้ด JavaScript -->
+<script>
+    $(document).ready(function() {
+    // ดึงค่าที่มาจากเซิร์ฟเวอร์และตั้งค่าเริ่มต้นสำหรับกล่อง "displayBusinessHours" และฟิลด์ซ่อน
+    var initialOpenTime = '<%= formatTimeToZero(row.mk_time_op) %>'; // เปลี่ยนตามค่าที่มาจากเซิร์ฟเวอร์
+    var initialCloseTime = '<%= formatTimeToZero(row.mk_time_close) %>'; // เปลี่ยนตามค่าที่มาจากเซิร์ฟเวอร์
+    var initialDaysOpen = '<%= row.mk_day_op %>'; // เปลี่ยนตามค่าที่มาจากเซิร์ฟเวอร์
+    var initialDaysClosed = '<%= row.mk_day_close %>'; // เปลี่ยนตามค่าที่มาจากเซิร์ฟเวอร์
+
+    // ตั้งค่าเริ่มต้นให้กับกล่อง "displayBusinessHours"
+    var initialBusinessHoursDisplay = 'เปิด ' + initialDaysOpen + '-' + initialDaysClosed + ' เวลา ' + initialOpenTime + ' - ' + initialCloseTime +' น.';
+    $('#displayBusinessHours').text(initialBusinessHoursDisplay);
+
+    // ตั้งค่าเริ่มต้นให้กับฟิลด์ซ่อน (hidden fields)
+    $('#hiddenBusinessOpenTime').val(initialOpenTime);
+    $('#hiddenBusinessCloseTime').val(initialCloseTime);
+    $('#hiddenBusinessDaysOpen').val(initialDaysOpen);
+    $('#hiddenBusinessDaysClosed').val(initialDaysClosed);
+
+    // คลิกที่กล่อง "displayBusinessHours" เพื่อแสดง modal "businessHoursModal"
+    $('#displayBusinessHours').on('click', function() {
+        $('#businessHoursModal').modal('show');
+    });
+
+    // จัดการเมื่อ modal "businessHoursModal" ถูกปิด
+    $('#businessHoursModal').on('hide.bs.modal', function () {
+        // ดึงข้อมูลจากฟอร์มของ 'businessHoursModal'
+        var openTime = $('#businessOpenTime').val();
+        var closeTime = $('#businessCloseTime').val();
+        var daysOpen = $('#businessDaysOpen').val();
+        var daysClosed = $('#businessDaysClosed').val();
+
+        // ตั้งค่าข้อมูลใน modal หลัก
+        // สร้างสตริงตามรูปแบบที่ต้องการแสดง
+        var businessHoursDisplay = 'เปิด ' + daysOpen + '-' + daysClosed + ' เวลา ' + openTime + ' - ' + closeTime;
+        $('#displayBusinessHours').text(businessHoursDisplay);
+
+        // ตั้งค่าข้อมูลในฟิลด์ซ่อน (hidden fields) ของ 'businessSettingsForm' เพื่อส่งไปยังเซิร์ฟเวอร์
+        $('#hiddenBusinessOpenTime').val(openTime);
+        $('#hiddenBusinessCloseTime').val(closeTime);
+        $('#hiddenBusinessDaysOpen').val(daysOpen);
+        $('#hiddenBusinessDaysClosed').val(daysClosed);
+    });
+});
+
+
+</script>
+<% }); %>
+<% } %>
+
+
+
+
+
 <script>
 
     document.getElementById('businessType').addEventListener('input', function () {
@@ -858,7 +1283,6 @@
                     resultItem.addEventListener('click', function() {
                         document.getElementById('businessType').value = result.business_name;
 
-                        document.getElementById('subdistrict').value = result.business_name;
                         
                         resultsDiv.innerHTML = '';
                     });
@@ -921,42 +1345,32 @@
 </script>
 
 
-
-
-
-
 <% if (rows.length > 0) { %>
     <% rows.forEach(row => { %>
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 var editProfileModal = document.getElementById('businessSettingsModal');
                 editProfileModal.addEventListener('show.bs.modal', function (event) {
-                    var currentUserId = "<%= row.market_name %>"; 
-                    var currentUsername = "<%= row.business_name %>"; 
-                    var currentName = "<%= row.name %>";   
-                    var currentSurname = "<%= row.surname %>"; 
-                    var currentEmail = "<%= row.email %>"; 
-                    var currentAboutMe = "<%= row.about %>"; 
-                    var currentPhoneNumber = "<%= row.phone_no %>"; 
-                    var currentHomeNumber = "<%= row.home_number %>"; 
-                    var currentVillage = "<%= row.village %>"; 
-                    var currentBDate = "<%= formatDate(row.birthday) %>"; 
+                    var currentmk_name = "<%= row.market_name %>"; 
+                    var currentTypename = "<%= row.business_name %>"; 
+                    var currentbusinessPhone = "<%= row.mk_phone %>"; 
+                    var currentcontactChannel = "<%= row.mk_contact %>"; 
+                    var currenth_num = "<%= row.home_number %>"; 
+                    var currentvillage = "<%= row.village %>"; 
+                    var aboutBusiness = "<%= row.mk_discript %>"; 
                     var currentAddress = "<%= row.subdistrict_name + ' - ' + row.district_name + ' - ' + row.province_name + ' - ' + row.zip_code %>"; 
-                    var currentGender = "<%= row.gender_name %>";
+                    
         
                     // ตั้งค่าค่าเริ่มต้นในฟอร์มแก้ไขข้อมูลผู้ใช้
-                    document.getElementById('businessName').value = currentUserId;
-                    document.getElementById('businessType').value = currentUsername;
-                    document.getElementById('name').value = currentName;
-                    document.getElementById('surname').value = currentSurname;
-                    document.getElementById('email').value = currentEmail;
-                    document.getElementById('aboutMe').value = currentAboutMe;
-                    document.getElementById('phonenumber').value = currentPhoneNumber;
-                    document.getElementById('h_num').value = currentHomeNumber;
-                    document.getElementById('village').value = currentVillage;
-                    document.getElementById('b_date').value = currentBDate;
+                    document.getElementById('businessName').value = currentmk_name;
+                    document.getElementById('businessType').value = currentTypename;
+                    document.getElementById('businessPhone').value = currentbusinessPhone;
+                    document.getElementById('contactChannel').value = currentcontactChannel;
+                    document.getElementById('h_num').value = currenth_num ;
+                    document.getElementById('village').value = currentvillage;
+                    document.getElementById('aboutBusiness').value = aboutBusiness;
                     document.getElementById('search').value = currentAddress;
-                    document.getElementById('gender').value = currentGender;
+                    
                 });
             });
         </script>
@@ -1018,79 +1432,80 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var dropZone = document.querySelector('.drop-zone');
-        var fileInput = document.getElementById('uploadedFile'); // เปลี่ยน id เป็น 'uploadedFile'
-        var selectedImage = document.getElementById('selectedImage');
+        // กำหนดฟังก์ชันสำหรับการตั้งค่าอัปโหลดไฟล์
+        function setupFileUpload(dropZoneSelector, inputFileId, previewImageId) {
+            var dropZone = document.querySelector(dropZoneSelector);
+            var fileInput = document.getElementById(inputFileId);
+            var previewImage = document.getElementById(previewImageId);
     
-        dropZone.addEventListener('click', function() {
-            fileInput.click();
-        });
-    
-        fileInput.addEventListener('change', function() {
-            if (fileInput.files.length > 0) {
-            var selectedFile = fileInput.files[0];
-            var objectURL = URL.createObjectURL(selectedFile);
-            selectedImage.src = objectURL;
-            selectedImage.style.display = 'block';
-            } else {
-            selectedImage.style.display = 'none';
-            }
-        });
-    
-        dropZone.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            dropZone.classList.add('drop-zone--over');
-        });
-    
-        ['dragleave', 'dragend'].forEach(type => {
-            dropZone.addEventListener(type, function() {
-            dropZone.classList.remove('drop-zone--over');
+            dropZone.addEventListener('click', function() {
+                fileInput.click();
             });
-        });
     
-        dropZone.addEventListener('drop', function(e) {
-            e.preventDefault();
-            dropZone.classList.remove('drop-zone--over');
-            if (e.dataTransfer.files.length > 0) {
-            fileInput.files = e.dataTransfer.files;
-            var selectedFile = fileInput.files[0];
-            var objectURL = URL.createObjectURL(selectedFile);
-            selectedImage.src = objectURL;
-            selectedImage.style.display = 'block';
-            } else {
-            selectedImage.style.display = 'none';
-            }
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length > 0) {
+                    var selectedFile = fileInput.files[0];
+                    var objectURL = URL.createObjectURL(selectedFile);
+                    previewImage.src = objectURL;
+                    previewImage.style.display = 'block';
+                } else {
+                    previewImage.style.display = 'none';
+                }
+            });
+    
+            dropZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                dropZone.classList.add('drop-zone--over');
+            });
+    
+            ['dragleave', 'dragend'].forEach(type => {
+                dropZone.addEventListener(type, function() {
+                    dropZone.classList.remove('drop-zone--over');
+                });
+            });
+    
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropZone.classList.remove('drop-zone--over');
+                if (e.dataTransfer.files.length > 0) {
+                    fileInput.files = e.dataTransfer.files;
+                    var selectedFile = fileInput.files[0];
+                    var objectURL = URL.createObjectURL(selectedFile);
+                    previewImage.src = objectURL;
+                    previewImage.style.display = 'block';
+                } else {
+                    previewImage.style.display = 'none';
+                }
+            });
+        }
+    
+        // เรียกใช้ฟังก์ชันสำหรับการอัปโหลดไฟล์ที่ 1
+        setupFileUpload('.drop-zone1', 'uploadedFile1', 'selectedImage1');
+    
+        // เรียกใช้ฟังก์ชันสำหรับการอัปโหลดไฟล์ที่ 2
+        setupFileUpload('.drop-zone2', 'uploadedFile2', 'selectedImage2');
+    
+        // โค้ดสำหรับการจัดการ dropdown menu
         var dropdown = document.querySelector('.dropdown');
         var dropdownMenu = document.querySelector('.dropdown-menu');
-
-        // เมื่อคลิกที่ปุ่ม dropdown
+    
         dropdown.addEventListener('click', function (event) {
-            // ป้องกันเหตุการณ์เริ่มต้นของลิงก์
-            
-                
-            // แสดงหรือซ่อน dropdown menu
             if (dropdownMenu.style.display === 'block') {
                 dropdownMenu.style.display = 'none';
             } else {
                 dropdownMenu.style.display = 'block';
             }
         });
-
-        // ซ่อน dropdown เมื่อคลิกนอกเขต dropdown
+    
         document.addEventListener('click', function (event) {
             var isClickInside = dropdown.contains(event.target);
-
             if (!isClickInside) {
                 dropdownMenu.style.display = 'none';
             }
         });
     });
-
-</script>
+    </script>
+    
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

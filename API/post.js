@@ -3,7 +3,8 @@ var router = express.Router();
 let dbCon = require('../lib/db');
 const path = require('path');
 
-const sessionConfig = require('../middleware/session-config')
+const sessionConfig = require('../middleware/session-config');
+const { error } = require('console');
 
 router.use(sessionConfig);
  
@@ -24,6 +25,33 @@ router.get('/api/posts', function(req, res) {
     
     `;
     dbCon.query(sql, [req.session.userId,offset, limit], function(err, results) {
+        if (err) {
+            console.error('Error querying MySQL database:', err);
+            res.status(500).json({ error: 'Internal server error' });
+            return;
+        }
+        res.json(results);
+    });
+});
+
+router.get('/api/posts/own', function(req, res) {
+    const page = parseInt(req.query.page) || 0;
+    const limit = parseInt(req.query.limit) || 5;
+    const offset = page * limit;
+
+ 
+    // ส่งคำสั่ง SQL เพื่อดึงข้อมูลโพสต์จากฐานข้อมูล
+    const sql = `
+    SELECT post.*, market.*, 
+    (SELECT COUNT(*) FROM likes WHERE post_id = post.post_id AND user_id = ?) as userLiked
+FROM post 
+JOIN market ON post.market_id = market.market_id 
+JOIN user ON market.market_id = user.market_id
+WHERE user.user_id = ? 
+ORDER BY post.post_id DESC
+LIMIT ?, ?
+`;
+    dbCon.query(sql, [req.session.userId,req.session.userId,offset, limit], function(err, results) {
         if (err) {
             console.error('Error querying MySQL database:', err);
             res.status(500).json({ error: 'Internal server error' });
@@ -117,7 +145,17 @@ router.post('/api/like', (req, res) => {
 });
 
  
-  
+router.delete('/delete-post/:postId', (req, res) => {
+    const postId = req.params.postId;
+    dbCon.query('DELETE FROM post WHERE post_id = ?', [postId], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("เกิดข้อผิดพลาดในการลบโพสต์");
+        }
+        res.status(200).send("โพสต์ถูกลบแล้ว");
+    });
+});
+
 
  
  

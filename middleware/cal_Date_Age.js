@@ -31,4 +31,12 @@ const formatDate2 = (dateString) => {
     return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
-module.exports = { formatDate, calculateAge,formatDate2 };
+const formatTimeToZero = (timeString) => {
+    if (!timeString) return '00:00';
+    const parts = timeString.split(':'); // แยกเวลาออกเป็นส่วนๆ
+    const hours = parts[0].padStart(2, '0'); // รับชั่วโมงและเติม 0 ถ้าต้องการ
+    const minutes = parts[1].padStart(2, '0'); // รับนาทีและเติม 0 ถ้าต้องการ
+    return `${hours}:${minutes}`;
+};
+
+module.exports = { formatDate, calculateAge,formatDate2 ,formatTimeToZero};

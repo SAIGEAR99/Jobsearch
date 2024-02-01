@@ -103,15 +103,45 @@ router.post('/upload/market', (req, res) => {
         return res.status(400).send('No files were uploaded.');
     }
 
-    let uploadedFile = req.files.uploadedFile;
+    let uploadedFile1 = req.files.uploadedFile1;
 
     // สร้างตำแหน่งสำหรับเก็บไฟล์
-    const uploadPath = path.join('./middleware/img', uploadedFile.name);
+    const uploadPath = path.join('./middleware/img', uploadedFile1.name);
 
-    uploadedFile.mv(uploadPath, err => {
+    uploadedFile1.mv(uploadPath, err => {
         if (err) return res.status(500).send(err);
 
         let query = 'UPDATE user SET img_profile = ? WHERE username = ?;';
+        dbCon.query(query, [uploadPath,user], (err, result) => {
+            if (err) return res.status(500).send(err);
+            res.redirect('/market/profile')
+        });
+    });
+});
+
+
+router.post('/upload/market/bussiness', (req, res) => {
+    const user = req.session.user;
+    const empY = req.session.isEmployer;
+   
+    
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+    }
+
+    let uploadedFile2 = req.files.uploadedFile2;
+
+    // สร้างตำแหน่งสำหรับเก็บไฟล์
+    const uploadPath = path.join('./middleware/img', uploadedFile2.name);
+
+    uploadedFile2.mv(uploadPath, err => {
+        if (err) return res.status(500).send(err);
+
+        let query = `UPDATE market 
+        JOIN user ON market.market_id = user.market_id
+        SET market.mk_img = ?
+        WHERE user.username = ?
+         `;
         dbCon.query(query, [uploadPath,user], (err, result) => {
             if (err) return res.status(500).send(err);
             res.redirect('/market/profile')

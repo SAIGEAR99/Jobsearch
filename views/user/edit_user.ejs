@@ -516,6 +516,12 @@
                                     <hr>
                                 </div>
                                 <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Email:</strong> <%= row.email %>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="row mb-3">
                                     <div class="col" id="boxA">
                                         <strong>เกี่ยวกับฉัน:</strong> <%= row.about %>
                                     </div>
@@ -713,8 +719,6 @@
                                     document.getElementById('email').value = currentEmail;
                                     document.getElementById('aboutMe').value = currentAboutMe;
                                     document.getElementById('phonenumber').value = currentPhoneNumber;
-                                    document.getElementById('h_num').value = currentHomeNumber;
-                                    document.getElementById('village').value = currentVillage;
                                     document.getElementById('b_date').value = currentBDate;
                                     document.getElementById('search').value = currentAddress;
                                     document.getElementById('gender').value = currentGender;
