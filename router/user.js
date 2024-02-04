@@ -111,11 +111,16 @@ WHERE user.username LIKE ?;`
         form_dataUser.birthday,form_dataUser.email, form_dataUser.about,
          form_dataUser.phone_no, form_dataUser.user_id],(err) => {
 
-            res.redirect('/user/profile');
-
+          dbCon.query(`UPDATE user 
+          SET gender = (SELECT gender_id FROM gender WHERE gender = ?) 
+          WHERE user_id = ?
+          `,[gender,user_id],(err) => {
+              res.redirect('/user/profile');
+            
+            });
     });
                        
 });
-            
+    
 
 module.exports = router;

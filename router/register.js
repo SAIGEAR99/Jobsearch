@@ -75,47 +75,111 @@ router.post('/add', (req, res) => {
 
 
 router.post('/add/business', (req, res) => {
-    let user = req.session.user;
-    let marketname = req.body.user;
-    let markettype = req.body.search;
-    let marketabout = req.body.about;
-
-    let form_data = {
-       market_name : marketname,
-       market_type: markettype,
-       mk_discript:marketabout,
-    
-    }
-
-    dbCon.query(`INSERT INTO market SET ?`, form_data , (err, result) => {
-        console.log('++++++++++++>',err)
-        let lastInsertId = result.insertId;
-    
-        // คำสั่ง UPDATE
-        dbCon.query(`UPDATE user SET market_id = ?, role = 2 WHERE username = ?`, [lastInsertId, user], (err) => {
+    // Retrieve values from session and request body
+    let userId = req.session.userId;
+    let marketName = req.body.user;
+    let businessName = req.body.search; // This should be the name of the business, not the type
+    let marketAbout = req.body.about;
+  
+    // Begin transaction
+    dbCon.beginTransaction((err) => {
+      if (err) { throw err; }
+  
+      // Find the business_id from the business_name
+      dbCon.query('SELECT business_id FROM typebusiness WHERE business_name = ?', [businessName], (err, results) => {
+        if (err) {
+          return dbCon.rollback(() => {
+            res.status(500).send({
+              message: 'Error finding business type',
+              error: err.message
+            });
+          });
+        }
+  
+        // Check if business type exists
+        if (results.length === 0) {
+          return dbCon.rollback(() => {
+            res.status(404).send({
+              message: 'Business type not found'
+            });
+          });
+        }
+  
+        const businessId = results[0].business_id;
+  
+        // Insert a new address
+        dbCon.query('INSERT INTO address (subdistrict_id) VALUES (?)', [999999], (err, results) => {
+          if (err) {
+            return dbCon.rollback(() => {
+              res.status(500).send({
+                message: 'Error inserting address',
+                error: err.message
+              });
+            });
+          }
+  
+          const newAddressId = results.insertId;
+          const uploadPath = path.join('./middleware/img','../img/aa.jpg');
+        
+  
+          // Insert a new market with the business_id
+          dbCon.query('INSERT INTO market (market_name, market_type, mk_address, mk_discript,mk_img) VALUES (?, ?, ?, ?,?)', [marketName, businessId, newAddressId, marketAbout,uploadPath], (err, results) => {
             if (err) {
-                console.log(err);
+              return dbCon.rollback(() => {
+                res.status(500).send({
+                  message: 'Error inserting market',
+                  error: err.message
+                });
+              });
             }
-                dbCon.query(`SELECT user.*, market.*, role.*, typebusiness.*,gender.*,role.role AS role_name,gender.gender AS gender_name
-                FROM user
-                JOIN market ON user.market_id = market.market_id
-                JOIN role ON user.role = role.role_id
-                JOIN typebusiness ON market.market_type = typebusiness.business_id
-                JOIN gender ON user.gender = gender.gender_id
-                WHERE user.username = ?
-                
-                `,user,(err,rows) => {
+  
+            const newMarketId = results.insertId;
+  
+            // Update the user with the new market_id
+            dbCon.query('UPDATE user SET market_id = ? WHERE user_id = ?', [newMarketId, userId], (err, results) => {
+              if (err) {
+                return dbCon.rollback(() => {
+                  res.status(500).send({
+                    message: 'Error updating user',
+                    error: err.message
+                  });
+                });
+              }
 
-                    console.log(err)
-                    res.render('market/all_acc',{
-                        formatDate , calculateAge
-                        ,rows : rows,
-                    user: req.session.user})
-                })
-            
+              dbCon.query('UPDATE user SET market_id = ?, role = 2 WHERE user_id = ?', [newMarketId, userId], (err, results) => {
+                if (err) {
+                  return dbCon.rollback(() => {
+                    res.status(500).send({
+                      message: 'Error updating user',
+                      error: err.message
+                    });
+                  });
+                }
+                req.session.role = 2;
+                req.session.isEmployer = true;
+                req.session.isEmployee = false;
+
+              // Commit the transaction
+              dbCon.commit((err) => {
+                if (err) {
+                  return dbCon.rollback(() => {
+                    res.status(500).send({
+                      message: 'Error committing transaction',
+                      error: err.message
+                    });
+                  });
+                }
+                // Send a response to the client
+                 res.redirect('/market/profile')
+                });
+              });
+            });
+          });
         });
+      });
     });
-});
+  });
+  
 
 
 

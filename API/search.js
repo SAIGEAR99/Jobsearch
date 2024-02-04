@@ -56,5 +56,25 @@ LIMIT 5;
   });
 
 
+  router.get('/api/scan', (req, res) => {
+    const query = req.query.query;
+    
+  
+    // ดำเนินการค้นหาข้อมูลในฐานข้อมูล MySQL
+    dbCon.query(`SELECT * FROM market
+    WHERE market_name LIKE ?`
+    ,['%'+ query + '%'], (err, results) => {
+      if (err) {
+        console.error('มีข้อผิดพลาดในการค้นหาข้อมูล: ' + err.message);
+        return;
+      }
+  
+      // ส่งข้อมูลผลลัพธ์กลับในรูปแบบ JSON
+      res.json({ results });
+      console.log(results);
+    });
+  });
+
+
 
 module.exports = router;

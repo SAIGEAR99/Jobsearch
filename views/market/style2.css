@@ -560,3 +560,45 @@ margin: 0;
 
 
 
+/* สไตล์สำหรับกล่องค้นหา */
+.search-box {
+    position: relative;
+    display: inline-block;
+  }
+  
+  #searchInput {
+    width: 200px; /* ปรับขนาดกล่องค้นหาตามต้องการ */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .search-results li {
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  /* สไตล์สำหรับปุ่มค้นหา (เพิ่มเมื่อต้องการแสดงปุ่มค้นหา) */
+  #searchButton {
+    cursor: pointer;
+  }
+  
+
+

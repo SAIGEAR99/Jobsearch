@@ -35,10 +35,84 @@
                   </a>
                
                
-                  <a href="#" class="nav-link active" aria-current="page">
+                  <a href="#" id="scan" class="nav-link link-body-emphasis" onclick="showPostPopup()">
                      <img src="/public/img/search.png" alt="" style="width: 12%;">
                      <span class="aa">ค้นหา </span>
                   </a>
+
+
+                  <div id="scan_m" class="modal">
+                    <div class="modal-content">
+                        
+                        <label for="scan" class="form-label" >ค้นหา</label>
+                        <input type="text" class="form-control" id="scans" name="scans" placeholder="คำค้นหา...">
+                        <div id="search-results-scan" class="list-group"></div>
+                        </div>  
+                    </div>
+                
+
+                  <script>
+                    function showModal(modalId) {
+                    var modal = document.getElementById(modalId);
+                    modal.style.display = "block";
+                    document.body.style.overflow = 'hidden';
+                }
+                // ซ่อน Modal ตาม ID
+                function hideModal(modalId) {
+                    var modal = document.getElementById(modalId);
+                    modal.style.display = "none";
+                    document.body.style.overflow = '';
+                }
+                // ฟังก์ชันเมื่อผู้ใช้กดปุ่ม "Post"
+                document.getElementById('scan').addEventListener('click', function() {
+                    showModal('scan_m');
+                });
+                  </script>
+
+<script>
+    // สคริปต์สำหรับการค้นหาที่อยู่
+    document.getElementById('scans').addEventListener('input', function () {
+
+        var query = this.value;
+        var resultsDiv = document.getElementById('search-results-scan');
+
+        if (query.trim() !== '') {
+            fetch('/search/api/scan?query=' + encodeURIComponent(query))
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(function (data) {
+                resultsDiv.innerHTML = '';
+                data.results.forEach(function (result) {
+                    var resultItem = document.createElement('a');
+                    resultItem.href = "javascript:void(0);";
+
+                    resultItem.className = 'list-group-item list-group-item-action';
+                    resultItem.textContent = result.market_name +'  Detail: '+'['+ result.mk_discript+']';
+
+                    resultItem.addEventListener('click', function() {
+                        document.getElementById('scan').value = result.textContent;
+  
+                        resultsDiv.innerHTML = '';
+                    });
+
+                    resultsDiv.appendChild(resultItem);
+                });
+            })
+            .catch(function (error) {
+                console.error('Fetch error:', error);
+            });
+        } else {
+            resultsDiv.innerHTML = '';
+        }
+    });
+</script>
+
+
+
                
                
                   <a href="#" class="nav-link">
@@ -163,9 +237,8 @@
                 }
                 </script>
                    
-                       <script>
-                    // แสดง Modal ตาม ID
-                    // แสดง Modal ตาม ID
+            <script>
+                
                 function showModal(modalId) {
                     var modal = document.getElementById(modalId);
                     modal.style.display = "block";
