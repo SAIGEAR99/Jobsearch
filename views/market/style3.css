@@ -40,7 +40,12 @@
     vertical-align:bottom;
 }
 
+.main-content {
+    margin-left: 300px; /* Adjusted margin to match sidebar width */
+    padding: 20px;
 
+   
+}
 .aa{
       font-size: 20px;
 }

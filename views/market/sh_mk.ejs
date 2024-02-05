@@ -55,7 +55,7 @@
             vertical-align:bottom;
         }
  
-       
+     
         .aa{
               font-size: 20px;
         }
@@ -232,7 +232,7 @@
    
  
                   <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
-                     <a href="/user/profile" class="nav-link">
+                     <a href="/market/profile" class="nav-link">
                     <img src="/img/file" class="custom-rounded-img" alt="" style="width: 25px; height: 25px; margin-right: 6px; margin-left: 3px;">
                         <span class="aa">โปรไฟล์</span>
                              </a>
@@ -256,134 +256,209 @@
             </div>
           </div>
         </div>
- 
+
+        <% if (rows.length > 0) { %>
+            <% rows.forEach(row => { %>
+    
+
+
+        <div class="head-content" style="width: 684px; margin: 0 auto; background-color: white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" > 
+        
+            <img src="/img/mk_cover/<%= row.market_id %>" style="width: 100%; /* กว้างเต็มโพสต์ */
+            height: 300px; /* ความสูงปรับตามรูปภาพ */
+            object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+            max-height: 100%; border-radius: 0 0 10px 10px;">
+        </div>
+
+
+        <div class="prifile-content" style="width:684px; margin: 0 auto; background-color: white; border-radius:0 0 10px 10px; margin-bottom: 50px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <style>
+                .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-image {
+    width: 185px;
+    height: 185px;
+    object-fit: cover;
+    margin-right: 45px;
+    position: relative;
+    margin-top: -90px;
+    margin-left: 30px;
+    border: 5px solid white; /* This will add a white border */
+    border-radius: 10px; /* This will make the corners of the border rounded */
+    background-color: white;
+}
+
+
+
        
- 
-                <div class="main-content" style="width: 684px; margin: 0 auto;"> </div>
+    
+            </style>
+        
+            <div class="profile-image-link" >
+                <img src="/img/mk_img_mk/<%= row.market_id %>" class="profile-image rounded-circle" alt="Profile Picture" >
+            </div>
+            <div style="margin-left: 235px; margin-top: -85px;">
+            <strong style="font-size: 35px;"><%= row.market_name %> </strong>
+            <div style="margin-top: -8px;">
+            <strong style="font-size: 15px;"><%= row.business_name %> </strong>
+        </div>
+        </div>
+            
 
- 
+        <div style="height: 50px;"></div>
+        <div style="height: 310px; width: 97%; background-color: #ffffff;  margin: auto; border-radius: 10px;">
+            
+            <div style="height: 10px;"></div>
+            <div style="height: 200px; width: 97%; background-color: #ffffff;  margin: auto; border-radius: 10px;">
+            
+               <div style="height: 0px; "></div>
+                <strong style="font-size: 20px; margin-left: 20px; ">เแนะนำบัญชี</strong>
+               
+
+                <div style=" margin-left: 20px; margin-top: 18px;">
+                <img src="/public/img/contact.png" style=" width: 22px;"><strong>&nbsp;&nbsp;&nbsp;ช่องทางติดต่อ:&nbsp;</strong><%= row.mk_contact %></div>
+
+                <div style=" margin-left: 20px; margin-top: 18px;">
+                    <img src="/public/img/phone.png" style=" width: 22px;"><strong>&nbsp;&nbsp;&nbsp;เบอร์โทรศัพท์:&nbsp;</strong> <%= row.mk_phone %> </div>
+
+
+                    <div style=" margin-left: 20px; margin-top: 18px;">
+                        <img src="/public/img/clock.png" style=" width: 22px;"><strong>&nbsp;&nbsp;&nbsp;เวลาทำการ:&nbsp;</strong><span> <%= row.mk_day_op%> - <%= row.mk_day_close %>  เวลา: <%= formatTimeToZero(row.mk_time_op) %> - <%= formatTimeToZero(row.mk_time_close) %> น.</div>
+
+                            <div style=" margin-left: 20px; margin-top: 18px;">
+                                <img src="/public/img/pin.png" style=" width: 26px; margin-left: -2px;"><strong style="margin-left: 0px;">&nbsp;&nbsp;&nbsp;ที่อยู่:&nbsp;</strong><%= row.home_number %>&nbsp;หมู่&nbsp;<%= row.village %>
+                                &nbsp;ต.<%= row.subdistrict_name %>&nbsp;อ.<%= row.district_name %>
+                                &nbsp;จ.<%= row.province_name %>&nbsp;<%= row.zip_code %></div>
+                                
+
+                                <div style=" margin-left: 20px; margin-top: 18px;">
+                                    <img src="/public/img/info-button.png" style=" width: 21px; margin-left: 1.5px;"><strong style="margin-left: 1px;">&nbsp;&nbsp;&nbsp;เกี่ยวกับ:&nbsp;</strong><%= row.mk_discript %></div>
+            </div>
+            
+        
+        </div>
+
+        </div>
+       
+
+
+  
+        <% }); %>
+        <% } else { %>
+            <p class="text-center">No data available.</p>
+        <% } %>
+
+
+        <div class="cc-content" style="width: 684px; margin: 0 auto; background-color: white; border-radius: 10px; margin-top: -30px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" > 
+        <div style="height: 10px;"></div>
+        <strong style="font-size: 20px; margin-left: 20px;">โพสต์</strong>
+        <div style="height: 10px;"></div>
+        </div>
 
 
 
-            <script>
 
+        <div class="mk-content" style="width: 684px; margin: 0 auto; " > </div>
 
-function toggleLike(postId, userId) {
-    fetch(`/post/api/like?postId=${postId}&userId=${userId}`, { method: 'POST' })
-        .then(response => response.json())
-        .then(data => {
-            let likeButton = document.querySelector(`#likeButton-${postId}`);
-            let likeCount = document.querySelector(`#likeCount-${postId}`);
+        <% if (rows.length > 0) { %>
+            <% rows.forEach(row => { %>
 
-            if (data.liked) {
-                likeButton.classList.add('liked');
-                
-             
-            } else {
-                likeButton.classList.remove('liked');
-                
-                
+        <script>
+            function toggleLike(postId, userId) {
+                fetch(`/post/api/like?postId=${postId}&userId=${userId}`, { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => {
+                        let likeButton = document.querySelector(`#likeButton-${postId}`);
+                        let likeCount = document.querySelector(`#likeCount-${postId}`);
+            
+                        if (data.liked) {
+                            likeButton.classList.add('liked');
+                            
+                         
+                        } else {
+                            likeButton.classList.remove('liked');
+                            
+                            
+                        }
+                        likeCount.textContent = `${data.likeCount} Likes`;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
             }
-            likeCount.textContent = `${data.likeCount} Likes`;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
+            
+                        let currentPage = 0;
+                        const limit = 5;
+                        let isFetching = false;
+                        const yourMkId = "<%= row.market_id %>";
+             
+                        function loadMorePosts() {
+                if (isFetching) return;
+                isFetching = true;
+            
+                fetch(`/post/api/posts/mk?page=${currentPage}&limit=${limit}&mk_id=${yourMkId}`)
 
-            let currentPage = 0;
-            const limit = 5;
-            let isFetching = false;
- 
-            function loadMorePosts() {
-    if (isFetching) return;
-    isFetching = true;
-
-    fetch(`/post/api/posts?page=${currentPage}&limit=${limit}`)
-        .then(response => response.json())
-        .then(data => {
-            const mainContent = document.querySelector('.main-content');
-
-            data.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.classList.add('post');
-                postElement.style.marginTop = "20px";
-
-                // กำหนดคลาส CSS และข้อความสำหรับปุ่มการถูกใจ
-                let likeButtonClass = post.userLiked ? 'like-button liked' : 'like-button';
-                let likeButtonText = post.userLiked ? '' : '';
-
-                postElement.innerHTML = `
-                    <div class="post" style="margin-top: 20px;">
-                        <div class="post-header">
-                            <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
-                            <span class="username">${post.market_name}</span>
-                        </div>
-                        <div class="post-content">
-                            ${post.post_discript}
-                            
-                        </div>
-                        <div class="post-image">
-                            <img src="/img/select/${post.post_id}" alt="Post">
-                            
-                        </div>
+                    .then(response => response.json())
+                    .then(data => {
+                        const mainContent = document.querySelector('.mk-content');
+            
+                        data.forEach(post => {
+                            const postElement = document.createElement('div');
+                            postElement.classList.add('post');
+                            postElement.style.marginTop = "20px";
+            
+                           
+            
+                            postElement.innerHTML = `
+                            <div class="post" style="margin-top: 20px;">
+                            <div class="post-header">
+                                <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
+                                <span class="username">${post.market_name}</span>
+                                
                         
-                        <div class="post-footer">
-                            <div id="post">
-                                <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
-                                <button class ="${likeButtonClass}" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id},${post.user_id});">${likeButtonText}</button>
+                            </div>
+                            <div class="post-content">
+                                ${post.post_discript}
+                            </div>
+                            <div class="post-image">
+                                <img src="/img/select/${post.post_id}" alt="Post">
+                            </div>
+                            <div class="post-footer">
+                                <div id="post">
+                                    <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
+                                 
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                `;
-                mainContent.appendChild(postElement);
-            });
 
-            currentPage++;
-            isFetching = false;
-        });
-}
+                            `;
+                            mainContent.appendChild(postElement);
+                        });
+            
+                        currentPage++;
+                        isFetching = false;
+                    });
+            }
+            
+                    window.onscroll = function() {
+                        if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 10) {
+                    loadMorePosts();
+                     }
+                        };
+                            loadMorePosts();
 
-        window.onscroll = function() {
-            if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 10) {
-        loadMorePosts();
-         }
-            };
-                loadMorePosts();
-            </script>
-
-
-
+</script>
+<% }); %>
+<% } else { %>
+    <p class="text-center">No data available.</p>
+<% } %>
  
-            <script>
- 
-document.addEventListener('DOMContentLoaded', function () {
-    var dropdown = document.querySelector('.dropdown');
-    var dropdownMenu = document.querySelector('.dropdown-menu');
- 
-    // เมื่อคลิกที่ปุ่ม dropdown
-    dropdown.addEventListener('click', function (event) {
-        // ป้องกันเหตุการณ์เริ่มต้นของลิงก์
        
-       
-        // แสดงหรือซ่อน dropdown menu
-        if (dropdownMenu.style.display === 'block') {
-            dropdownMenu.style.display = 'none';
-        } else {
-            dropdownMenu.style.display = 'block';
-        }
-    });
- 
-    // ซ่อน dropdown เมื่อคลิกนอกเขต dropdown
-    document.addEventListener('click', function (event) {
-        var isClickInside = dropdown.contains(event.target);
- 
-        if (!isClickInside) {
-            dropdownMenu.style.display = 'none';
-        }
-    });
-});
- 
-       </script>
+
  
 
  

@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags remain unchanged -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 5 DatePicker</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+
+ 
+ 
+    <!-- Custom styles -->
+    <style>
+ 
+        .sidebar {
+            left: 0;
+            height: 100vh;
+            position: fixed;
+            width: 250px; /* Adjusted width */
+            overflow-x:hidden;
+            overflow-y:hidden;
+            z-index: 1000;
+            background-color: #ffffff; /* Light gray background */
+            padding: 20px;
+            box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
+        }
+ 
+        .sidebar .nav-item {
+            list-style: none;
+            margin-bottom: 30px;
+            margin-left: -9px;
+            font-weight: 400;
+           
+ 
+        }
+ 
+        .sidebar .nav-link {
+            text-decoration: none;
+            color: #000; /* Black text color */
+            font-size: 18px;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+ 
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef; /* Light hover effect */
+            color: #007bff; /* Blue text on hover */
+        }
+ 
+        .sidebar .nav-link img {
+              margin-top: 18px;
+            margin-right: 10px;
+            vertical-align:bottom;
+        }
+ 
+     
+        .aa{
+              font-size: 20px;
+        }
+        .custom-rounded-img {
+        border-radius: 50%; /* Make the image round */
+        width: 40px;
+        height: 40px;
+         /* Adjust width as needed * /* Adjust height as needed */
+        object-fit:cover; /* Ensure the image covers the area */
+    }
+ 
+    .dropdown {
+       position: absolute;
+       bottom: 10px;
+    margin-top: 0; /* ลบ margin-top ที่กำหนดไว้ก่อนหน้านี้ */
+    width: 100%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+}
+ 
+.dropdown-menu {
+    display: none; /* ซ่อน dropdown menu ไว้เริ่มต้น */
+    position: absolute;
+    bottom: 100%; /* ตั้งค่าให้ปรากฏด้านล่างของปุ่ม */
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    width: 90%; /* ขยายความกว้างเพื่อให้เต็มปุ่ม */
+}
+ 
+/* อาจต้องปรับแต่งสไตล์ของปุ่มที่อยู่ภายใน .dropdown ให้สอดคล้องกับปุ่มอื่นๆ */
+.dropdown button {
+    width: 50%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+    /* สไตล์อื่นๆ ตามที่ต้องการ */
+}
+.dropdown-toggle::after {
+    display: none;
+}
+ 
+ 
+.post {
+    width: 684px;
+    height: auto;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+   
+}
+ 
+.post-header {
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+}
+ 
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+ 
+.username {
+    font-weight: bold;
+    font-size: 16px;
+}
+ 
+.post-image {
+    width: 100%; /* กว้างเต็มโพสต์ */
+    display: flex;
+    justify-content: center; 
+    overflow: hidden;
+}
+ 
+.post-image img {
+    width: 100%; /* กว้างเต็มโพสต์ */
+    height: auto; /* ความสูงปรับตามรูปภาพ */
+    object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+    max-height: 100%; /* ความสูงสูงสุดของรูปภาพ */
+}
+.post-footer {
+    padding: 15px;
+    display: flex;
+    justify-content: flex-start;
+}
+ 
+
+ 
+.post-content {
+    flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
+    padding: 20px; /* ระยะห่างขอบของกล่องโพสต์ */
+    overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
+}
+/* สไตล์เริ่มต้นของปุ่มไลค์ */
+.like-button {
+    color: #333; /* สีข้อความ */
+    background-color: #f5f5f5; /* สีพื้นหลัง */
+    border: 1px solid #ddd; /* สีขอบ */
+    padding: 5px 10px; /* ระยะห่าง */
+    border-radius: 3px; /* มุมโค้ง */
+    cursor: pointer; /* รูปแบบเคอร์เซอร์ */
+    transition: all 0.3s ease; /* ผลลัพธ์การเคลื่อนไหว */
+}
+.like-button {
+  padding: 5px 10px;
+  border: none; /* ลบขอบ */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 50px;
+  background-image: url('/public/img/heart_T.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 60px;
+  height: 30px;
+  background-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
+  box-shadow: none; /* ลบเงา (ถ้ามี) */
+  margin-left: -13px;
+}
+
+
+
+.like-button:hover {
+  transform: scale(1.05);
+}
+.like-button.liked {
+    background-image: url('/public/img/heartsB.png');
+}
+
+.like-button.liked:hover {
+    transform: scale(1.05);
+}
+
+
+#displayBusinessHours {
+padding: 10px;
+margin-top: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+background-color: #f8f8f8;
+color: #333;
+font-size: 16px;
+text-align: center;
+}
+/* Style the button */
+.btn.edit-business-hours {
+background-color: #007bff; /* Set the background color to a desired color */
+color: #fff; /* Set the text color to white or any contrasting color */
+border: none; /* Remove the border */
+padding: 10px 20px; /* Adjust the padding as needed */
+border-radius: 5px; /* Add rounded corners */
+cursor: pointer; /* Add a pointer cursor on hover */
+}
+
+/* Style the pencil icon inside the button */
+.btn.edit-business-hours i {
+margin-right: 5px; /* Add some spacing between the icon and text */
+}
+
+/* Hover effect - Change the background color on hover */
+.btn.edit-business-hours:hover {
+background-color: #0056b3; /* Change to a slightly darker color on hover */
+}
+
+
+#businessSettingsModal .modal-content {
+border-radius: 8px;
+box-shadow: 0 5px 15px rgba(0,0,0,.1);
+}
+
+/* Input Field Design */
+#businessSettingsModal .form-control {
+border: 1px solid #ced4da;
+border-radius: 4px;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#businessSettingsModal .form-control:focus {
+border-color: #80bdff;
+box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+/* Button Styling */
+#businessSettingsModal .btn-primary {
+background-color: #007bff;
+border-color: #007bff;
+border-radius: 4px;
+transition: background-color .15s ease-in-out;
+}
+
+#businessSettingsModal .btn-primary:hover {
+background-color: #0056b3;
+border-color: #0056b3;
+}
+
+/* Typography */
+#businessSettingsModal .modal-title {
+font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-size: 1.25rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+#businessSettingsModal .modal-dialog {
+margin: 0.5rem;
+}
+
+#businessSettingsModal .modal-content {
+margin: 0;
+}
+}
+
+
+    </style>
+</head>
+ 
+ 
+<body style="background-color: #f0f2f5;">
+ 
+<div class="container-fluid">
+    <div class="row">
+ 
+        <!-- Custom Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar content here -->
+            <div>
+              <a href="/"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
+                <span class="fs-4"><img src="/public/img/Logo-Instagram.png" style="width: 60%; margin-left: -2px; margin-bottom: 10px;"></span>
+              </a>
+             
+              <ul class="nav">
+                <li class="nav-item">
+             
+                  <a href="/user/feed" class="nav-link active" aria-current="page">
+                     <img src="/public/img/homepage.png" alt="" style="width: 13%;">
+                    <span class="aa">หน้าหลัก</span>
+                  </a>
+               
+               
+                  <a href="#" class="nav-link active" aria-current="page">
+                     <img src="/public/img/search.png" alt="" style="width: 12%;">
+                     <span class="aa">ค้นหา </span>
+                  </a>
+               
+               
+                  <a href="#" class="nav-link">
+                     <img src="/public/img/compass.png" alt="" style="width: 12%;">
+                     <span class="aa">สำรวจ</span>
+                  </a>
+               
+               
+               
+   
+ 
+                  <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
+                     <a href="/market/profile" class="nav-link">
+                    <img src="/img/file" class="custom-rounded-img" alt="" style="width: 25px; height: 25px; margin-right: 6px; margin-left: 3px;">
+                        <span class="aa">โปรไฟล์</span>
+                             </a>
+ 
+ 
+                             <div class="dropdown">
+                                   <button class="btn dropdown-toggle " type="button" >
+                                       <img src="/public/img/more.png" alt="Logo" style="width: 25%; margin-right: 10px;">
+                                       <span class="aa">เพิ่มเติม</span>
+                                   </button>
+                                   <ul class="dropdown-menu" style="display: none;">
+                                       <li><a class="dropdown-item " href="/logout" >สลับบัญชี</a></li>
+                                       <li><a class="dropdown-item " href="/logout">ออกจากระบบ</a></li>
+                                   </ul>
+                            </div>
+   
+                    </li>        
+                    </div>
+               
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <% if (rows.length > 0) { %>
+            <% rows.forEach(row => { %>
+    
+
+                    <style>
+        .profile-image-link {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .profile-image {
+            transition: all 0.3s ease;
+        }
+
+        .profile-image-link {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-image-link:hover .profile-image {
+            filter: brightness(85%);
+            border-radius: 10px;
+           
+            
+        }
+
+        .profile-image-link:hover::after {
+            content: '';
+            display: block;
+            width: 24px; /* กำหนดขนาดกว้างของ pseudo-element */
+            height: 24px; /* กำหนดขนาดสูงของ pseudo-element */
+           
+            background-size: cover; /* หรือใช้ contain ตามความต้องการ */
+            font-family: 'FontAwesome';
+            position: absolute;
+           
+            transform: translate(-50%, -50%);
+
+
+
+
+            
+        }
+    .head-content {
+    width: 684px;
+    margin: 0 auto;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer; /* เพิ่ม cursor เป็น pointer เพื่อแสดงว่าสามารถคลิกได้ */
+   
+    overflow: hidden; /* กันรูปภาพทะลุออกไปนอกขอบ */
+}
+
+.head-content:hover .cover-image {
+    opacity: 0.8; /* เอฟเฟกต์เมื่อ hover บน .head-content */
+   
+    
+}
+
+.cover-image {
+    width: 100%; /* กว้างเต็มโพสต์ */
+    height: 300px; /* ความสูงปรับตามรูปภาพ */
+    object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+    transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงแบบ smooth */
+   
+}
+
+
+                    </style>
+
+
+        <div class="head-content" style="width: 684px; margin: 0 auto; background-color: white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" > 
+        
+            <img src="/img/mk_cover/<%= row.market_id %>" class="cover-image" style="width: 100%; /* กว้างเต็มโพสต์ */
+            height: 300px; /* ความสูงปรับตามรูปภาพ */
+            object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+            max-height: 100%; border-radius: 0 0 10px 10px;" data-bs-toggle="modal" data-bs-target="#profileImageUploadMarket">
+        </div>
+
+        <div class="modal fade" id="profileImageUploadMarket" tabindex="-1" aria-labelledby="profileImageUploadModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="align-items: center;">
+                        <h5 class="modal-title" id="profileImageUploadModalLabel">อัพโหลดรูป Cover</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- ฟอร์มอัพโหลดรูปภาพ -->
+                        <form action="/img/upload/market/bussiness/cover" method="post" enctype="multipart/form-data">
+                            <div class="drop-zone3">
+                                <p>ลากและวางไฟล์รูปภาพที่นี่หรือคลิกเพื่อเลือกไฟล์</p>
+                                <input type="file" name="uploadedFile3" id="uploadedFile3" class="form-control" accept="image/*" hidden>
+                            </div>
+                            <img id="selectedImage3" src="#" alt="Selected Image" style="max-width: 100%; max-height: 200px; display: none;" />
+                            <input type="submit" value="Upload Image" name="submit" class="btn btn-primary mt-3" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+       
+
+
+        <div class="prifile-content" style="width:684px; margin: 0 auto; background-color: white; border-radius:0 0 10px 10px; margin-bottom: 50px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <style>
+                .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-image {
+    width: 185px;
+    height: 185px;
+    object-fit: cover;
+    margin-right: 45px;
+    position: relative;
+    margin-top: -90px;
+    margin-left: 30px;
+    border: 5px solid white; /* This will add a white border */
+    border-radius: 10px; /* This will make the corners of the border rounded */
+    background-color: white;
+}
+
+
+
+       
+    
+            </style>
+        
+            <div class="profile-image-link" >
+                <img src="/img/mk_img_mk/<%= row.market_id %>" class="profile-image rounded-circle" alt="Profile Picture"  data-bs-toggle="modal" data-bs-target="#profileImageUploadPO" >
+            </div>
+            <div style="margin-left: 235px; margin-top: -85px;">
+            <strong style="font-size: 35px;"><%= row.market_name %> </strong>
+            <div style="margin-top: -8px;">
+            <strong style="font-size: 15px;"><%= row.business_name %> </strong>
+        </div>
+        </div>
+            
+
+        <div style="height: 50px;"></div>
+        <div style="height: 380px; width: 97%; background-color: #ffffff;  margin: auto; border-radius: 10px;">
+            
+            <div style="height: 10px;"></div>
+            <div style="height: 200px; width: 97%; background-color: #ffffff;  margin: auto; border-radius: 10px;">
+            
+               <div style="height: 0px; "></div>
+                <strong style="font-size: 20px; margin-left: 20px; ">เแนะนำบัญชี</strong>
+               
+
+                <div style=" margin-left: 20px; margin-top: 18px;">
+                <img src="/public/img/contact.png" style=" width: 22px;"><strong>&nbsp;&nbsp;&nbsp;ช่องทางติดต่อ:&nbsp;</strong><%= row.mk_contact %></div>
+
+                <div style=" margin-left: 20px; margin-top: 18px;">
+                    <img src="/public/img/phone.png" style=" width: 22px;"><strong>&nbsp;&nbsp;&nbsp;เบอร์โทรศัพท์:&nbsp;</strong> <%= row.mk_phone %> </div>
+
+
+                    <div style=" margin-left: 20px; margin-top: 18px;">
+                        <img src="/public/img/clock.png" style=" width: 22px;"><strong>&nbsp;&nbsp;&nbsp;เวลาทำการ:&nbsp;</strong><span> <%= row.mk_day_op%> - <%= row.mk_day_close %>  เวลา: <%= formatTimeToZero(row.mk_time_op) %> - <%= formatTimeToZero(row.mk_time_close) %> น.</div>
+
+                            <div style=" margin-left: 20px; margin-top: 18px;">
+                                <img src="/public/img/pin.png" style=" width: 26px; margin-left: -2px;"><strong style="margin-left: 0px;">&nbsp;&nbsp;&nbsp;ที่อยู่:&nbsp;</strong><%= row.home_number %>&nbsp;หมู่&nbsp;<%= row.village %>
+                                &nbsp;ต.<%= row.subdistrict_name %>&nbsp;อ.<%= row.district_name %>
+                                &nbsp;จ.<%= row.province_name %>&nbsp;<%= row.zip_code %></div>
+                                
+
+                                <div style=" margin-left: 20px; margin-top: 18px;">
+                                    <img src="/public/img/info-button.png" style=" width: 21px; margin-left: 1.5px;"><strong style="margin-left: 1px;">&nbsp;&nbsp;&nbsp;เกี่ยวกับ:&nbsp;</strong><%= row.mk_discript %></div>
+
+                            <div class="btn" style="background-color: #e4e6eb; width: 98%; margin-top: 60px; margin-left: 5px; color: black"data-bs-toggle="modal" data-bs-target="#businessSettingsModal" ><strong>แก้ไขรายละเอียด</strong></div>
+                            
+            </div>
+            
+        
+        </div>
+
+        </div>
+
+
+        <div class="modal fade" id="profileImageUploadPO" tabindex="-1" aria-labelledby="profileImageUploadModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="align-items: center;">
+                        <h5 class="modal-title" id="profileImageUploadModalLabel">อัพโหลดรูป Profile</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- ฟอร์มอัพโหลดรูปภาพ -->
+                        <form action="/img/upload/market/bussiness" method="post" enctype="multipart/form-data">
+                            <div class="drop-zone4">
+                                <p>ลากและวางไฟล์รูปภาพที่นี่หรือคลิกเพื่อเลือกไฟล์</p>
+                                <input type="file" name="uploadedFile4" id="uploadedFile4" class="form-control" accept="image/*" hidden>
+                            </div>
+                            <img id="selectedImage4" src="#" alt="Selected Image" style="max-width: 100%; max-height: 200px; display: none;" />
+                            <input type="submit" value="Upload Image" name="submit" class="btn btn-primary mt-3" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // กำหนดฟังก์ชันสำหรับการตั้งค่าอัปโหลดไฟล์
+                function setupFileUpload(dropZoneSelector, inputFileId, previewImageId) {
+                    var dropZone = document.querySelector(dropZoneSelector);
+                    var fileInput = document.getElementById(inputFileId);
+                    var previewImage = document.getElementById(previewImageId);
+            
+                    dropZone.addEventListener('click', function() {
+                        fileInput.click();
+                    });
+            
+                    fileInput.addEventListener('change', function() {
+                        if (fileInput.files.length > 0) {
+                            var selectedFile = fileInput.files[0];
+                            var objectURL = URL.createObjectURL(selectedFile);
+                            previewImage.src = objectURL;
+                            previewImage.style.display = 'block';
+                        } else {
+                            previewImage.style.display = 'none';
+                        }
+                    });
+            
+                    dropZone.addEventListener('dragover', function(e) {
+                        e.preventDefault();
+                        dropZone.classList.add('drop-zone--over');
+                    });
+            
+                    ['dragleave', 'dragend'].forEach(type => {
+                        dropZone.addEventListener(type, function() {
+                            dropZone.classList.remove('drop-zone--over');
+                        });
+                    });
+            
+                    dropZone.addEventListener('drop', function(e) {
+                        e.preventDefault();
+                        dropZone.classList.remove('drop-zone--over');
+                        if (e.dataTransfer.files.length > 0) {
+                            fileInput.files = e.dataTransfer.files;
+                            var selectedFile = fileInput.files[0];
+                            var objectURL = URL.createObjectURL(selectedFile);
+                            previewImage.src = objectURL;
+                            previewImage.style.display = 'block';
+                        } else {
+                            previewImage.style.display = 'none';
+                        }
+                    });
+                }
+            
+                // เรียกใช้ฟังก์ชันสำหรับการอัปโหลดไฟล์ที่ 1
+                setupFileUpload('.drop-zone3', 'uploadedFile3', 'selectedImage3');
+            
+                // เรียกใช้ฟังก์ชันสำหรับการอัปโหลดไฟล์ที่ 2
+                setupFileUpload('.drop-zone4', 'uploadedFile4', 'selectedImage4');
+            
+                // โค้ดสำหรับการจัดการ dropdown menu
+                var dropdown = document.querySelector('.dropdown');
+                var dropdownMenu = document.querySelector('.dropdown-menu');
+            
+                dropdown.addEventListener('click', function (event) {
+                    if (dropdownMenu.style.display === 'block') {
+                        dropdownMenu.style.display = 'none';
+                    } else {
+                        dropdownMenu.style.display = 'block';
+                    }
+                });
+            
+                document.addEventListener('click', function (event) {
+                    var isClickInside = dropdown.contains(event.target);
+                    if (!isClickInside) {
+                        dropdownMenu.style.display = 'none';
+                    }
+                });
+            });
+            </script>
+       
+
+
+  
+       
+
+
+
+        <div class="modal fade" id="businessSettingsModal" tabindex="-1" aria-labelledby="businessSettingsModalLabel" aria-hidden="true">
+    
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="align-items: center;">
+                        <h5 class="modal-title" id="businessSettingsModalLabel">ตั้งค่าบัญชีธุรกิจ</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- ฟอร์มตั้งค่าธุรกิจ -->
+                            <form id="businessSettingsForm" action="/market/update_profile/business" method="post">
+        
+                                <div class="row">
+                                    
+                    
+                                
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="businessName" class="form-label">ชื่อร้าน</label>
+                                            <input type="text" class="form-control" id="businessName" name="businessName">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+        
+        
+                                <br>
+                            <div class="mb-3">
+                                
+                                <label for="businessType" class="form-label">ประเภท</label>
+                                <input type="text" class="form-control" id="businessType" name="businessType">
+                                <div id="search-resultsA" class="list-group"></div>
+        
+                                <input type="hidden" id="businessTypehi" name="businessTypehi">
+                            </div>
+        
+                            <div class="row">
+                            <div class="col-md-12">
+                                <label for="displayBusinessHours" class="form-label">เวลาทำการของร้าน:</label>
+                                <div id="displayBusinessHours">
+                                    <!-- Display business hours here -->
+                                </div>
+                            </div>
+                             <!-- ตำแหน่งที่จะแสดงเวลาทำการ -->
+                              <!-- ฟิลด์ซ่อนสำหรับส่งข้อมูลเวลาทำการ -->
+                            <input type="hidden" id="hiddenBusinessOpenTime" name="businessOpenTime">
+                            <input type="hidden" id="hiddenBusinessCloseTime" name="businessCloseTime">
+                            <input type="hidden" id="hiddenBusinessDaysOpen" name="businessDaysOpen">
+                            <input type="hidden" id="hiddenBusinessDaysClosed" name="businessDaysClosed">
+                            </div>
+                             <br>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="businessPhone" class="form-label">เบอร์โทรศัพท์</label>
+                                    <input type="tel" class="form-control" id="businessPhone" name="businessPhone">
+                                </div>
+        
+                                <div class="col-md-6">
+                                    <label for="contactChannel" class="form-label">ช่องทางการติดต่อ</label>
+                                <input type="text" class="form-control" id="contactChannel" name="contactChannel">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="houseNumber" class="form-label">บ้านเลขที่</label>
+                                    <input type="text" class="form-control" id="h_num" name="homeNumber" value="">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="village" class="form-label">หมู่</label>
+                                    <input type="text" class="form-control" id="village" name="village" value="">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="search" class="form-label" >ที่อยู่</label>
+                                <input type="text" class="form-control" id="search" name="search" placeholder="ป้อนชื่อตำบล...">
+                                <div id="search-results" class="list-group"></div>
+                                <!-- Hidden fields for address components -->
+                                <input type="hidden" id="subdistrict" name="subdistrict" value="">
+                                <input type="hidden" id="district" name="district" value="">
+                                <input type="hidden" id="province" name="province" value="">
+                                <input type="hidden" id="zipcode" name="zipcode" value="">
+        
+                            </div>
+                            <div class="mb-3">
+                                <label for="aboutBusiness" class="form-label">เกี่ยวกับร้าน</label>
+                                <textarea class="form-control" id="aboutBusiness" name="aboutBusiness"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        
+                        <button type="submit" form="businessSettingsForm" class="btn btn-primary">บันทึกการเปลี่ยนแปลง</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="modal fade" id="businessHoursModal" tabindex="-1" aria-labelledby="businessHoursModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="businessHoursModalLabel">ตั้งค่าเวลาและวันทำการ</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- ฟอร์มสำหรับเวลาและวันทำการ -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="businessOpenTime" class="form-label">เวลาเปิด</label>
+                                <input type="time" class="form-control" id="businessOpenTime" name="businessOpenTime">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="businessCloseTime" class="form-label">เวลาปิด</label>
+                                <input type="time" class="form-control" id="businessCloseTime" name="businessCloseTime">
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="businessDaysOpen" class="form-label">วันทำการ</label>
+                                <select class="form-control" id="businessDaysOpen" name="businessDaysOpen">
+                                    <option value="วันจันทร์">จันทร์</option>
+                                    <option value="วันอังคาร">อังคาร</option>
+                                    <option value="วันพุธ">พุธ</option>
+                                    <option value="วันพฤหัสบดี">พฤหัสบดี</option>
+                                    <option value="วันศุกร์">ศุกร์</option>
+                                    <option value="วันเสาร์">เสาร์</option>
+                                    <option value="วันอาทิตย์">อาทิตย์</option>
+                                   
+                                    
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="businessDaysClosed" class="form-label">วันปิดทำการ</label>
+                                <select class="form-control" id="businessDaysClosed" name="businessDaysClosed">
+                                    <option value="วันจันทร์">จันทร์</option>
+                                    <option value="วันอังคาร">อังคาร</option>
+                                    <option value="วันพุธ">พุธ</option>
+                                    <option value="วันพฤหัสบดี">พฤหัสบดี</option>
+                                    <option value="วันศุกร์">ศุกร์</option>
+                                    <option value="วันเสาร์">เสาร์</option>
+                                    <option value="วันอาทิตย์">อาทิตย์</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+        
+        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">บันทึกการเปลี่ยนแปลง</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <% }); %>
+        <% } else { %>
+            <p class="text-center">No data available.</p>
+        <% } %>
+        
+
+
+        <% if (rows.length > 0) { %>
+            <% rows.forEach(row => { %>
+        
+        <script>
+            $(document).ready(function() {
+            // ดึงค่าที่มาจากเซิร์ฟเวอร์และตั้งค่าเริ่มต้นสำหรับกล่อง "displayBusinessHours" และฟิลด์ซ่อน
+            var initialOpenTime = '<%= formatTimeToZero(row.mk_time_op) %>'; // เปลี่ยนตามค่าที่มาจากเซิร์ฟเวอร์
+            var initialCloseTime = '<%= formatTimeToZero(row.mk_time_close) %>'; // เปลี่ยนตามค่าที่มาจากเซิร์ฟเวอร์
+            var initialDaysOpen = '<%= row.mk_day_op %>'; // เปลี่ยนตามค่าที่มาจากเซิร์ฟเวอร์
+            var initialDaysClosed = '<%= row.mk_day_close %>'; // เปลี่ยนตามค่าที่มาจากเซิร์ฟเวอร์
+        
+            // ตั้งค่าเริ่มต้นให้กับกล่อง "displayBusinessHours"
+            var initialBusinessHoursDisplay = 'เปิด ' + initialDaysOpen + '-' + initialDaysClosed + ' เวลา ' + initialOpenTime + ' - ' + initialCloseTime +' น.';
+            $('#displayBusinessHours').text(initialBusinessHoursDisplay);
+        
+            // ตั้งค่าเริ่มต้นให้กับฟิลด์ซ่อน (hidden fields)
+            $('#hiddenBusinessOpenTime').val(initialOpenTime);
+            $('#hiddenBusinessCloseTime').val(initialCloseTime);
+            $('#hiddenBusinessDaysOpen').val(initialDaysOpen);
+            $('#hiddenBusinessDaysClosed').val(initialDaysClosed);
+        
+            // คลิกที่กล่อง "displayBusinessHours" เพื่อแสดง modal "businessHoursModal"
+            $('#displayBusinessHours').on('click', function() {
+                $('#businessHoursModal').modal('show');
+            });
+        
+            // จัดการเมื่อ modal "businessHoursModal" ถูกปิด
+            $('#businessHoursModal').on('hide.bs.modal', function () {
+                // ดึงข้อมูลจากฟอร์มของ 'businessHoursModal'
+                var openTime = $('#businessOpenTime').val();
+                var closeTime = $('#businessCloseTime').val();
+                var daysOpen = $('#businessDaysOpen').val();
+                var daysClosed = $('#businessDaysClosed').val();
+        
+                // ตั้งค่าข้อมูลใน modal หลัก
+                // สร้างสตริงตามรูปแบบที่ต้องการแสดง
+                var businessHoursDisplay = 'เปิด ' + daysOpen + '-' + daysClosed + ' เวลา ' + openTime + ' - ' + closeTime;
+                $('#displayBusinessHours').text(businessHoursDisplay);
+        
+                // ตั้งค่าข้อมูลในฟิลด์ซ่อน (hidden fields) ของ 'businessSettingsForm' เพื่อส่งไปยังเซิร์ฟเวอร์
+                $('#hiddenBusinessOpenTime').val(openTime);
+                $('#hiddenBusinessCloseTime').val(closeTime);
+                $('#hiddenBusinessDaysOpen').val(daysOpen);
+                $('#hiddenBusinessDaysClosed').val(daysClosed);
+            });
+        });
+        
+        
+        </script>
+        <% }); %>
+        <% } %>
+        
+        
+        
+        
+        
+        <script>
+        
+            document.getElementById('businessType').addEventListener('input', function () {
+                var query = this.value;
+                var resultsDiv = document.getElementById('search-resultsA');
+                
+                if (query.trim() !== '') {
+                    fetch('/search/api/businuess?query=' + encodeURIComponent(query))
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        resultsDiv.innerHTML = '';
+                        data.results.forEach(function (result) {
+                            var resultItem = document.createElement('b');
+                            resultItem.href = "javascript:void(0);";
+                            resultItem.className = 'list-group-item list-group-item-action';
+                            resultItem.textContent = result.business_name;
+                            resultItem.addEventListener('click', function() {
+                                document.getElementById('businessType').value = result.business_name;
+        
+                                
+                                resultsDiv.innerHTML = '';
+                            });
+                            resultsDiv.appendChild(resultItem);
+                        });
+                    })
+                    .catch(function (error) {
+                        console.error('Fetch error:', error);
+                    });
+                } else {
+                    resultsDiv.innerHTML = '';
+                }
+            });
+            
+        </script>
+        
+        
+        <script>
+            // สคริปต์สำหรับการค้นหาที่อยู่
+            document.getElementById('search').addEventListener('input', function () {
+                var query = this.value;
+                var resultsDiv = document.getElementById('search-results');
+        
+                if (query.trim() !== '') {
+                    fetch('/search/api?query=' + encodeURIComponent(query))
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        resultsDiv.innerHTML = '';
+                        data.results.forEach(function (result) {
+                            var resultItem = document.createElement('a');
+                            resultItem.href = "javascript:void(0);";
+                            resultItem.className = 'list-group-item list-group-item-action';
+                            resultItem.textContent = result.subdistrict_name + " - " + result.district_name + " - " + result.province_name + " - " + result.zip_code;
+        
+                            resultItem.addEventListener('click', function() {
+                                document.getElementById('search').value = result.subdistrict_name + " - " + result.district_name + " - " + result.province_name + " - " + result.zip_code;
+                                // Update hidden fields
+                                document.getElementById('subdistrict').value = result.subdistrict_name;
+                                document.getElementById('district').value = result.district_name;
+                                document.getElementById('province').value = result.province_name;
+                                document.getElementById('zipcode').value = result.zip_code;
+                                resultsDiv.innerHTML = '';
+                            });
+        
+                            resultsDiv.appendChild(resultItem);
+                        });
+                    })
+                    .catch(function (error) {
+                        console.error('Fetch error:', error);
+                    });
+                } else {
+                    resultsDiv.innerHTML = '';
+                }
+            });
+        </script>
+        
+        
+        <% if (rows.length > 0) { %>
+            <% rows.forEach(row => { %>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var editProfileModal = document.getElementById('businessSettingsModal');
+                        editProfileModal.addEventListener('show.bs.modal', function (event) {
+                            var currentmk_name = "<%= row.market_name %>"; 
+                            var currentTypename = "<%= row.business_name %>"; 
+                            var currentbusinessPhone = "<%= row.mk_phone %>"; 
+                            var currentcontactChannel = "<%= row.mk_contact %>"; 
+                            var currenth_num = "<%= row.home_number %>"; 
+                            var currentvillage = "<%= row.village %>"; 
+                            var aboutBusiness = "<%= row.mk_discript %>"; 
+                            var currentAddress = "<%= row.subdistrict_name + ' - ' + row.district_name + ' - ' + row.province_name + ' - ' + row.zip_code %>"; 
+                            
+                
+                            // ตั้งค่าค่าเริ่มต้นในฟอร์มแก้ไขข้อมูลผู้ใช้
+                            document.getElementById('businessName').value = currentmk_name;
+                            document.getElementById('businessType').value = currentTypename;
+                            document.getElementById('businessPhone').value = currentbusinessPhone;
+                            document.getElementById('contactChannel').value = currentcontactChannel;
+                            document.getElementById('h_num').value = currenth_num ;
+                            document.getElementById('village').value = currentvillage;
+                            document.getElementById('aboutBusiness').value = aboutBusiness;
+                            document.getElementById('search').value = currentAddress;
+                            
+                        });
+                    });
+                </script>
+            <% }); %>
+        <% } %>
+        
+
+
+        <div class="cc-content" style="width: 684px; margin: 0 auto; background-color: white; border-radius: 10px; margin-top: -30px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" > 
+        <div style="height: 10px;"></div>
+        <strong style="font-size: 20px; margin-left: 20px;">โพสต์</strong>
+        <div style="height: 10px;"></div>
+        </div>
+
+
+
+
+        <div class="mk-content" style="width: 684px; margin: 0 auto; " > </div>
+
+        <% if (rows.length > 0) { %>
+            <% rows.forEach(row => { %>
+
+        <script>
+            function toggleLike(postId, userId) {
+                fetch(`/post/api/like?postId=${postId}&userId=${userId}`, { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => {
+                        let likeButton = document.querySelector(`#likeButton-${postId}`);
+                        let likeCount = document.querySelector(`#likeCount-${postId}`);
+            
+                        if (data.liked) {
+                            likeButton.classList.add('liked');
+                            
+                         
+                        } else {
+                            likeButton.classList.remove('liked');
+                            
+                            
+                        }
+                        likeCount.textContent = `${data.likeCount} Likes`;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+            
+                        let currentPage = 0;
+                        const limit = 5;
+                        let isFetching = false;
+                        const yourMkId = "<%= row.market_id %>";
+             
+                        function loadMorePosts() {
+                if (isFetching) return;
+                isFetching = true;
+            
+                fetch(`/post/api/posts/mk?page=${currentPage}&limit=${limit}&mk_id=${yourMkId}`)
+
+                    .then(response => response.json())
+                    .then(data => {
+                        const mainContent = document.querySelector('.mk-content');
+            
+                        data.forEach(post => {
+                            const postElement = document.createElement('div');
+                            postElement.classList.add('post');
+                            postElement.style.marginTop = "20px";
+            
+                           
+            
+                            postElement.innerHTML = `
+                            <div class="post" style="margin-top: 20px;">
+                            <div class="post-header">
+                                <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
+                                <span class="username">${post.market_name}</span>
+                                
+                        
+                            </div>
+                            <div class="post-content">
+                                ${post.post_discript}
+                            </div>
+                            <div class="post-image">
+                                <img src="/img/select/${post.post_id}" alt="Post">
+                            </div>
+                            <div class="post-footer">
+                                <div id="post">
+                                    <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
+                                 
+                                </div>
+                            </div>
+                        </div>
+
+                            `;
+                            mainContent.appendChild(postElement);
+                        });
+            
+                        currentPage++;
+                        isFetching = false;
+                    });
+            }
+            
+                    window.onscroll = function() {
+                        if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 10) {
+                    loadMorePosts();
+                     }
+                        };
+                            loadMorePosts();
+
+</script>
+<% }); %>
+<% } else { %>
+    <p class="text-center">No data available.</p>
+<% } %>
+ 
+       
+
+ 
+
+ 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.1.16/dist/umd/popper.min.js"></script>
+<script src="script.js"></script>
+
+
+<script>
+    function viewStory(storyElement) {
+        alert("Viewing story: " + storyElement.querySelector('.story-image img').alt);
+    }
+</script>
+
+ 
+</body>
+</html>

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 let dbCon = require('../lib/db');
 const { formatDate, calculateAge,formatDate2 } = require('../middleware/cal_Date_Age');
-const { getImagePath , getImagePath_b,getImageMk } = require('../middleware/get_img');
+const { getImagePath , getImagePath_b,getImageMk ,getImageMk2,getImageMk3} = require('../middleware/get_img');
 
 
 const path = require('path');
@@ -129,12 +129,12 @@ router.post('/upload/market/bussiness', (req, res) => {
         return res.status(400).send('No files were uploaded.');
     }
 
-    let uploadedFile2 = req.files.uploadedFile2;
+    let uploadedFile4 = req.files.uploadedFile4;
 
     // สร้างตำแหน่งสำหรับเก็บไฟล์
-    const uploadPath = path.join('./middleware/img', uploadedFile2.name);
+    const uploadPath = path.join('./middleware/img', uploadedFile4.name);
 
-    uploadedFile2.mv(uploadPath, err => {
+    uploadedFile4.mv(uploadPath, err => {
         if (err) return res.status(500).send(err);
 
         let query = `UPDATE market 
@@ -144,7 +144,37 @@ router.post('/upload/market/bussiness', (req, res) => {
          `;
         dbCon.query(query, [uploadPath,user], (err, result) => {
             if (err) return res.status(500).send(err);
-            res.redirect('/market/profile')
+            res.redirect('/market/profile/business')
+        });
+    });
+});
+
+
+router.post('/upload/market/bussiness/cover', (req, res) => {
+    const user = req.session.user;
+    const empY = req.session.isEmployer;
+   
+    
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+    }
+
+    let uploadedFile3 = req.files.uploadedFile3;
+
+    // สร้างตำแหน่งสำหรับเก็บไฟล์
+    const uploadPath = path.join('./middleware/img', uploadedFile3.name);
+
+    uploadedFile3.mv(uploadPath, err => {
+        if (err) return res.status(500).send(err);
+
+        let query = `UPDATE market 
+        JOIN user ON market.market_id = user.market_id
+        SET market.mk_cover = ?
+        WHERE user.username = ?
+         `;
+        dbCon.query(query, [uploadPath,user], (err, result) => {
+            if (err) return res.status(500).send(err);
+            res.redirect('/market/profile/business')
         });
     });
 });
@@ -182,6 +212,29 @@ router.get('/mk_img/:userId', (req, res) => {
         res.sendFile(filePath, { root: '.' });
     });
 });
+
+router.get('/mk_img_mk/:mkId', (req, res) => {
+    getImageMk2(req.params.mkId, (err, filePath) => {
+        if (err) {
+            console.log(err)
+            res.status(404).send("Image not found");
+            return;
+        }
+        res.sendFile(filePath, { root: '.' });
+    });
+});
+
+router.get('/mk_cover/:mkId', (req, res) => {
+    getImageMk3(req.params.mkId, (err, filePath) => {
+        if (err) {
+            console.log(err)
+            res.status(404).send("Image not found");
+            return;
+        }
+        res.sendFile(filePath, { root: '.' });
+    });
+});
+
 
 
 

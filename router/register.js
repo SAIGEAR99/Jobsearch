@@ -120,10 +120,11 @@ router.post('/add/business', (req, res) => {
   
           const newAddressId = results.insertId;
           const uploadPath = path.join('./middleware/img','../img/aa.jpg');
+          const uploadPath2 = path.join('./middleware/img','../img/download.png');
         
   
           // Insert a new market with the business_id
-          dbCon.query('INSERT INTO market (market_name, market_type, mk_address, mk_discript,mk_img) VALUES (?, ?, ?, ?,?)', [marketName, businessId, newAddressId, marketAbout,uploadPath], (err, results) => {
+          dbCon.query('INSERT INTO market (market_name, market_type, mk_address, mk_discript,mk_img,mk_cover) VALUES (?, ?, ?, ? , ? , ?)', [marketName, businessId, newAddressId, marketAbout,uploadPath,uploadPath2], (err, results) => {
             if (err) {
               return dbCon.rollback(() => {
                 res.status(500).send({

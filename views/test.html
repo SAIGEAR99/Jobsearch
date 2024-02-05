@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 5 DatePicker</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/views/market/style2.css">
+
+    
+
+</head>
+<body>
+
+
+    <div class="container-fluid">
+        <div class="row">
+     
+            <!-- Custom Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar content here -->
+                <div>
+                  <a href="/"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
+                    <span class="fs-4"><img src="/public/img/Logo-Instagram.png" style="width: 60%; margin-left: -2px; margin-bottom: 10px;"></span>
+                  </a>
+                 
+                  <ul class="nav">
+                    <li class="nav-item">
+                 
+                      <a href="/user/feed" class="nav-link active" aria-current="page">
+                         <img src="/public/img/homepage.png" alt="" style="width: 13%;">
+                        <span class="aa">หน้าหลัก</span>
+                      </a>
+    
+                      <a href="#" id="scan" class="nav-link link-body-emphasis" onclick="showPostPopup()">
+                        <img src="/public/img/search.png" alt="" style="width: 12%;">
+                        <span class="aa">ค้นหา </span>
+                     </a>
+                   
+                   
+                      <div id="scan_m" class="modal">
+                        <div class="modal-content">
+                    
+                            <label for="scan" class="form-label" style="margin-top: 10px;">ค้นหา</label>
+                            <input type="text" class="form-control" id="scans" name="scans" placeholder="คำค้นหา...">
+                            <div id="search-results-scan" class="list-group"></div>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        function showModal(modalId) {
+                            var modal = document.getElementById(modalId);
+                            modal.style.display = "block";
+                            document.body.style.overflow = 'hidden';
+                        }
+                    
+                        function hideModal(modalId) {
+                            var modal = document.getElementById(modalId);
+                            modal.style.display = "none";
+                            document.body.style.overflow = '';
+                        }
+                    
+                        document.getElementById('scan').addEventListener('click', function () {
+                            showModal('scan_m');
+                        });
+                    
+                        // สคริปต์สำหรับการค้นหาที่อยู่
+                        document.getElementById('scans').addEventListener('input', function () {
+                    
+                            var query = this.value;
+                            var resultsDiv = document.getElementById('search-results-scan');
+                    
+                            if (query.trim() !== '') {
+                                fetch('/search/api/scan?query=' + encodeURIComponent(query))
+                                    .then(function (response) {
+                                        if (!response.ok) {
+                                            throw new Error('Network response was not ok');
+                                        }
+                                        return response.json();
+                                    })
+                                    .then(function (data) {
+                                        resultsDiv.innerHTML = '';
+                                        data.results.forEach(function (result) {
+                                            var resultItem = document.createElement('a');
+                                            resultItem.href = "javascript:void(0);";
+                    
+                                            resultItem.className = 'list-group-item list-group-item-action';
+                                            resultItem.textContent = result.market_name;
+                    
+                                            resultItem.addEventListener('click', function () {
+                                                document.getElementById('scan').value = result.textContent;
+                    
+                                                resultsDiv.innerHTML = '';
+                    
+                                                // เพิ่มการนำค่า market_id ไปยังหน้าใหม่
+                                                window.location.href = '/market/show_mk?market_id=' + encodeURIComponent(result.market_id);
+                                            });
+                    
+                                            resultsDiv.appendChild(resultItem);
+                                        });
+                                    })
+                                    .catch(function (error) {
+                                        console.error('Fetch error:', error);
+                                    });
+                            } else {
+                                resultsDiv.innerHTML = '';
+                            }
+                        });
+                    </script>
+                    
+
+                   
+                      <a href="#" class="nav-link">
+                         <img src="/public/img/compass.png" alt="" style="width: 12%;">
+                         <span class="aa">สำรวจ</span>
+                      </a>
+                   
+                   
+                      
+                      <a href="#" id="postLink" class="nav-link link-body-emphasis" onclick="showPostPopup()">
+                        <img src="/public/img/post.png" alt="" style="width: 12%; " >
+                        <span class="aa">สร้าง</span>
+                     </a>
+     
+       
+     
+                      <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
+                         <a href="/market/profile" class="nav-link">
+                        <img src="/img/file" class="custom-rounded-img" alt="" style="width: 25px; height: 25px; margin-right: 6px; margin-left: 3px;">
+                            <span class="aa">โปรไฟล์</span>
+                                 </a>
+     
+     
+                                 <div class="dropdown">
+                                       <button class="btn dropdown-toggle " type="button" >
+                                           <img src="/public/img/more.png" alt="Logo" style="width: 25%; margin-right: 10px;">
+                                           <span class="aa">เพิ่มเติม</span>
+                                       </button>
+                                       <ul class="dropdown-menu" style="display: none;">
+                                           <li><a class="dropdown-item " href="/logout" >สลับบัญชี</a></li>
+                                           <li><a class="dropdown-item " href="/logout">ออกจากระบบ</a></li>
+                                       </ul>
+                                </div>
+       
+                        </li>        
+                        </div>
+                   
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+
+
+        <div class="row" style=" margin-left: 600px;">
+            <div style="margin: auto;">
+                <strong class="nameinfo" style="font-size: 30px;">ข้อมูลธุรกิจ <img src="/public/img/shop.png" alt="" style="width: 30px; height: 30px;"></strong>
+            </div>
+            <% if (rows.length > 0) { %>
+                <% rows.forEach(row => { %>
+
+
+
+                    <img src="/img/mk_img_mk/<%= row.market_id %>" alt="Profile Picture" class="profile-pic" style="object-fit:cover; width: 50px; margin-top: 50px;">
+                    <!-- ข้อมูลผู้ใช้ -->
+                    <div class="row mb-3">
+                        <!-- รายละเอียดผู้ใช้ -->
+                        <div class="col">
+                            <strong>ชื่อร้าน:</strong> <span><%= row.market_name %></span>
+                        </div>
+                        <hr>    
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <strong>ประเภท:</strong> <span><%= row.business_name %></span>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <strong>เวลาทำการ:</strong> <span> <%= row.mk_day_op%> - <%= row.mk_day_close %>  เวลา: <%= formatTimeToZero(row.mk_time_op) %> - <%= formatTimeToZero(row.mk_time_close) %> น.</span>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <strong>ช่องทางการติดต่อ:</strong> <span><%= row.mk_contact %></span>
+                        </div>
+                        <hr>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col">
+                            <strong>เบอร์โทรศัพท์:</strong> <span><%= row.mk_phone %></span>
+                        </div>
+                        <hr>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <strong>ที่อยู่ร้าน:</strong> <%= row.home_number %>&nbsp;หมู่&nbsp;<%= row.village %>
+                            &nbsp;ต.<%= row.subdistrict_name %>&nbsp;อ.<%= row.district_name %>
+                            &nbsp;จ.<%= row.province_name %>&nbsp;<%= row.zip_code %>
+                        </div>
+                        <hr>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <strong>เกี่ยวกับร้าน:</strong> <span><%= row.mk_discript %></span>
+                        </div>
+                        
+                    </div>
+
+                <% }); %>
+            <% } else { %>
+                <p class="text-center">No data available.</p>
+            <% } %>
+
+
+
+
+            <div class="card-body-post related-div" id="posts"  >
+                <div class="post-container">
+                    
+                </div>
+            </div>
+
+            <% if (rows.length > 0) { %>
+                <% rows.forEach(row => { %> 
+
+
+                    
+            <script>
+                function toggleLike(postId, userId) {
+                    fetch(`/post/api/like?postId=${postId}&userId=${userId}`, { method: 'POST' })
+                        .then(response => response.json())
+                        .then(data => {
+                            let likeButton = document.querySelector(`#likeButton-${postId}`);
+                            let likeCount = document.querySelector(`#likeCount-${postId}`);
+                
+                            if (data.liked) {
+                                likeButton.classList.add('liked');
+                                
+                             
+                            } else {
+                                likeButton.classList.remove('liked');
+                                
+                                
+                            }
+                            likeCount.textContent = `${data.likeCount} Likes`;
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
+                
+                            let currentPage = 0;
+                            const limit = 5;
+                            let isFetching = false;
+                            const yourMkId = "<%= row.market_id %>";
+                 
+                            function loadMorePosts() {
+                    if (isFetching) return;
+                    isFetching = true;
+                
+                    fetch(`/post/api/posts/mk?page=${currentPage}&limit=${limit}&mk_id=${yourMkId}`)
+
+                        .then(response => response.json())
+                        .then(data => {
+                            const mainContent = document.querySelector('.post-container');
+                
+                            data.forEach(post => {
+                                const postElement = document.createElement('div');
+                                postElement.classList.add('post');
+                                postElement.style.marginTop = "20px";
+                
+                               
+                
+                                postElement.innerHTML = `
+                                <div class="post" style="margin-top: 20px;">
+                                <div class="post-header">
+                                    <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
+                                    <span class="username">${post.market_name}</span>
+                                    
+                            
+                                </div>
+                                <div class="post-content">
+                                    ${post.post_discript}
+                                </div>
+                                <div class="post-image">
+                                    <img src="/img/select/${post.post_id}" alt="Post">
+                                </div>
+                                <div class="post-footer">
+                                    <div id="post">
+                                        <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
+                                     
+                                    </div>
+                                </div>
+                            </div>
+
+                                `;
+                                mainContent.appendChild(postElement);
+                            });
+                
+                            currentPage++;
+                            isFetching = false;
+                        });
+                }
+                
+                        window.onscroll = function() {
+                            if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 10) {
+                        loadMorePosts();
+                         }
+                            };
+                                loadMorePosts();
+
+</script>
+<% }); %>
+<% } else { %>
+    <p class="text-center">No data available.</p>
+<% } %>
+
+
+
+
+
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

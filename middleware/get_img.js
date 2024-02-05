@@ -67,4 +67,54 @@ const getImageMk = (userId, callback) => {
     });
 };
 
-module.exports = { getImagePath,getImagePath_b,getImageMk };
+
+const getImageMk2 = (mkId, callback) => {
+
+    let from_b = {
+        market_id: mkId
+    }
+    dbCon.query(`SELECT market.*
+    FROM market
+    
+    WHERE market_id = ?
+    
+    `, [from_b.market_id], (err, rows) => {
+        if (err) {
+            return callback(err, null);
+        }
+        if (rows.length > 0) {
+            return callback(null, rows[0].mk_img);
+        } else {
+            console.log("----------> err : ", err);
+            return callback(new Error("No image found"), null);
+        }
+    });
+};
+
+const getImageMk3 = (mkId, callback) => {
+
+    let from_b = {
+        market_id: mkId
+    }
+    dbCon.query(`SELECT market.*
+    FROM market
+    
+    WHERE market_id = ?
+    
+    `, [from_b.market_id], (err, rows) => {
+        if (err) {
+            return callback(err, null);
+        }
+        if (rows.length > 0) {
+            return callback(null, rows[0].mk_cover);
+        } else {
+            console.log("----------> err : ", err);
+            return callback(new Error("No image found"), null);
+        }
+    });
+};
+
+
+
+
+module.exports = { getImagePath,getImagePath_b,getImageMk ,getImageMk2,getImageMk3};

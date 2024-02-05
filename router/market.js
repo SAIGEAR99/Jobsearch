@@ -40,6 +40,48 @@ router.get('/profile', (req, res, next) => {
     u.*,
     m.*,
     r.role AS role_name,
+    g.gender AS gender_name
+    
+FROM 
+    user u
+JOIN 
+    market m ON u.market_id = m.market_id
+JOIN 
+    role r ON u.role = r.role_id
+JOIN 
+    gender g ON u.gender = g.gender_id
+
+WHERE 
+    u.username = ?
+
+`
+    ,user ,(err, rows) => {
+         if (err) {
+             console.error('Error retrieving data:', err);
+             res.render('market/edit_market', { 
+                formatDate , calculateAge,formatDate2,formatTimeToZero,
+                rows : rows ,
+                user: req.session.user 
+            });
+         } else {
+             console.log('Data from the database:', rows);
+             res.render('market/edit_market', {
+                formatDate , calculateAge,formatDate2,formatTimeToZero,
+                rows : rows ,
+                user: req.session.user
+            });
+         }
+     });
+ });
+
+router.get('/profile/business', (req, res, next) => {
+
+    const user = req.session.user;
+   
+    dbCon.query(`SELECT 
+    u.*,
+    m.*,
+    r.role AS role_name,
     tb.business_name AS business_name,
     g.gender AS gender_name,
     a.*,
@@ -71,14 +113,14 @@ WHERE
     ,user ,(err, rows) => {
          if (err) {
              console.error('Error retrieving data:', err);
-             res.render('market/edit_market', { 
+             res.render('market/edit_mk', { 
                 formatDate , calculateAge,formatDate2,formatTimeToZero,
                 rows : rows ,
                 user: req.session.user 
             });
          } else {
              console.log('Data from the database:', rows);
-             res.render('market/edit_market', {
+             res.render('market/edit_mk', {
                 formatDate , calculateAge,formatDate2,formatTimeToZero,
                 rows : rows ,
                 user: req.session.user
@@ -316,7 +358,7 @@ SET market.market_type = (
 WHERE user.user_id = ?
 
 `,[ff.business_name,ff.user_id],(err)=> {
-            res.redirect('/market/profile');
+            res.redirect('/market/profile/business');
 
         });
 
@@ -326,6 +368,60 @@ WHERE user.user_id = ?
 });
    
  });
+
+
+
+router.get('/show_mk', (req, res) => {
+    const market_id = req.query.market_id;
+
+    dbCon.query(`SELECT 
+    u.*,
+    m.*,
+    r.role AS role_name,
+    tb.business_name AS business_name,
+    g.gender AS gender_name,
+    a.*,
+    s.name_in_thai AS subdistrict_name,
+    d.name_in_thai2 AS district_name,
+    p.name_in_thai AS province_name,
+    s.zip_code AS zip_code
+FROM 
+    user u
+JOIN 
+    market m ON u.market_id = m.market_id
+JOIN 
+    role r ON u.role = r.role_id
+JOIN 
+    typebusiness tb ON m.market_type = tb.business_id
+JOIN 
+    gender g ON u.gender = g.gender_id
+JOIN 
+    address a ON m.mk_address = a.address_id
+JOIN 
+    subdistricts s ON a.subdistrict_id = s.id
+JOIN 
+    districts d ON s.district_id = d.id
+JOIN 
+    provinces p ON d.province_id = p.id
+WHERE 
+    m.market_id = ?
+
+
+    `,[market_id], (err,rows) =>{
+
+        if (err) {
+            console.error(err);
+            // จัดการข้อผิดพลาด
+            res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+            return;
+        }
+    
+        res.render('market/sh_mk', {
+            formatDate, calculateAge, formatDate2, formatTimeToZero,
+            rows: rows
+        });
+    });
+});
 
 
 module.exports = router;

@@ -34,6 +34,28 @@ router.get('/api/posts', function(req, res) {
     });
 });
 
+
+router.get('/api/posts/load_mk', function(req, res) {
+
+    const sql = `SELECT post.*, market.*, 
+    (SELECT COUNT(*) FROM likes WHERE post_id = post.post_id AND user_id = ?) as userLiked
+    FROM post 
+    JOIN market ON post.market_id = market.market_id 
+    ORDER BY post.post_id DESC
+    
+    `;
+    dbCon.query(sql, [req.session.userId], function(err, results) {
+        if (err) {
+            console.error('Error querying MySQL database:', err);
+            res.status(500).json({ error: 'Internal server error' });
+            return;
+        }
+        res.json(results);
+    });
+});
+
+
+
 router.get('/api/posts/own', function(req, res) {
     const page = parseInt(req.query.page) || 0;
     const limit = parseInt(req.query.limit) || 5;
@@ -52,6 +74,36 @@ ORDER BY post.post_id DESC
 LIMIT ?, ?
 `;
     dbCon.query(sql, [req.session.userId,req.session.userId,offset, limit], function(err, results) {
+        if (err) {
+            console.error('Error querying MySQL database:', err);
+            res.status(500).json({ error: 'Internal server error' });
+            return;
+        }
+        res.json(results);
+    });
+});
+
+
+router.get('/api/posts/mk', function(req, res) {
+    const page = parseInt(req.query.page) || 0;
+    const limit = parseInt(req.query.limit) || 5;
+    const offset = page * limit;
+    const yourMkId = req.query.mk_id;
+
+ 
+    // ส่งคำสั่ง SQL เพื่อดึงข้อมูลโพสต์จากฐานข้อมูล
+    const sql = `
+    SELECT post.*, market.*,
+    (SELECT COUNT(*) FROM likes WHERE post_id = post.post_id) as userLiked
+FROM post 
+JOIN market ON post.market_id = market.market_id 
+JOIN user ON market.market_id = user.market_id
+AND market.market_id = ?
+ORDER BY post.post_id DESC
+LIMIT ?, ?
+
+`;
+    dbCon.query(sql,[yourMkId,offset, limit], function(err, results) {
         if (err) {
             console.error('Error querying MySQL database:', err);
             res.status(500).json({ error: 'Internal server error' });

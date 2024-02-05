@@ -33,83 +33,83 @@
                      <img src="/public/img/homepage.png" alt="" style="width: 13%;">
                     <span class="aa">หน้าหลัก</span>
                   </a>
-               
-               
-                  <a href="#" id="scan" class="nav-link link-body-emphasis" onclick="showPostPopup()">
+
+                   <a href="#" id="scan" class="nav-link link-body-emphasis" onclick="showPostPopup()">
                      <img src="/public/img/search.png" alt="" style="width: 12%;">
                      <span class="aa">ค้นหา </span>
                   </a>
-
-
+               
+               
                   <div id="scan_m" class="modal">
                     <div class="modal-content">
-                        
-                        <label for="scan" class="form-label" >ค้นหา</label>
+                
+                        <label for="scan" class="form-label" style="margin-top: 10px;">ค้นหา</label>
                         <input type="text" class="form-control" id="scans" name="scans" placeholder="คำค้นหา...">
                         <div id="search-results-scan" class="list-group"></div>
-                        </div>  
                     </div>
+                </div>
                 
-
-                  <script>
+                <script>
                     function showModal(modalId) {
-                    var modal = document.getElementById(modalId);
-                    modal.style.display = "block";
-                    document.body.style.overflow = 'hidden';
-                }
-                // ซ่อน Modal ตาม ID
-                function hideModal(modalId) {
-                    var modal = document.getElementById(modalId);
-                    modal.style.display = "none";
-                    document.body.style.overflow = '';
-                }
-                // ฟังก์ชันเมื่อผู้ใช้กดปุ่ม "Post"
-                document.getElementById('scan').addEventListener('click', function() {
-                    showModal('scan_m');
-                });
-                  </script>
-
-<script>
-    // สคริปต์สำหรับการค้นหาที่อยู่
-    document.getElementById('scans').addEventListener('input', function () {
-
-        var query = this.value;
-        var resultsDiv = document.getElementById('search-results-scan');
-
-        if (query.trim() !== '') {
-            fetch('/search/api/scan?query=' + encodeURIComponent(query))
-            .then(function (response) {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(function (data) {
-                resultsDiv.innerHTML = '';
-                data.results.forEach(function (result) {
-                    var resultItem = document.createElement('a');
-                    resultItem.href = "javascript:void(0);";
-
-                    resultItem.className = 'list-group-item list-group-item-action';
-                    resultItem.textContent = result.market_name +'  Detail: '+'['+ result.mk_discript+']';
-
-                    resultItem.addEventListener('click', function() {
-                        document.getElementById('scan').value = result.textContent;
-  
-                        resultsDiv.innerHTML = '';
+                        var modal = document.getElementById(modalId);
+                        modal.style.display = "block";
+                        document.body.style.overflow = 'hidden';
+                    }
+                
+                    function hideModal(modalId) {
+                        var modal = document.getElementById(modalId);
+                        modal.style.display = "none";
+                        document.body.style.overflow = '';
+                    }
+                
+                    document.getElementById('scan').addEventListener('click', function () {
+                        showModal('scan_m');
                     });
-
-                    resultsDiv.appendChild(resultItem);
-                });
-            })
-            .catch(function (error) {
-                console.error('Fetch error:', error);
-            });
-        } else {
-            resultsDiv.innerHTML = '';
-        }
-    });
-</script>
+                
+                    // สคริปต์สำหรับการค้นหาที่อยู่
+                    document.getElementById('scans').addEventListener('input', function () {
+                
+                        var query = this.value;
+                        var resultsDiv = document.getElementById('search-results-scan');
+                
+                        if (query.trim() !== '') {
+                            fetch('/search/api/scan?query=' + encodeURIComponent(query))
+                                .then(function (response) {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    return response.json();
+                                })
+                                .then(function (data) {
+                                    resultsDiv.innerHTML = '';
+                                    data.results.forEach(function (result) {
+                                        var resultItem = document.createElement('a');
+                                        resultItem.href = "javascript:void(0);";
+                
+                                        resultItem.className = 'list-group-item list-group-item-action';
+                                        resultItem.textContent = '[' + result.market_id + ']  : ' + result.market_name;
+                
+                                        resultItem.addEventListener('click', function () {
+                                            document.getElementById('scan').value = result.textContent;
+                
+                                            resultsDiv.innerHTML = '';
+                
+                                            // เพิ่มการนำค่า market_id ไปยังหน้าใหม่
+                                            window.location.href = '/market/show_mk?market_id=' + encodeURIComponent(result.market_id);
+                                        });
+                
+                                        resultsDiv.appendChild(resultItem);
+                                    });
+                                })
+                                .catch(function (error) {
+                                    console.error('Fetch error:', error);
+                                });
+                        } else {
+                            resultsDiv.innerHTML = '';
+                        }
+                    });
+                </script>
+                
 
 
 
@@ -343,7 +343,7 @@ function toggleLike(postId, userId) {
             const limit = 5;
             let isFetching = false;
  
-            function loadMorePosts() {
+    function loadMorePosts() {
     if (isFetching) return;
     isFetching = true;
 
@@ -363,9 +363,9 @@ function toggleLike(postId, userId) {
 
                 postElement.innerHTML = `
                 <div class="post" style="margin-top: 20px;">
-                        <div class="post-header">
+                        <div class="post-header" data-market-name="${post.market_id}">
                             <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
-                            <span class="username">${post.market_name}</span>
+                            <span class="username" >${post.market_name}</span>
                         </div>
                         <div class="post-content">
                             ${post.post_discript}
@@ -382,9 +382,11 @@ function toggleLike(postId, userId) {
                                 <button class ="${likeButtonClass}" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id},${post.user_id});">${likeButtonText}</button>
                         </div>
                     </div>
+                    
                 `;
                 mainContent.appendChild(postElement);
             });
+            addUsernameClickListeners();
 
             currentPage++;
             isFetching = false;
@@ -397,6 +399,33 @@ function toggleLike(postId, userId) {
          }
             };
                 loadMorePosts();
+            </script>
+
+
+
+
+
+            <script>
+// ฟังก์ชัน addUsernameClickListeners
+function addUsernameClickListeners() {
+    const usernameElements = document.querySelectorAll('.post-header');
+
+    usernameElements.forEach(usernameElement => {
+        // เพิ่ม event listener เฉพาะถ้ายังไม่ถูกเพิ่ม
+        if (!usernameElement.classList.contains('event-listener-added')) {
+            usernameElement.addEventListener('click', function(event) {
+                const marketId = usernameElement.getAttribute('data-market-name');
+                const newURL = `/market/show_mk?market_id=${encodeURIComponent(marketId)}`;
+                window.location.href = newURL;
+            });
+            usernameElement.classList.add('event-listener-added');
+        }
+    });
+}
+document.addEventListener('DOMContentLoaded', function() {
+    addUsernameClickListeners();
+});
+
             </script>
 
 
