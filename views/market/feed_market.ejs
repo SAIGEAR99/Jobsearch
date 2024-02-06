@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/views/market/style.css">
+   
+
 
 </head>
  
@@ -45,7 +47,7 @@
                 
                         <label for="scan" class="form-label" style="margin-top: 10px;">ค้นหา</label>
                         <input type="text" class="form-control" id="scans" name="scans" placeholder="คำค้นหา...">
-                        <div id="search-results-scan" class="list-group"></div>
+                        <div id="search-results-scan"  class="list-group"></div>
                     </div>
                 </div>
                 
@@ -68,46 +70,60 @@
                 
                     // สคริปต์สำหรับการค้นหาที่อยู่
                     document.getElementById('scans').addEventListener('input', function () {
-                
-                        var query = this.value;
-                        var resultsDiv = document.getElementById('search-results-scan');
-                
-                        if (query.trim() !== '') {
-                            fetch('/search/api/scan?query=' + encodeURIComponent(query))
-                                .then(function (response) {
-                                    if (!response.ok) {
-                                        throw new Error('Network response was not ok');
-                                    }
-                                    return response.json();
-                                })
-                                .then(function (data) {
-                                    resultsDiv.innerHTML = '';
-                                    data.results.forEach(function (result) {
-                                        var resultItem = document.createElement('a');
-                                        resultItem.href = "javascript:void(0);";
-                
-                                        resultItem.className = 'list-group-item list-group-item-action';
-                                        resultItem.textContent = '[' + result.market_id + ']  : ' + result.market_name;
-                
-                                        resultItem.addEventListener('click', function () {
-                                            document.getElementById('scan').value = result.textContent;
-                
-                                            resultsDiv.innerHTML = '';
-                
-                                            // เพิ่มการนำค่า market_id ไปยังหน้าใหม่
-                                            window.location.href = '/market/show_mk?market_id=' + encodeURIComponent(result.market_id);
-                                        });
-                
-                                        resultsDiv.appendChild(resultItem);
-                                    });
-                                })
-                                .catch(function (error) {
-                                    console.error('Fetch error:', error);
-                                });
-                        } else {
-                            resultsDiv.innerHTML = '';
-                        }
+    var query = this.value;
+    var resultsDiv = document.getElementById('search-results-scan');
+
+    if (query.trim() !== '') {
+        fetch('/search/api/scan?query=' + encodeURIComponent(query))
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(function (data) {
+                resultsDiv.innerHTML = '';
+                data.results.forEach(function (result) {
+                    var resultItem = document.createElement('a');
+                    resultItem.href = "javascript:void(0);";
+                    resultItem.className = 'list-group-item list-group-item-action';
+
+                    // สร้างและเพิ่มภาพ
+                    var image = document.createElement('img');
+                    image.src = '/img/mk_img_mk/' + result.market_id;
+                    image.alt = 'Image';
+                    image.className = 'result-image';
+                    resultItem.appendChild(image);
+
+                    // สร้างและเพิ่มข้อความ (market_name)
+                    var text = document.createElement('span');
+                    text.className = 'result-text';
+                    text.appendChild(document.createTextNode(result.market_name));
+                    resultItem.appendChild(text);
+
+                    // สร้างและเพิ่มข้อความ (mk_discript)
+                    var descriptionText = document.createElement('span');
+                    descriptionText.className = 'result-text2';
+                    descriptionText.appendChild(document.createTextNode(result.business_name));
+                    resultItem.appendChild(descriptionText);
+
+                    resultItem.addEventListener('click', function () {
+                        document.getElementById('scan').value = result.textContent;
+                        resultsDiv.innerHTML = '';
+                        window.location.href = '/market/show_mk?market_id=' + encodeURIComponent(result.market_id);
                     });
+
+                    resultsDiv.appendChild(resultItem);
+                });
+            })
+            .catch(function (error) {
+                console.error('Fetch error:', error);
+            });
+    } else {
+        resultsDiv.innerHTML = '';
+    }
+});
+
                 </script>
                 
 
@@ -154,9 +170,56 @@
             </div>
           </div>
         </div>
- 
+        
        
+                <div class="ads" style="margin-left:1550px; display: block; margin-top: 20px;height: 80vh;
+                position:fixed;
+                width: 250px; /* Adjusted width */
+                overflow-x:hidden;
+                overflow-y:hidden;
+                z-index: 1000;
+                
+                padding: 20px;
+                border-radius: 10px;
+                "> 
+                
+                <div style="height: 200px;">
+                
+                    <div style="color: gray; margin-bottom: 10px; font-weight: 700;">บัญชีธุรกิจของคุณ</div>
+                    <img src="/img/mk_img_mk/<%= market_id %>" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; margin-top: 10px; ">
+                    <span style="margin-left: 10px; vertical-align:-5px; font-weight: 500;"><%= market_name %></span>
+
+                    <hr>
+
+                    <div class="">
+                        <% if(rows && rows.length) { %>
+                        <table class="">
+                            <div style="color: gray; margin-bottom: 10px; font-weight: 700;">บัญชีแนะนำ</div>
+                            <tbody>
+                                <% rows.forEach((row, index) => { %>
+                                <tr>
+                                    <td>
+                                    <img src="/img/mk_img_mk/<%= row.market_id %>" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; margin-top: 10px; ">
+                                    <span style="margin-left: 10px; vertical-align:-5px; font-weight: 500;"><%= row.market_name %></span>
+                                </td>
+                                    
+                                    
+                                </tr>
+
+                                <% }); %>
+                            </tbody>
+                        </table>
+                        <% } else { %>
+                        <p class="text-center">No User found!</p>
+                        <% } %>
+                    </div>
+                
+                </div>
+            </div>
  
+
+
+
                 <div class="main-content" style="width: 684px; margin: 0 auto;"> </div>
 
 
@@ -362,26 +425,40 @@ function toggleLike(postId, userId) {
                 let likeButtonText = post.userLiked ? '' : '';
 
                 postElement.innerHTML = `
-                <div class="post" style="margin-top: 20px;">
-                        <div class="post-header" data-market-name="${post.market_id}">
-                            <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
-                            <span class="username" >${post.market_name}</span>
-                        </div>
-                        <div class="post-content">
-                            ${post.post_discript}
-                            
-                        </div>
-                        <div class="post-image">
-                            <img src="/img/select/${post.post_id}" alt="Post">
-                            
-                        </div>
+
+                                <div class="post" style="margin-top: 20px; position: relative;">
+                    <div class="post-header" >
+                        <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;" data-market-name="${post.market_id}" >
+                        <div class="username" data-market-name="${post.market_id}" style="margin-top:-16px">${post.market_name}</div>
                         
-                        <div class="post-footer">
-                            <div id="post">
-                                <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
-                                <button class ="${likeButtonClass}" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id},${post.user_id});">${likeButtonText}</button>
-                        </div>
+                    <div class="cross" style="position: absolute; top: 0; right: 0; margin: 20px; padding-top: 10px; margin-top: -10px;">
+                    <img src="/public/img/close.png" style="width: 25px;" class="hover-effect" onclick="toggleDropdown('${post.post_id}')">
+
+                    <div class="dropdown-content" id="dropdown-content-${post.post_id}">
+                     <a href="#" onclick="reportPost(${post.post_id});">รายงาน</a>
+                    
                     </div>
+
+
+                    </div>
+    
+                    </div>
+                    <div class="a" style="margin-top:-22px; font-size:13px; margin-left:83px; color:gray;">${post.post_time}</div>
+
+                    <div class="post-content">
+                        ${post.post_discript}
+                    </div>
+                    <div class="post-image">
+                        <img src="/img/select/${post.post_id}" alt="Post">
+                    </div>
+                    
+                    <div class="post-footer">
+                        <div id="post">
+                            <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
+                            <button class ="${likeButtonClass}" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id},${post.user_id});">${likeButtonText}</button>
+                    </div>
+                </div>
+
                     
                 `;
                 mainContent.appendChild(postElement);
@@ -399,16 +476,81 @@ function toggleLike(postId, userId) {
          }
             };
                 loadMorePosts();
+
+
+                
             </script>
 
 
+<script>
+function toggleDropdown(postId) {
+    const dropdownContent = document.querySelector(`#dropdown-content-${postId}`);
+    const computedStyle = window.getComputedStyle(dropdownContent);
+
+    if (computedStyle.getPropertyValue('display') === 'block') {
+        dropdownContent.style.display = 'none';
+        document.removeEventListener('click', closeDropdownOnClickOutside);
+    } else {
+        dropdownContent.style.display = 'block';
+
+        // Use setTimeout to ensure the event listener is added after the UI update
+        setTimeout(() => {
+            document.addEventListener('click', closeDropdownOnClickOutside);
+        }, 0);
+
+        dropdownContent.addEventListener('mouseleave', function closeDropdown() {
+            dropdownContent.style.display = 'none';
+            dropdownContent.removeEventListener('mouseleave', closeDropdown);
+            document.removeEventListener('click', closeDropdownOnClickOutside);
+        });
+    }
+
+    function closeDropdownOnClickOutside(event) {
+        if (!dropdownContent.contains(event.target)) {
+            dropdownContent.style.display = 'none';
+            document.removeEventListener('click', closeDropdownOnClickOutside);
+        }
+    }
+}
+
+             
+function reportPost(postId) {
+    // Prompt the user for a report reason
+    let reportReason = prompt("กรุณาระบุเหตุผลในการรายงานโพสต์นี้:");
+    if (reportReason !== null && reportReason.trim() !== "") {
+        // Send the report request with the report reason
+        fetch('/post/report-post/' + postId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ reason: reportReason }) // Send the report reason in the request body
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("โพสต์ถูกรายงานแล้ว");
+                // You can update the UI or take any necessary actions
+            } else {
+                console.error("เกิดข้อผิดพลาดในการรายงานโพสต์");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    } else {
+        // User cancelled the report or entered an empty reason
+        console.log("การรายงานถูกยกเลิกหรือไม่มีเหตุผลที่ระบุ");
+    }
+}
+
+</script>
 
 
 
             <script>
 // ฟังก์ชัน addUsernameClickListeners
 function addUsernameClickListeners() {
-    const usernameElements = document.querySelectorAll('.post-header');
+    const usernameElements = document.querySelectorAll('.profile-pic , .username');
 
     usernameElements.forEach(usernameElement => {
         // เพิ่ม event listener เฉพาะถ้ายังไม่ถูกเพิ่ม

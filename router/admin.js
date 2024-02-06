@@ -23,6 +23,24 @@ router.get('/', (req, res, next) => {
 });
 
 
+router.get('/report', (req, res, next) => {
+   
+    dbCon.query(`SELECT * FROM report
+    JOIN post ON report.post_id = post.post_id
+    JOIN user ON report.user_id = user.user_id
+    ORDER BY report.report_id ASC;`
+    ,(err, rows) => {
+         if (err) {
+             console.error('Error retrieving data:', err);
+             res.render('admin/report', { rows: '' });
+         } else {
+             console.log('Data from the database:', rows);
+             res.render('admin/report', { rows: rows });
+         }
+     });
+ });
+
+
 
 router.get('/edit/(:login_id)', (req, res, next) => {
     let login_id = req.params.login_id;

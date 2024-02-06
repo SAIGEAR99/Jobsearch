@@ -108,7 +108,8 @@
 .post-header {
     display: flex;
     align-items: center;
-    padding-left: 12px;
+    padding-left: 22px;
+    
 }
  
 .profile-pic {
@@ -137,7 +138,7 @@
     max-height: 100%; /* ความสูงสูงสุดของรูปภาพ */
 }
 .post-footer {
-    padding: 15px;
+    padding: 22px;
     display: flex;
     justify-content: flex-start;
 }
@@ -146,7 +147,7 @@
  
 .post-content {
     flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
-    padding: 20px; /* ระยะห่างขอบของกล่องโพสต์ */
+    padding: 22px; /* ระยะห่างขอบของกล่องโพสต์ */
     overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
 }
 /* สไตล์เริ่มต้นของปุ่มไลค์ */
@@ -188,6 +189,53 @@
 .like-button.liked:hover {
     transform: scale(1.05);
 }
+.username:hover {
+    color: #555; /* เปลี่ยนสีของข้อความ */
+    cursor: pointer; /* แสดงเคอร์เซอร์เป็นรูปมือชี้ */
+    text-decoration: underline; /* เพิ่มเส้นใต้ข้อความ */
+}
+
+.hover-effect {
+    border-radius: 50%; /* ทำให้รูปภาพมีขอบเป็นวงกลม */
+    transition: background-color 0.3s, opacity 0.3s; /* เพิ่มการเปลี่ยนแปลงอย่างราบรื่น */
+}
+
+.hover-effect:hover {
+   
+    cursor: pointer; /* แสดงเคอร์เซอร์เป็นรูปมือชี้ */
+    background-color: rgba(180, 180, 180, 0.5); /* เพิ่มพื้นหลังสีเทาแบบโปร่งแสง */
+    padding: 0px; /* เพิ่ม padding เพื่อทำให้พื้นหลังมองเห็นชัดเจน */
+}
+
+
+
+.dropbtn {
+    /* สไตล์ของปุ่ม */
+    background: none;
+    border: none;
+    font-size: 24px;
+    }
+    
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 5px 5px 0.1px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 10px;
+    }
+    
+    .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 10px;
+    }
+    
+    .dropdown-content a:hover { background-color: #f1f1f1; }
 
 
     </style>
@@ -316,26 +364,26 @@
             <div style="height: 200px; width: 97%; background-color: #ffffff;  margin: auto; border-radius: 10px;">
             
                <div style="height: 0px; "></div>
-                <strong style="font-size: 20px; margin-left: 20px; ">เแนะนำบัญชี</strong>
+                <strong style="font-size: 20px; margin-left: 13px; ">เแนะนำบัญชี</strong>
                
 
-                <div style=" margin-left: 20px; margin-top: 18px;">
+                <div style=" margin-left: 13px; margin-top: 18px;">
                 <img src="/public/img/contact.png" style=" width: 22px;"><strong>&nbsp;&nbsp;&nbsp;ช่องทางติดต่อ:&nbsp;</strong><%= row.mk_contact %></div>
 
-                <div style=" margin-left: 20px; margin-top: 18px;">
+                <div style=" margin-left: 13px; margin-top: 18px;">
                     <img src="/public/img/phone.png" style=" width: 22px;"><strong>&nbsp;&nbsp;&nbsp;เบอร์โทรศัพท์:&nbsp;</strong> <%= row.mk_phone %> </div>
 
 
-                    <div style=" margin-left: 20px; margin-top: 18px;">
+                    <div style=" margin-left: 13px; margin-top: 18px;">
                         <img src="/public/img/clock.png" style=" width: 22px;"><strong>&nbsp;&nbsp;&nbsp;เวลาทำการ:&nbsp;</strong><span> <%= row.mk_day_op%> - <%= row.mk_day_close %>  เวลา: <%= formatTimeToZero(row.mk_time_op) %> - <%= formatTimeToZero(row.mk_time_close) %> น.</div>
 
-                            <div style=" margin-left: 20px; margin-top: 18px;">
+                            <div style=" margin-left: 13px; margin-top: 18px;">
                                 <img src="/public/img/pin.png" style=" width: 26px; margin-left: -2px;"><strong style="margin-left: 0px;">&nbsp;&nbsp;&nbsp;ที่อยู่:&nbsp;</strong><%= row.home_number %>&nbsp;หมู่&nbsp;<%= row.village %>
                                 &nbsp;ต.<%= row.subdistrict_name %>&nbsp;อ.<%= row.district_name %>
                                 &nbsp;จ.<%= row.province_name %>&nbsp;<%= row.zip_code %></div>
                                 
 
-                                <div style=" margin-left: 20px; margin-top: 18px;">
+                                <div style=" margin-left: 13px; margin-top: 18px;">
                                     <img src="/public/img/info-button.png" style=" width: 21px; margin-left: 1.5px;"><strong style="margin-left: 1px;">&nbsp;&nbsp;&nbsp;เกี่ยวกับ:&nbsp;</strong><%= row.mk_discript %></div>
             </div>
             
@@ -410,30 +458,44 @@
                             const postElement = document.createElement('div');
                             postElement.classList.add('post');
                             postElement.style.marginTop = "20px";
-            
+                            
+                            let likeButtonClass = post.userLiked ? 'like-button liked' : 'like-button';
+                            let likeButtonText = post.userLiked ? '' : '';
                            
             
                             postElement.innerHTML = `
-                            <div class="post" style="margin-top: 20px;">
-                            <div class="post-header">
-                                <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
-                                <span class="username">${post.market_name}</span>
-                                
+                            <div class="post" style="margin-top: 20px; position: relative;">
+                    <div class="post-header" >
+                        <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;" data-market-name="${post.market_id}" >
+                        <div class="username" data-market-name="${post.market_id}" style="margin-top:-16px">${post.market_name}</div>
                         
-                            </div>
-                            <div class="post-content">
-                                ${post.post_discript}
-                            </div>
-                            <div class="post-image">
-                                <img src="/img/select/${post.post_id}" alt="Post">
-                            </div>
-                            <div class="post-footer">
-                                <div id="post">
-                                    <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
-                                 
-                                </div>
-                            </div>
-                        </div>
+                    <div class="cross" style="position: absolute; top: 0; right: 0; margin: 20px; padding-top: 10px; margin-top: -10px;">
+                    <img src="/public/img/close.png" style="width: 25px;" class="hover-effect" onclick="toggleDropdown('${post.post_id}')">
+
+                    <div class="dropdown-content" id="dropdown-content-${post.post_id}">
+                     <a href="#" onclick="reportPost(${post.post_id});">รายงาน</a>
+                    
+                    </div>
+
+
+                    </div>
+    
+                    </div>
+                    <div class="a" style="margin-top:-19px; font-size:13px; margin-left:73px; color:gray;">${post.post_time}</div>
+
+                    <div class="post-content">
+                        ${post.post_discript}
+                    </div>
+                    <div class="post-image">
+                        <img src="/img/select/${post.post_id}" alt="Post">
+                    </div>
+                    
+                    <div class="post-footer">
+                        <div id="post">
+                            <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
+                            <button class ="${likeButtonClass}" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id},${post.user_id});">${likeButtonText}</button>
+                    </div>
+                </div>
 
                             `;
                             mainContent.appendChild(postElement);
@@ -456,6 +518,71 @@
 <% } else { %>
     <p class="text-center">No data available.</p>
 <% } %>
+
+<script>
+    function toggleDropdown(postId) {
+    const dropdownContent = document.querySelector(`#dropdown-content-${postId}`);
+    const computedStyle = window.getComputedStyle(dropdownContent);
+
+    if (computedStyle.getPropertyValue('display') === 'block') {
+        dropdownContent.style.display = 'none';
+        document.removeEventListener('click', closeDropdownOnClickOutside);
+    } else {
+        dropdownContent.style.display = 'block';
+
+        // Use setTimeout to ensure the event listener is added after the UI update
+        setTimeout(() => {
+            document.addEventListener('click', closeDropdownOnClickOutside);
+        }, 0);
+
+        dropdownContent.addEventListener('mouseleave', function closeDropdown() {
+            dropdownContent.style.display = 'none';
+            dropdownContent.removeEventListener('mouseleave', closeDropdown);
+            document.removeEventListener('click', closeDropdownOnClickOutside);
+        });
+    }
+
+    function closeDropdownOnClickOutside(event) {
+        if (!dropdownContent.contains(event.target)) {
+            dropdownContent.style.display = 'none';
+            document.removeEventListener('click', closeDropdownOnClickOutside);
+        }
+    }
+}
+
+
+    
+                 
+    function reportPost(postId) {
+        // Prompt the user for a report reason
+        let reportReason = prompt("กรุณาระบุเหตุผลในการรายงานโพสต์นี้:");
+        if (reportReason !== null && reportReason.trim() !== "") {
+            // Send the report request with the report reason
+            fetch('/post/report-post/' + postId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ reason: reportReason }) // Send the report reason in the request body
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("โพสต์ถูกรายงานแล้ว");
+                    // You can update the UI or take any necessary actions
+                } else {
+                    console.error("เกิดข้อผิดพลาดในการรายงานโพสต์");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        } else {
+            // User cancelled the report or entered an empty reason
+            console.log("การรายงานถูกยกเลิกหรือไม่มีเหตุผลที่ระบุ");
+        }
+    }
+    
+    </script>
  
        
 

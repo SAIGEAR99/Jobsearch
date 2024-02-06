@@ -27,9 +27,32 @@ const calculateAge = (birthday) => {
 
 const formatDate2 = (dateString) => {
     if (!dateString) return '';
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+
+    const date = new Date(dateString);
+    if (isNaN(date)) return 'ไม่ระบุ';
+
+    const currentTime = new Date();
+    const timeDifference = currentTime - date;
+
+    if (timeDifference < 60000) {
+        return 'เมื่อสักครู่นี้';
+    } else if (timeDifference < 3600000) {
+        const minutesAgo = Math.floor(timeDifference / 60000);
+        return `เมื่อ ${minutesAgo} นาทีที่แล้ว`;
+    } else if (timeDifference < 86400000) {
+        const hoursAgo = Math.floor(timeDifference / 3600000);
+        return `เมื่อ ${hoursAgo} ชั่วโมงที่แล้ว`;
+    } else {
+        // ใช้ Intl.DateTimeFormat สำหรับรูปแบบวันที่
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const dateFormatter = new Intl.DateTimeFormat('th-TH', options);
+        return dateFormatter.format(date);
+    }
 };
+
+
 
 const formatTimeToZero = (timeString) => {
     if (!timeString) return '00:00';

@@ -62,7 +62,9 @@ LIMIT 5;
   
     // ดำเนินการค้นหาข้อมูลในฐานข้อมูล MySQL
     dbCon.query(`SELECT * FROM market
-    WHERE market_name LIKE ?`
+    JOIN typebusiness ON market.market_type = typebusiness.business_id
+    WHERE market_name LIKE ?
+    LIMIT 8`
     ,['%'+ query + '%'], (err, results) => {
       if (err) {
         console.error('มีข้อผิดพลาดในการค้นหาข้อมูล: ' + err.message);

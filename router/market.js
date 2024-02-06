@@ -8,30 +8,43 @@ const { formatDate, calculateAge,formatDate2,formatTimeToZero } = require('../mi
 router.use(sessionConfig);
 
 
-// แยกสิทธ์
 router.get('/feed', function(req, res, next) {
-  console.log('----> req.session.user in =: ', req.session.userId);
-
-  dbCon.query(`
+    console.log('----> req.session.user in =: ', req.session.userId);
   
-  SELECT market.*
-FROM market
-INNER JOIN user ON market.market_id = user.market_id
-WHERE user.user_id = ?`,[req.session.userId],(err,rows) =>{
-
-
-    
-    res.render('market/feed_market', { 
-        market_name: rows[0].market_name,
-        userId: req.session.userId,
-        market_id: rows[0].market_id
-    
-    
+    dbCon.query(`SELECT market.* FROM market INNER JOIN user ON market.market_id = user.market_id WHERE user.user_id = ?`, [req.session.userId], (err, result) => {
+      if (err) {
+        // จัดการกับข้อผิดพลาด
+        return res.status(500).send(err.message);
+      }
+  
+      if (result.length > 0) {
+        // ดำเนินการต่อหากมีข้อมูล
+        dbCon.query('SELECT * FROM market', (err, rows) => {
+          if (err) {
+            // จัดการกับข้อผิดพลาด
+            return res.status(500).send(err.message);
+          }
+  
+          // เรนเดอร์หน้าเพียงครั้งเดียวพร้อมข้อมูลที่จำเป็น
+          res.render('market/feed_market', { 
+            rows: rows,
+            market_name: result[0].market_name,
+            userId: req.session.userId,
+            market_id: result[0].market_id
+          });
+        });
+      } else {
+        // จัดการสถานการณ์ที่ไม่มีข้อมูล
+        res.render('market/feed_market', { 
+          rows: [],
+          market_name: '',
+          userId: req.session.userId,
+          market_id: ''
+        });
+      }
     });
   });
   
-});
-
 router.get('/profile', (req, res, next) => {
 
     const user = req.session.user;

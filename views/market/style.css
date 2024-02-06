@@ -79,62 +79,60 @@ width: 50%; /* กำหนดความกว้างเท่ากับ�
 display: none;
 }
 
-
 .post {
-width: 684px;
-height: auto;
-background-color: white;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-border-radius: 10px;
-overflow: hidden;
-
+    width: 684px;
+    height: auto;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+   
 }
-
+ 
 .post-header {
-display: flex;
-align-items: center;
-padding-left: 12px;
-
+    display: flex;
+    align-items: center;
+    padding-left: 22px;
+    
 }
-
+ 
 .profile-pic {
-width: 40px;
-height: 40px;
-border-radius: 50%;
-margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
 }
-
+ 
 .username {
-font-weight: bold;
-font-size: 16px;
+    font-weight: bold;
+    font-size: 16px;
 }
-
+ 
 .post-image {
-width: 100%; /* กว้างเต็มโพสต์ */
-display: flex;
-justify-content: center; 
-overflow: hidden;
+    width: 100%; /* กว้างเต็มโพสต์ */
+    display: flex;
+    justify-content: center; 
+    overflow: hidden;
 }
-
+ 
 .post-image img {
-width: 100%; /* กว้างเต็มโพสต์ */
-height: auto; /* ความสูงปรับตามรูปภาพ */
-object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
-max-height: 100%; /* ความสูงสูงสุดของรูปภาพ */
+    width: 100%; /* กว้างเต็มโพสต์ */
+    height: auto; /* ความสูงปรับตามรูปภาพ */
+    object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+    max-height: 100%; /* ความสูงสูงสุดของรูปภาพ */
 }
 .post-footer {
-padding: 15px;
-display: flex;
-justify-content: flex-start;
+    padding: 21px;
+    display: flex;
+    justify-content: flex-start;
 }
+ 
 
-
-
+ 
 .post-content {
-flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
-padding: 20px; /* ระยะห่างขอบของกล่องโพสต์ */
-overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
-
+    flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
+    padding: 21px; /* ระยะห่างขอบของกล่องโพสต์ */
+    overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
 }
 /* สไตล์เริ่มต้นของปุ่มไลค์ */
 .like-button {
@@ -485,3 +483,83 @@ transition: background-color 0.3s;
 .button-link:hover, .button-link:focus {
 background-color: #0056b3;
 }
+
+
+.username:hover {
+    color: #555; /* เปลี่ยนสีของข้อความ */
+    cursor: pointer; /* แสดงเคอร์เซอร์เป็นรูปมือชี้ */
+    text-decoration: underline; /* เพิ่มเส้นใต้ข้อความ */
+}
+
+.hover-effect {
+    border-radius: 50%; /* ทำให้รูปภาพมีขอบเป็นวงกลม */
+    transition: background-color 0.3s, opacity 0.3s; /* เพิ่มการเปลี่ยนแปลงอย่างราบรื่น */
+}
+
+.hover-effect:hover {
+   
+    cursor: pointer; /* แสดงเคอร์เซอร์เป็นรูปมือชี้ */
+    background-color: rgba(180, 180, 180, 0.5); /* เพิ่มพื้นหลังสีเทาแบบโปร่งแสง */
+    padding: 0px; /* เพิ่ม padding เพื่อทำให้พื้นหลังมองเห็นชัดเจน */
+}
+
+
+
+.dropbtn {
+    /* สไตล์ของปุ่ม */
+    background: none;
+    border: none;
+    font-size: 24px;
+    }
+    
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 5px 5px 0.1px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 10px;
+    }
+    
+    .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 10px;
+    }
+    
+    .dropdown-content a:hover { background-color: #f1f1f1; }
+
+    .result-image {
+        width: 60px;      /* ตั้งค่าความกว้าง */
+        height: 60px;     /* ตั้งค่าความสูง */
+        border-radius: 50%; /* ทำให้มุมเป็นวงกลม */
+        object-fit: cover;  /* ให้ภาพปรับให้พอดีกับขนาด */
+        margin-bottom: 20px;
+       
+      
+    }
+    .result-text {
+        margin-left: 10px;
+        vertical-align:15px;
+        
+        
+        
+    }
+   .result-text2 {
+        display: block; /* ทำให้แต่ละ span แสดงในบรรทัดของตัวเอง */
+        margin-left: 71px;
+        margin-top: -50px;
+        color: gray;
+        font-size: 12px;
+        margin-bottom: 10px;
+
+    }
+   
+      
+  
+    
+    
