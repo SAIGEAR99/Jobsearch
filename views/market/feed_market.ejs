@@ -18,6 +18,22 @@
  
  
 <body style="background-color: #f0f2f5;">
+
+        
+    <div class="bottom-nav">
+        <img src="/public/img/Instagram_logo_2022.svg.webp " style="width: 35px; margin-left: 0vw;">
+        <img src="/public/img/search-interface-circular-symbol.png" alt="" style="width: 32px; margin-left: 1vw;">
+        <img src="/public/img/more.png " style="width: 28px; margin-left: 6vw; opacity: 0.7;">
+        <img src="/img/mk_img_mk/<%= market_id %>" style=" 
+       
+        vertical-align: -12px; margin-left: 40vw;
+         margin-top: -10px; width: 35px; height:
+          35px; object-fit: cover;" alt="Profile Picture"
+           class="profile-pic" style="object-fit:cover;"
+            data-market-name="<%= market_id %>" >
+        
+        
+    </div>
  
 <div class="container-fluid">
     <div class="row">
@@ -173,14 +189,15 @@
           </div>
         </div>
 
-        <div style="margin-top: 20px;">
-        <div class="postX-content" style="width: 684px; margin: 0 auto; background-color: white;  width: 684px;
-        height: auto;
-        background-color: white;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow: hidden;">
-        <div style="height: 30px;"></div>
+
+
+        <div class="top-logo"></div>
+
+        <div class="logo"><img src="/public/img/Logo-Instagram.png" class="pic-logo"></div>
+      
+       
+        <div class="postX-content">
+        <div style="height: 20px;"></div>
 
         
                 <img src="/img/mk_img_mk/<%= market_id %>" style="margin-left: 20px; margin-top: -10px; width: 50px; height: 50px; object-fit: cover;" alt="Profile Picture" class="profile-pic" style="object-fit:cover;" data-market-name="<%= market_id %>" >
@@ -188,7 +205,7 @@
 
 
                 <span>
-                    <input onclick="showPostPopup()" id="postLink" type="text" style="width: 84%; border-radius: 30px; border: 0px; background-color:#e4e6eb; height: 50px;" placeholder=" &nbsp;&nbsp;คุณคิดอะไรอยู่ <%= market_name %> ">
+                    <input onclick="showPostPopup()" class="mm" id="postLink" type="text"  placeholder=" &nbsp;&nbsp;คุณคิดอะไรอยู่ <%= market_name %> ">
                   </span>
                     
                 <div style="height: 20px;"></div>
@@ -198,24 +215,14 @@
         
         </div>
     </div>
+
         
        
-                <div class="ads" style="margin-left:1550px; display: block; margin-top: -75px;height: 80vh;
-                    position: fixed; 
-                    right: 0; 
-                    top: 10%; 
-                    width: 280px; 
-                    height: 100vh;
-                    overflow-x: hidden;
-                    overflow-y: hidden; 
-                    z-index: 1000; 
-                    padding: 20px;
-                    border-radius: 10px;
-                "> 
+                <div class="ads" style="margin-left:1550px; display: block; margin-top: -75px;height: 80vh;"> 
                 
                 <div style="height: 200px;">
                 
-                    <div style="color: gray; margin-bottom: 10px; font-weight: 700;">บัญชีธุรกิจของคุณ</div>
+                    <div style="color: gray; margin-bottom: 10px; font-weight: 700; ">บัญชีธุรกิจของคุณ</div>
                     <a href="/market/profile/business" style="text-decoration: none; color: inherit;">
                         <img src="/img/mk_img_mk/<%= market_id %>" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; margin-top: 10px;">
                         <span style="margin-left: 10px; vertical-align: -5px; font-weight: 500;"><%= market_name %></span>
@@ -257,7 +264,7 @@
 
                 <div class="main-content" style="width: 684px; margin: 0 auto;"> </div>
 
-
+                
                 <div id="postTypeModal" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
@@ -486,7 +493,7 @@ function toggleLike(postId, userId) {
                                 <div class="post" style="margin-top: 20px; position: relative;">
                     <div class="post-header" >
                         <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;" data-market-name="${post.market_id}" >
-                        <div class="username" data-market-name="${post.market_id}" style="margin-top:-16px">${post.market_name}</div>
+                        <div class="username" data-market-name="${post.market_id}" >${post.market_name}</div>
                         
                     <div class="cross" style="position: absolute; top: 0; right: 0; margin: 20px; padding-top: 10px; margin-top: -10px;">
                     <img src="/public/img/close.png" style="width: 25px;" class="hover-effect" onclick="toggleDropdown('${post.post_id}')">
@@ -500,7 +507,7 @@ function toggleLike(postId, userId) {
                     </div>
     
                     </div>
-                    <div class="a" style="margin-top:-22px; font-size:13px; margin-left:83px; color:gray;">${post.post_time}</div>
+                    <div class="time_post">${post.post_time}</div>
 
                     <div class="post-content">
                         ${post.post_discript}
@@ -513,10 +520,10 @@ function toggleLike(postId, userId) {
                         <div id="post">
                             <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
                             <button class ="${likeButtonClass}" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id},${post.user_id});">${likeButtonText}</button>
+                            
                     </div>
                 </div>
-
-                    
+  
                 `;
                 mainContent.appendChild(postElement);
             });
@@ -536,6 +543,57 @@ function toggleLike(postId, userId) {
 
 
                 
+            </script>
+
+            <script>
+
+function openCommentModal(postId) {
+    // โค้ดเพื่อดึงคอมเมนต์และแสดงใน Modal
+    document.getElementById('commentModal').style.display = 'block';
+}
+
+function closeCommentModal() {
+    document.getElementById('commentModal').style.display = 'none';
+}
+
+function submitComment(postId) {
+    let comment = document.getElementById('newComment').value;
+    
+    // ตรวจสอบว่าคอมเมนต์ไม่ว่างเปล่า
+    if (!comment) {
+        alert('กรุณาป้อนคอมเมนต์');
+        return;
+    }
+
+    // สร้างอ็อบเจกต์ข้อมูลที่จะส่ง
+    let data = {
+        postId: postId,
+        comment: comment
+    };
+
+    // สร้างคำขอ AJAX
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/submitComment', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // จัดการกับคำตอบจากเซิร์ฟเวอร์
+            let response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                // เพิ่มคอมเมนต์ไปยัง UI หรือแสดงผลอย่างอื่น
+                alert('คอมเมนต์ได้ถูกส่งแล้ว');
+                closeCommentModal();
+            } else {
+                // แสดงข้อผิดพลาด
+                alert('เกิดข้อผิดพลาดในการส่งคอมเมนต์');
+            }
+        }
+    };
+    xhr.send(JSON.stringify(data));
+}
+
+
+
             </script>
 
 
@@ -661,8 +719,25 @@ document.addEventListener('DOMContentLoaded', function () {
  
        </script>
  
+<script>
+    function loadContentForWindowSize() {
+    if (window.innerWidth <= 414) {
+        
+    } else if (window.innerWidth <= 1300) {
+        // โหลด HTML/CSS สำหรับหน้าจอขนาดกลาง
+    } else {
+        // โหลด HTML/CSS สำหรับหน้าจอขนาดใหญ่
+    }
+}
 
- 
+// ตรวจสอบเมื่อหน้าเว็บโหลด
+window.onload = loadContentForWindowSize;
+
+// ตรวจสอบเมื่อขนาดหน้าจอเปลี่ยนแปลง
+window.onresize = loadContentForWindowSize;
+
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.1.16/dist/umd/popper.min.js"></script>
