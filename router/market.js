@@ -19,7 +19,7 @@ router.get('/feed', function(req, res, next) {
   
       if (result.length > 0) {
         // ดำเนินการต่อหากมีข้อมูล
-        dbCon.query('SELECT * FROM market', (err, rows) => {
+        dbCon.query('SELECT * FROM market ORDER BY RAND();', (err, rows) => {
           if (err) {
             // จัดการกับข้อผิดพลาด
             return res.status(500).send(err.message);

@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>job-search
+    </title>
+    <link rel="icon" href="/public/img/camera.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/views/market/style.css">
@@ -36,7 +38,7 @@
                     <span class="aa">หน้าหลัก</span>
                   </a>
 
-                   <a href="#" id="scan" class="nav-link link-body-emphasis" onclick="showPostPopup()">
+                   <a href="#" id="scan" class="nav-link link-body-emphasis">
                      <img src="/public/img/search.png" alt="" style="width: 12%;">
                      <span class="aa">ค้นหา </span>
                   </a>
@@ -170,17 +172,45 @@
             </div>
           </div>
         </div>
+
+        <div style="margin-top: 20px;">
+        <div class="postX-content" style="width: 684px; margin: 0 auto; background-color: white;  width: 684px;
+        height: auto;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;">
+        <div style="height: 30px;"></div>
+
+        
+                <img src="/img/mk_img_mk/<%= market_id %>" style="margin-left: 20px; margin-top: -10px; width: 50px; height: 50px; object-fit: cover;" alt="Profile Picture" class="profile-pic" style="object-fit:cover;" data-market-name="<%= market_id %>" >
+
+
+
+                <span>
+                    <input onclick="showPostPopup()" id="postLink" type="text" style="width: 84%; border-radius: 30px; border: 0px; background-color:#e4e6eb; height: 50px;" placeholder=" &nbsp;&nbsp;คุณคิดอะไรอยู่ <%= market_name %> ">
+                  </span>
+                    
+                <div style="height: 20px;"></div>
+                <hr style="width: 95%; margin: auto; color: gray; ">
+                <div style="height: 40px;"></div>
+                
+        
+        </div>
+    </div>
         
        
-                <div class="ads" style="margin-left:1550px; display: block; margin-top: 20px;height: 80vh;
-                position:fixed;
-                width: 250px; /* Adjusted width */
-                overflow-x:hidden;
-                overflow-y:hidden;
-                z-index: 1000;
-                
-                padding: 20px;
-                border-radius: 10px;
+                <div class="ads" style="margin-left:1550px; display: block; margin-top: -75px;height: 80vh;
+                    position: fixed; 
+                    right: 0; 
+                    top: 10%; 
+                    width: 280px; 
+                    height: 100vh;
+                    overflow-x: hidden;
+                    overflow-y: hidden; 
+                    z-index: 1000; 
+                    padding: 20px;
+                    border-radius: 10px;
                 "> 
                 
                 <div style="height: 200px;">
@@ -305,58 +335,70 @@
                 }
                 </script>
                    
-            <script>
-                
-                function showModal(modalId) {
-                    var modal = document.getElementById(modalId);
-                    modal.style.display = "block";
-                    document.body.style.overflow = 'hidden';
-                }
-                // ซ่อน Modal ตาม ID
-                function hideModal(modalId) {
-                    var modal = document.getElementById(modalId);
-                    modal.style.display = "none";
-                    document.body.style.overflow = '';
-                }
-                // ฟังก์ชันเมื่อผู้ใช้กดปุ่ม "Post"
-                document.getElementById('postLink').addEventListener('click', function() {
-                    showModal('postTypeModal');
-                });
-                // ฟังก์ชันเมื่อผู้ใช้เลือก "ฟีดข่าว"
-                document.getElementById('newsFeedButton').addEventListener('click', function() {
-                    hideModal('postTypeModal');
-                    showModal('newsFeedModal');
-                });
-                // จัดการปุ่มปิดบนทุก Modals
-                var closeButtons = document.getElementsByClassName("close");
-                for (var i = 0; i < closeButtons.length; i++) {
-                    closeButtons[i].onclick = function() {
-                        var modal = this.closest('.modal');
+                   <script>
+                    // Function to show modal by modalId
+                    function showModal(modalId) {
+                        var modal = document.getElementById(modalId);
+                        modal.style.display = "block";
+                        document.body.style.overflow = 'hidden';
+                    }
+                    
+                    // Function to hide modal by modalId
+                    function hideModal(modalId) {
+                        var modal = document.getElementById(modalId);
                         modal.style.display = "none";
+                        document.body.style.overflow = '';
                     }
-                }
-                // ปิด Modal เมื่อผู้ใช้คลิกนอกพื้นที่ Modal
-                window.onclick = function(event) {
-                    if (event.target.classList.contains('modal')) {
-                        event.target.style.display = "none";
+                    
+                    // Function to handle the click event of 'Post' button
+                    function showPostPopup() {
+                        showModal('postTypeModal');
                     }
-                }
-                // จัดการการส่งข้อมูลฟอร์ม
-                document.getElementById('newsFeedForm').addEventListener('submit', function(event) {
-    // ป้องกันการส่งฟอร์มแบบปกติ
-    
+                    
+                    // Function to handle the click event of 'ฟีดข่าว' button
+                    document.querySelector('#newsFeedButton').addEventListener('click', function() {
+                        hideModal('postTypeModal');
+                        showModal('newsFeedModal');
+                    });
+                    
+                    // Handling closing buttons on all Modals
+                    var closeButtons = document.getElementsByClassName("close");
+                    for (var i = 0; i < closeButtons.length; i++) {
+                        closeButtons[i].onclick = function() {
+                            var modal = this.closest('.modal');
+                            modal.style.display = "none";
+                        }
+                    }
+                    
+                    // Handling click outside modal to close it
+                    window.onclick = function(event) {
+                        if (event.target.classList.contains('modal')) {
+                            event.target.style.display = "none";
+                        }
+                    }
+                
+// Function to handle the click event of 'ฟีดข่าว' button
+document.querySelector('#newsFeedButton').addEventListener('click', function() {
+    hideModal('postTypeModal');
+    showModal('newsFeedModal');
+});
 
-    // ดึงข้อมูลโพสต์จากฟอร์ม
+// Handling form submission
+document.getElementById('newsFeedForm').addEventListener('submit', function(event) {
+    // Prevent normal form submission
+    event.preventDefault();
+
+    // Get post content and image
     const postContent = document.querySelector('textarea[name="postContent"]').value;
     const postImage = document.getElementById('fileInput').files[0];
 
-    // ตรวจสอบว่า postContent มีข้อมูลหรือไม่
+    // Check if postContent has data
     if (!postContent.trim()) {
         alert('โปรดใส่เนื้อหาของโพสต์ก่อนเผยแพร่');
-        return; // หยุดการทำงานของฟังก์ชัน
+        return; // Stop function execution
     }
 
-    // ตรงนี้เป็นโค้ดสำหรับส่งข้อมูลไปยังเซิร์ฟเวอร์
+    // Sending form data to server
     const formData = new FormData();
     formData.append('postContent', postContent);
     formData.append('postImage', postImage);
@@ -367,13 +409,23 @@
     })
     .then(response => response.text())
     .then(data => {
-        console.log(data); // แสดงข้อมูลที่ได้รับจากเซิร์ฟเวอร์
+        console.log(data); // Display data received from server
+        
+        // Close modal after posting
+        hideModal('newsFeedModal');
+        
+        // Clear form fields
+        document.getElementById('newsFeedForm').reset();
+        
+        // Reload the page
+        location.reload();
     })
     .catch(error => {
         console.error('เกิดข้อผิดพลาด:', error);
-        // สามารถจัดการข้อผิดพลาดได้ตามต้องการ
+        // Handle errors as needed
     });
 });
+
 
                 </script>
 

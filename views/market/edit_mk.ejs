@@ -1178,24 +1178,26 @@ margin: 0;
 }
 
                 
-    function deletePost(postId) {
-if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้?")) {
-fetch('/post/delete-post/' + postId, {
-method: 'DELETE'
-})
-.then(response => {
-if (response.ok) {
-    console.log("โพสต์ถูกลบแล้ว");
-    // ทำการอัปเดต UI หรือรีโหลดหน้า
-} else {
-    console.error("เกิดข้อผิดพลาดในการลบโพสต์");
+function deletePost(postId) {
+    if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้?")) {
+        fetch('/post/delete-post/' + postId, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("โพสต์ถูกลบแล้ว");
+                // รีเฟรชหน้าเว็บทันที
+                location.reload();
+            } else {
+                console.error("เกิดข้อผิดพลาดในการลบโพสต์");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    }
 }
-})
-.catch(error => {
-console.error("Error:", error);
-});
-}
-}
+
 
 
              
