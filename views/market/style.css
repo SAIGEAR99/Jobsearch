@@ -558,7 +558,11 @@ background-color: #0056b3;
         margin-bottom: 10px;
 
     }
-   
+    .profile-pic {
+        text-decoration: none; /* ลบเส้นใต้ของลิงก์ */
+        color: inherit; /* ใช้สีข้อความเดียวกับที่รอบๆ มัน */
+    }
+    
       
   
     

@@ -47,7 +47,7 @@ router.get('/feed', function(req, res, next) {
   
 router.get('/profile', (req, res, next) => {
 
-    const user = req.session.user;
+    const user = req.session.userId;
    
     dbCon.query(`SELECT 
     u.*,
@@ -65,7 +65,7 @@ JOIN
     gender g ON u.gender = g.gender_id
 
 WHERE 
-    u.username = ?
+    u.user_id = ?
 
 `
     ,user ,(err, rows) => {
@@ -89,7 +89,7 @@ WHERE
 
 router.get('/profile/business', (req, res, next) => {
 
-    const user = req.session.user;
+    const user = req.session.userId;
    
     dbCon.query(`SELECT 
     u.*,
@@ -121,7 +121,7 @@ JOIN
 JOIN 
     provinces p ON d.province_id = p.id
 WHERE 
-    u.username = ?
+    u.user_id = ?
 `
     ,user ,(err, rows) => {
          if (err) {

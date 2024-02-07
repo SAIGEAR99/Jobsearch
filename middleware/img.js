@@ -13,10 +13,10 @@ const sessionConfig = require('../middleware/session-config')
 router.use(sessionConfig);
 
 router.get('/file', (req, res) => {
-    const username = req.session.user;
+    const username = req.session.userId;
     
     // ดึง path จากฐานข้อมูล
-    dbCon.query('SELECT * FROM user WHERE username = ?', username, (err, rows) => {
+    dbCon.query('SELECT * FROM user WHERE user_id = ?', username, (err, rows) => {
         if (err) {
             // จัดการกับข้อผิดพลาด
             return res.status(500).send(err);
@@ -36,15 +36,40 @@ router.get('/file', (req, res) => {
     });
 });
 
+router.get('/file/cover', (req, res) => {
+    const username = req.session.userId;
+    
+    // ดึง path จากฐานข้อมูล
+    dbCon.query('SELECT * FROM user WHERE user_id = ?', username, (err, rows) => {
+        if (err) {
+            // จัดการกับข้อผิดพลาด
+            return res.status(500).send(err);
+        }
+
+        if (rows.length > 0) {
+            const filePath = rows[0].img_cover;
+            res.sendFile(filePath, { root: '.' }, (err) => {
+                if (err) {
+                    // จัดการกับข้อผิดพลาดในการส่งไฟล์
+                    res.status(404).send("File not found!");
+                }
+            });
+        } else {
+            res.status(404).send("No file associated with the user.");
+        }
+    });
+});
+
+
 
 router.get('/file/market', (req, res) => {
-    const username = req.session.user;
+    const username = req.session.userId;
     
     // ดึง path จากฐานข้อมูล
     dbCon.query(`SELECT user.*, market.mk_img
     FROM user AS user
     JOIN market AS market ON user.market_id = market.market_id
-    WHERE user.username = ?`
+    WHERE user.user_id = ?`
     , username, (err, rows) => {
         if (err) {
             // จัดการกับข้อผิดพลาด
@@ -68,8 +93,9 @@ router.get('/file/market', (req, res) => {
 
 
 
+
 router.post('/upload', (req, res) => {
-    const user = req.session.user;
+    const user = req.session.userId;
     const empY = req.session.isEmployer;
    
     
@@ -85,7 +111,7 @@ router.post('/upload', (req, res) => {
     uploadedFile.mv(uploadPath, err => {
         if (err) return res.status(500).send(err);
 
-        let query = 'UPDATE user SET img_profile = ? WHERE username = ?;';
+        let query = 'UPDATE user SET img_profile = ? WHERE user_id = ?;';
         dbCon.query(query, [uploadPath,user], (err, result) => {
             if (err) return res.status(500).send(err);
             res.redirect('/user/profile')
@@ -95,7 +121,7 @@ router.post('/upload', (req, res) => {
 
 
 router.post('/upload/market', (req, res) => {
-    const user = req.session.user;
+    const user = req.session.userId;
     const empY = req.session.isEmployer;
    
     
@@ -111,7 +137,7 @@ router.post('/upload/market', (req, res) => {
     uploadedFile1.mv(uploadPath, err => {
         if (err) return res.status(500).send(err);
 
-        let query = 'UPDATE user SET img_profile = ? WHERE username = ?;';
+        let query = 'UPDATE user SET img_profile = ? WHERE user_id = ?';
         dbCon.query(query, [uploadPath,user], (err, result) => {
             if (err) return res.status(500).send(err);
             res.redirect('/market/profile')
@@ -121,7 +147,7 @@ router.post('/upload/market', (req, res) => {
 
 
 router.post('/upload/market/bussiness', (req, res) => {
-    const user = req.session.user;
+    const user = req.session.userId;
     const empY = req.session.isEmployer;
    
     
@@ -140,7 +166,7 @@ router.post('/upload/market/bussiness', (req, res) => {
         let query = `UPDATE market 
         JOIN user ON market.market_id = user.market_id
         SET market.mk_img = ?
-        WHERE user.username = ?
+        WHERE user._id = ?
          `;
         dbCon.query(query, [uploadPath,user], (err, result) => {
             if (err) return res.status(500).send(err);
@@ -151,7 +177,7 @@ router.post('/upload/market/bussiness', (req, res) => {
 
 
 router.post('/upload/market/bussiness/cover', (req, res) => {
-    const user = req.session.user;
+    const user = req.session.userId;
     const empY = req.session.isEmployer;
    
     
@@ -170,11 +196,37 @@ router.post('/upload/market/bussiness/cover', (req, res) => {
         let query = `UPDATE market 
         JOIN user ON market.market_id = user.market_id
         SET market.mk_cover = ?
-        WHERE user.username = ?
+        WHERE user.user_id= ?
          `;
         dbCon.query(query, [uploadPath,user], (err, result) => {
             if (err) return res.status(500).send(err);
             res.redirect('/market/profile/business')
+        });
+    });
+});
+
+router.post('/upload/market/cover', (req, res) => {
+    const user = req.session.userId;
+    const empY = req.session.isEmployer;
+   
+    
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+    }
+
+    let uploadedFile2 = req.files.uploadedFile2;
+
+    // สร้างตำแหน่งสำหรับเก็บไฟล์
+    const uploadPath = path.join('./middleware/img', uploadedFile2.name);
+
+    uploadedFile2.mv(uploadPath, err => {
+        if (err) return res.status(500).send(err);
+
+        let query = `UPDATE user SET img_cover = ? WHERE user_id = ?
+         `;
+        dbCon.query(query, [uploadPath,user], (err, result) => {
+            if (err) return res.status(500).send(err);
+            res.redirect('/market/profile')
         });
     });
 });
@@ -234,6 +286,8 @@ router.get('/mk_cover/:mkId', (req, res) => {
         res.sendFile(filePath, { root: '.' });
     });
 });
+
+
 
 
 

@@ -40,10 +40,10 @@ const formatDate2 = (dateString) => {
         return 'เมื่อสักครู่นี้';
     } else if (timeDifference < 3600000) {
         const minutesAgo = Math.floor(timeDifference / 60000);
-        return `เมื่อ ${minutesAgo} นาทีที่แล้ว`;
+        return `${minutesAgo} นาทีที่แล้ว`;
     } else if (timeDifference < 86400000) {
         const hoursAgo = Math.floor(timeDifference / 3600000);
-        return `เมื่อ ${hoursAgo} ชั่วโมงที่แล้ว`;
+        return `${hoursAgo} ชั่วโมงที่แล้ว`;
     } else {
         // ใช้ Intl.DateTimeFormat สำหรับรูปแบบวันที่
         const options = { year: 'numeric', month: 'long', day: 'numeric' };

@@ -186,8 +186,11 @@
                 <div style="height: 200px;">
                 
                     <div style="color: gray; margin-bottom: 10px; font-weight: 700;">บัญชีธุรกิจของคุณ</div>
-                    <img src="/img/mk_img_mk/<%= market_id %>" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; margin-top: 10px; ">
-                    <span style="margin-left: 10px; vertical-align:-5px; font-weight: 500;"><%= market_name %></span>
+                    <a href="/market/profile/business" style="text-decoration: none; color: inherit;">
+                        <img src="/img/mk_img_mk/<%= market_id %>" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; margin-top: 10px;">
+                        <span style="margin-left: 10px; vertical-align: -5px; font-weight: 500;"><%= market_name %></span>
+                    </a>
+                    
 
                     <hr>
 
@@ -199,8 +202,10 @@
                                 <% rows.forEach((row, index) => { %>
                                 <tr>
                                     <td>
-                                    <img src="/img/mk_img_mk/<%= row.market_id %>" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; margin-top: 10px; ">
-                                    <span style="margin-left: 10px; vertical-align:-5px; font-weight: 500;"><%= row.market_name %></span>
+                                        <a href="javascript:void(0);" data-market-id="<%= row.market_id %>" class="profile-pic">
+                                            <img src="/img/mk_img_mk/<%= row.market_id %>" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; margin-top: 10px;">
+                                            <span style="margin-left: 10px; vertical-align:-5px; font-weight: 500;"><%= row.market_name %></span>
+                                        </a>
                                 </td>
                                     
                                     
@@ -548,15 +553,14 @@ function reportPost(postId) {
 
 
             <script>
-// ฟังก์ชัน addUsernameClickListeners
 function addUsernameClickListeners() {
-    const usernameElements = document.querySelectorAll('.profile-pic , .username');
+    const usernameElements = document.querySelectorAll('.profile-pic, .username');
 
     usernameElements.forEach(usernameElement => {
-        // เพิ่ม event listener เฉพาะถ้ายังไม่ถูกเพิ่ม
         if (!usernameElement.classList.contains('event-listener-added')) {
             usernameElement.addEventListener('click', function(event) {
-                const marketId = usernameElement.getAttribute('data-market-name');
+                // ตรวจสอบว่า element มี attribute data-market-id หรือไม่
+                const marketId = usernameElement.getAttribute('data-market-id') || usernameElement.getAttribute('data-market-name');
                 const newURL = `/market/show_mk?market_id=${encodeURIComponent(marketId)}`;
                 window.location.href = newURL;
             });
@@ -564,6 +568,7 @@ function addUsernameClickListeners() {
         }
     });
 }
+
 document.addEventListener('DOMContentLoaded', function() {
     addUsernameClickListeners();
 });

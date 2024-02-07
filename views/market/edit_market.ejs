@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta Tags -->
+    <!-- Meta tags remain unchanged -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,426 +15,797 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="/views/market/style2.css">
-    
 
+ 
+ 
+    <!-- Custom styles -->
+    <style>
+ 
+        .sidebar {
+            left: 0;
+            height: 100vh;
+            position: fixed;
+            width: 250px; /* Adjusted width */
+            overflow-x:hidden;
+            overflow-y:hidden;
+            z-index: 1000;
+            background-color: #ffffff; /* Light gray background */
+            padding: 20px;
+            box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
+        }
+ 
+        .sidebar .nav-item {
+            list-style: none;
+            margin-bottom: 30px;
+            margin-left: -9px;
+            font-weight: 400;
+           
+ 
+        }
+ 
+        .sidebar .nav-link {
+            text-decoration: none;
+            color: #000; /* Black text color */
+            font-size: 18px;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+ 
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef; /* Light hover effect */
+            color: #007bff; /* Blue text on hover */
+        }
+ 
+        .sidebar .nav-link img {
+              margin-top: 18px;
+            margin-right: 10px;
+            vertical-align:bottom;
+        }
+ 
+     
+        .aa{
+              font-size: 20px;
+        }
+        .custom-rounded-img {
+        border-radius: 50%; /* Make the image round */
+        width: 40px;
+        height: 40px;
+         /* Adjust width as needed * /* Adjust height as needed */
+        object-fit:cover; /* Ensure the image covers the area */
+    }
+ 
+    .dropdown {
+       position: absolute;
+       bottom: 10px;
+    margin-top: 0; /* ลบ margin-top ที่กำหนดไว้ก่อนหน้านี้ */
+    width: 100%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+}
+ 
+.dropdown-menu {
+    display: none; /* ซ่อน dropdown menu ไว้เริ่มต้น */
+    position: absolute;
+    bottom: 100%; /* ตั้งค่าให้ปรากฏด้านล่างของปุ่ม */
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    width: 90%; /* ขยายความกว้างเพื่อให้เต็มปุ่ม */
+}
+ 
+/* อาจต้องปรับแต่งสไตล์ของปุ่มที่อยู่ภายใน .dropdown ให้สอดคล้องกับปุ่มอื่นๆ */
+.dropdown button {
+    width: 50%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+    /* สไตล์อื่นๆ ตามที่ต้องการ */
+}
+.dropdown-toggle::after {
+    display: none;
+}
+ 
+ 
+.post {
+    width: 684px;
+    height: auto;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+   
+}
+ 
+.post-header {
+    display: flex;
+    align-items: center;
+    padding-left: 22px;
+    
+}
+ 
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+ 
+.username {
+    font-weight: bold;
+    font-size: 16px;
+}
+ 
+.post-image {
+    width: 100%; /* กว้างเต็มโพสต์ */
+    display: flex;
+    justify-content: center; 
+    overflow: hidden;
+}
+ 
+.post-image img {
+    width: 100%; /* กว้างเต็มโพสต์ */
+    height: auto; /* ความสูงปรับตามรูปภาพ */
+    object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+    max-height: 100%; /* ความสูงสูงสุดของรูปภาพ */
+}
+.post-footer {
+    padding: 22px;
+    display: flex;
+    justify-content: flex-start;
+}
+ 
+
+ 
+.post-content {
+    flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
+    padding: 22px; /* ระยะห่างขอบของกล่องโพสต์ */
+    overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
+}
+/* สไตล์เริ่มต้นของปุ่มไลค์ */
+.like-button {
+    color: #333; /* สีข้อความ */
+    background-color: #f5f5f5; /* สีพื้นหลัง */
+    border: 1px solid #ddd; /* สีขอบ */
+    padding: 5px 10px; /* ระยะห่าง */
+    border-radius: 3px; /* มุมโค้ง */
+    cursor: pointer; /* รูปแบบเคอร์เซอร์ */
+    transition: all 0.3s ease; /* ผลลัพธ์การเคลื่อนไหว */
+}
+.like-button {
+  padding: 5px 10px;
+  border: none; /* ลบขอบ */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 50px;
+  background-image: url('/public/img/heart_T.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 60px;
+  height: 30px;
+  background-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
+  box-shadow: none; /* ลบเงา (ถ้ามี) */
+  margin-left: -13px;
+}
+
+
+
+.like-button:hover {
+  transform: scale(1.05);
+}
+.like-button.liked {
+    background-image: url('/public/img/heartsB.png');
+}
+
+.like-button.liked:hover {
+    transform: scale(1.05);
+}
+
+
+#displayBusinessHours {
+padding: 10px;
+margin-top: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+background-color: #f8f8f8;
+color: #333;
+font-size: 16px;
+text-align: center;
+}
+/* Style the button */
+.btn.edit-business-hours {
+background-color: #007bff; /* Set the background color to a desired color */
+color: #fff; /* Set the text color to white or any contrasting color */
+border: none; /* Remove the border */
+padding: 10px 20px; /* Adjust the padding as needed */
+border-radius: 5px; /* Add rounded corners */
+cursor: pointer; /* Add a pointer cursor on hover */
+}
+
+/* Style the pencil icon inside the button */
+.btn.edit-business-hours i {
+margin-right: 5px; /* Add some spacing between the icon and text */
+}
+
+/* Hover effect - Change the background color on hover */
+.btn.edit-business-hours:hover {
+background-color: #0056b3; /* Change to a slightly darker color on hover */
+}
+
+
+#businessSettingsModal .modal-content {
+border-radius: 8px;
+box-shadow: 0 5px 15px rgba(0,0,0,.1);
+}
+
+/* Input Field Design */
+#businessSettingsModal .form-control {
+border: 1px solid #ced4da;
+border-radius: 4px;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#businessSettingsModal .form-control:focus {
+border-color: #80bdff;
+box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+/* Button Styling */
+#businessSettingsModal .btn-primary {
+background-color: #007bff;
+border-color: #007bff;
+border-radius: 4px;
+transition: background-color .15s ease-in-out;
+}
+
+#businessSettingsModal .btn-primary:hover {
+background-color: #0056b3;
+border-color: #0056b3;
+}
+
+/* Typography */
+#businessSettingsModal .modal-title {
+font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-size: 1.25rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+#businessSettingsModal .modal-dialog {
+margin: 0.5rem;
+}
+
+#businessSettingsModal .modal-content {
+margin: 0;
+}
+}
+
+
+
+    </style>
 </head>
-<body>
+ 
+ 
+<body style="background-color: #f0f2f5;">
+ 
 <div class="container-fluid">
     <div class="row">
-
+ 
+        <!-- Custom Sidebar -->
         <div class="sidebar">
             <!-- Sidebar content here -->
             <div>
-                <a href="/"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
-                    <span class="fs-4"><img src="/public/img/Logo-Instagram.png" style="width: 60%; margin-left: -2px; margin-bottom: 10px;"></span>
-                </a>
-            
-                <ul class="nav">
-                    <li class="nav-item">
-                
-                        <a href="/market/feed" class="nav-link active" aria-current="page">
-                            <img src="/public/img/homepage.png" alt="" style="width: 13%;">
-                            <span class="aa">หน้าหลัก</span>
-                        </a>
-                        
-                        
-                        <a href="#" class="nav-link active" aria-current="page">
-                            <img src="/public/img/search.png" alt="" style="width: 12%;">
-                            <span class="aa">ค้นหา </span>
-                        </a>
-                        
-                        
-                        <a href="#" class="nav-link">
-                            <img src="/public/img/compass.png" alt="" style="width: 12%;">
-                            <span class="aa">สำรวจ</span>
-                        </a>
-                        
-
-
-                    <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
-                        <a href="/market/profile" class="nav-link">
-                            <img src="/img/file" class="custom-rounded-img" alt="">
-                            <span class="aa">โปรไฟล์</span>
-                        </a>
-
-
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle " type="button" >
-                                <img src="/public/img/more.png" alt="Logo" style="width: 25%; margin-right: 10px;">
-                                <span class="aa">เพิ่มเติม</span>
-                            </button>
-
-                            <ul class="dropdown-menu" style="display: none;">
-                                <li><a class="dropdown-item " href="/logout" >สลับบัญชี</a></li>
-                                <li><a class="dropdown-item " href="/logout">ออกจากระบบ</a></li>
-                            </ul>
-                        </div>
-
+              <a href="/"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
+                <span class="fs-4"><img src="/public/img/Logo-Instagram.png" style="width: 60%; margin-left: -2px; margin-bottom: 10px;"></span>
+              </a>
+             
+              <ul class="nav">
+                <li class="nav-item">
+             
+                  <a href="/user/feed" class="nav-link active" aria-current="page">
+                     <img src="/public/img/homepage.png" alt="" style="width: 13%;">
+                    <span class="aa">หน้าหลัก</span>
+                  </a>
+               
+               
+                  <a href="#" class="nav-link active" aria-current="page">
+                     <img src="/public/img/search.png" alt="" style="width: 12%;">
+                     <span class="aa">ค้นหา </span>
+                  </a>
+               
+               
+                  <a href="#" class="nav-link">
+                     <img src="/public/img/compass.png" alt="" style="width: 12%;">
+                     <span class="aa">สำรวจ</span>
+                  </a>
+               
+               
+               
+   
+ 
+                  <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
+                     <a href="/market/profile" class="nav-link">
+                    <img src="/img/file" class="custom-rounded-img" alt="" style="width: 25px; height: 25px; margin-right: 6px; margin-left: 3px;">
+                        <span class="aa">โปรไฟล์</span>
+                             </a>
+ 
+ 
+                             <div class="dropdown">
+                                   <button class="btn dropdown-toggle " type="button" >
+                                       <img src="/public/img/more.png" alt="Logo" style="width: 25%; margin-right: 10px;">
+                                       <span class="aa">เพิ่มเติม</span>
+                                   </button>
+                                   <ul class="dropdown-menu" style="display: none;">
+                                       <li><a class="dropdown-item " href="/logout" >สลับบัญชี</a></li>
+                                       <li><a class="dropdown-item " href="/logout">ออกจากระบบ</a></li>
+                                   </ul>
+                            </div>
+   
                     </li>        
-                </ul>
+                    </div>
+               
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <% if (rows.length > 0) { %>
+            <% rows.forEach(row => { %>
+    
+
+                    <style>
+        .profile-image-link {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .profile-image {
+            transition: all 0.3s ease;
+        }
+
+        .profile-image-link {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-image-link:hover .profile-image {
+            filter: brightness(85%);
+            border-radius: 10px;
+           
+            
+        }
+
+        .profile-image-link:hover::after {
+            content: '';
+            display: block;
+            width: 24px; /* กำหนดขนาดกว้างของ pseudo-element */
+            height: 24px; /* กำหนดขนาดสูงของ pseudo-element */
+           
+            background-size: cover; /* หรือใช้ contain ตามความต้องการ */
+            font-family: 'FontAwesome';
+            position: absolute;
+           
+            transform: translate(-50%, -50%);
+
+
+
+
+            
+        }
+    .head-content {
+    width: 684px;
+    margin: 0 auto;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer; /* เพิ่ม cursor เป็น pointer เพื่อแสดงว่าสามารถคลิกได้ */
+   
+    overflow: hidden; /* กันรูปภาพทะลุออกไปนอกขอบ */
+}
+
+
+.head-content:hover .cover-image {
+    opacity: 0.8; /* เอฟเฟกต์เมื่อ hover บน .head-content */
+   
+    
+}
+
+.cover-image {
+    width: 100%; /* กว้างเต็มโพสต์ */
+    height: 300px; /* ความสูงปรับตามรูปภาพ */
+    object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+    transition: all 0.3s ease; /* เพิ่มการเปลี่ยนแปลงแบบ smooth */
+   
+}
+.username:hover {
+    color: #555; /* เปลี่ยนสีของข้อความ */
+    cursor: pointer; /* แสดงเคอร์เซอร์เป็นรูปมือชี้ */
+    text-decoration: underline; /* เพิ่มเส้นใต้ข้อความ */
+}
+
+.hover-effect {
+    border-radius: 50%; /* ทำให้รูปภาพมีขอบเป็นวงกลม */
+    transition: background-color 0.3s, opacity 0.3s; /* เพิ่มการเปลี่ยนแปลงอย่างราบรื่น */
+}
+
+.hover-effect:hover {
+   
+    cursor: pointer; /* แสดงเคอร์เซอร์เป็นรูปมือชี้ */
+    background-color: rgba(180, 180, 180, 0.5); /* เพิ่มพื้นหลังสีเทาแบบโปร่งแสง */
+    padding: 0px; /* เพิ่ม padding เพื่อทำให้พื้นหลังมองเห็นชัดเจน */
+}
+
+
+
+.dropbtn {
+    /* สไตล์ของปุ่ม */
+    background: none;
+    border: none;
+    font-size: 24px;
+    }
+    
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 5px 5px 0.1px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 10px;
+    }
+    
+    .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 10px;
+    }
+    
+    .dropdown-content a:hover { background-color: #f1f1f1; }
+
+                    </style>
+
+
+        <div class="head-content" style="width: 684px; margin: 0 auto; background-color: white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" > 
+        
+            <img src="/img/file/cover" class="cover-image" style="width: 100%; /* กว้างเต็มโพสต์ */
+            height: 300px; /* ความสูงปรับตามรูปภาพ */
+            object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+            max-height: 100%; border-radius: 0 0 10px 10px;" data-bs-toggle="modal" data-bs-target="#profileImageUploadMarket">
+        </div>
+
+        <div class="modal fade" id="profileImageUploadMarket" tabindex="-1" aria-labelledby="profileImageUploadModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="align-items: center;">
+                        <h5 class="modal-title" id="profileImageUploadModalLabel">อัพโหลดรูป Cover</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- ฟอร์มอัพโหลดรูปภาพ -->
+                        <form action="/img/upload/market/cover" method="post" enctype="multipart/form-data">
+                            <div class="drop-zone2">
+                                <p>ลากและวางไฟล์รูปภาพที่นี่หรือคลิกเพื่อเลือกไฟล์</p>
+                                <input type="file" name="uploadedFile2" id="uploadedFile2" class="form-control" accept="image/*" hidden>
+                            </div>
+                            <img id="selectedImage2" src="#" alt="Selected Image" style="max-width: 100%; max-height: 200px; display: none;" />
+                            <input type="submit" value="Upload Image" name="submit" class="btn btn-primary mt-3" />
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
 
-      
-        <!-- Main Content -->
-        <main>
-            <div class="container">
-                <div class="profile-header text-center">
 
-                    <a href="#" class="profile-image-link" data-bs-toggle="modal" data-bs-target="#profileImageUploadModal">
-                        <img src="/img/file" class="profile-image rounded-circle" alt="Profile Picture">
-                    </a>  
-
-                    <div class="welcome-text">
-                        <% if (rows.length > 0) { %>
-                            <% rows.forEach(row => { %>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <h4 class="user-role">
-                                        <%= user %>  
-                                    </h4>
-                                    <div style="background-color: #000000; border-radius: 6px; margin-left: 5px; padding-left: 5px; padding-right: 5px;">
-                                        <span style="font-size: smaller; color: white;"><%= row.role_name %></span>
-                                    </div>
-                                    <div class="profile-actions">
-                                        <a href="#" class="btn custom-button" data-bs-toggle="modal" data-bs-target="#editProfileModal">แก้ไขข้อมูลผู้ใช้</a>
-                                        <a href="/market/profile/business" class="btn custom-button" >ตั้งค่าบัญชีธุรกิจ</a>
-
-                                    </div>
-                                </div>
-                                
-                            <% }); %>
-                        <% } %>
-                    </div>
-                
-    
-                </div>
-                <hr>
-                <nav>
-                    <!-- <ul class="menu">
-                        <li><a href="#!personalInfo">ข้อมูลส่วนตัว</a></li>
-                        <li><a href="#!businessInfo">ข้อมูลธุรกิจ</a></li>
-                        <li><a href="#!posts">โพสต์</a></li>
-                        
-                    </ul> -->
-                    <ul class="snip1143">
-                        
-                        <li><a href="#!personalInfo" data-hover="ข้อมูลส่วนตัว">ข้อมูลส่วนตัว</a></li>
-                       
-                        <li><a href="#!posts" data-hover="โพสต์">โพสต์</a></li>
-                        
-                      </ul>
-                </nav>
-            
-                <div class="profile-details">
-                    <!-- ข้อมูลผู้ใช้ -->
-
-                    <div class="card-body-Info related-div" id="personalInfo"  style="display: none;">
-                        <div style="padding-bottom: 20px ; position: relative;">
-                            <strong class="nameinfo" style="font-size: 30px;">ข้อมูลส่วนตัว <img src="/public/img/info.png" alt="" style="width: 30px; height: 30px;"></strong>
-                        </div>
-                        <% if (rows.length > 0) { %>
-                            <% rows.forEach(row => { %>
-                                <!-- ข้อมูลผู้ใช้ -->
-                                <div class="row mb-3">
-                                    <!-- รายละเอียดผู้ใช้ -->
-                                    <div class="col">
-                                        <strong>ชื่อ-นามสกุล:</strong> <%= row.name %>  <%= row.surname %>
-                                    </div>
-                                    <hr>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <strong>เพศ:</strong> <%= row.gender_name %>
-                                    </div>
-                                    <hr>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <strong>วันเกิด:</strong> <%= formatDate2(row.birthday) %>
-                                    </div>
-                                    <hr>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <strong>อายุ:</strong> <%= calculateAge(row.birthday) %>
-                                    </div>
-                                    <hr>
-                                </div>
-                               
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <strong>เบอร์โทรศัพท์:</strong> <%= row.phone_no %>
-                                    </div>
-                                    <hr>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <strong>Email:</strong> <%= row.email %>
-                                    </div>
-                                    <hr>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <strong>เกี่ยวกับฉัน:</strong> <%= row.about %>
-                                    </div>
-                                    
-                                </div>
-
-                            <% }); %>
-                        <% } else { %>
-                            <p class="text-center">No data available.</p>
-                        <% } %>
-                    </div>
-
-                   
-
-                    
-                    <script>
-                        function toggleLike(postId, userId) {
-                            fetch(`/post/api/like?postId=${postId}&userId=${userId}`, { method: 'POST' })
-                                .then(response => response.json())
-                                .then(data => {
-                                    let likeButton = document.querySelector(`#likeButton-${postId}`);
-                                    let likeCount = document.querySelector(`#likeCount-${postId}`);
-                        
-                                    if (data.liked) {
-                                        likeButton.classList.add('liked');
-                                        
-                                     
-                                    } else {
-                                        likeButton.classList.remove('liked');
-                                        
-                                        
-                                    }
-                                    likeCount.textContent = `${data.likeCount} Likes`;
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                });
-                        }
-                        
-                                    let currentPage = 0;
-                                    const limit = 5;
-                                    let isFetching = false;
-                         
-                                    function loadMorePosts() {
-                            if (isFetching) return;
-                            isFetching = true;
-                        
-                            fetch(`/post/api/posts/own?page=${currentPage}&limit=${limit}`)
-                                .then(response => response.json())
-                                .then(data => {
-                                    const mainContent = document.querySelector('.post-container');
-                        
-                                    data.forEach(post => {
-                                        const postElement = document.createElement('div');
-                                        postElement.classList.add('post');
-                                        postElement.style.marginTop = "20px";
-                        
-                                        // กำหนดคลาส CSS และข้อความสำหรับปุ่มการถูกใจ
-                                        let likeButtonClass = post.userLiked ? 'like-button liked' : 'like-button';
-                                        let likeButtonText = post.userLiked ? '' : '';
-                        
-                                        postElement.innerHTML = `
-                                        <div class="post" style="margin-top: 20px;">
-                                        <div class="post-header">
-                                            <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
-                                            <span class="username">${post.market_name}</span>
-                                            
-                                            <!-- ปุ่มจุดสามจุด -->
-                                            <div class="post-options">
-                                                <button class="dropbtn">⋮</button>
-                                                <div class="dropdown-content">
-                                                    <a href="#" onclick="reportPost(${post.post_id});">รายงาน</a>
-                                                    <a href="#" onclick="deletePost(${post.post_id});">ลบโพสต์</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="post-content">
-                                            ${post.post_discript}
-                                        </div>
-                                        <div class="post-image">
-                                            <img src="/img/select/${post.post_id}" alt="Post">
-                                        </div>
-                                        <div class="post-footer">
-                                            <div id="post">
-                                                <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
-                                                <button class ="${likeButtonClass}" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id},${post.user_id});">${likeButtonText}</button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                        `;
-                                        mainContent.appendChild(postElement);
-                                    });
-                        
-                                    currentPage++;
-                                    isFetching = false;
-                                });
-                        }
-                        
-                                window.onscroll = function() {
-                                    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 10) {
-                                loadMorePosts();
-                                 }
-                                    };
-                                        loadMorePosts();
-
-</script>
+       
 
 
-<script>
-                
-                function deletePost(postId) {
-    if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้?")) {
-        fetch('/post/delete-post/' + postId, {
-            method: 'DELETE'
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log("โพสต์ถูกลบแล้ว");
-                // ทำการอัปเดต UI หรือรีโหลดหน้า
-            } else {
-                console.error("เกิดข้อผิดพลาดในการลบโพสต์");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-    }
+        <div class="prifile-content" style="width:684px; margin: 0 auto; background-color: white; border-radius:0 0 10px 10px; margin-bottom: 50px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <style>
+                .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-image {
+    width: 185px;
+    height: 185px;
+    object-fit: cover;
+    margin-right: 45px;
+    position: relative;
+    margin-top: -90px;
+    margin-left: 30px;
+    border: 5px solid white; /* This will add a white border */
+    border-radius: 10px; /* This will make the corners of the border rounded */
+    background-color: white;
 }
 
-</script>
 
 
-                
-                </div>
+       
+    
+            </style>
         
-            </div>  
+            <div class="profile-image-link" >
+                <img src="/img/file" class="profile-image rounded-circle" alt="Profile Picture"  data-bs-toggle="modal" data-bs-target="#profileImageUploadPO" >
+            </div>
+            <div style="margin-left: 235px; margin-top: -85px;">
+            <strong style="font-size: 35px;"><%= row.username %> </strong>
+            <div style="margin-top: -8px;">
+            <strong style="font-size: 15px;"><%= row.email %> </strong>
+        </div>
+        </div>
+            
 
-            <!-- Modal อัพโหลดรูปภาพ -->
-            <div class="modal fade" id="profileImageUploadModal" tabindex="-1" aria-labelledby="profileImageUploadModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header" style="align-items: center;">
-                            <h5 class="modal-title" id="profileImageUploadModalLabel">อัพโหลดรูป Profile</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div style="height: 50px;"></div>
+        <div style="height: 380px; width: 97%; background-color: #ffffff;  margin: auto; border-radius: 10px;">
+            
+            <div style="height: 10px;"></div>
+            <div style="height: 200px; width: 97%; background-color: #ffffff;  margin: auto; border-radius: 10px;">
+            
+                <div style="height: 0px; "></div>
+                <strong style="font-size: 20px; margin-left: 13px; ">แนะนำบัญชี</strong>
+                <span style="background-color: #000000; border-radius: 6px; margin-left: 5px; padding-left: 5px; padding-right: 5px; ">
+                    <span style="font-size: smaller; color: white; vertical-align: 2px;">Personal</span>
+                </span>
+               
+
+                <div style=" margin-left: 13px; margin-top: 18px;">
+                <img src="/public/img/contact.png" style=" width: 22px;"><strong style="margin-left: -1px;">&nbsp;&nbsp;&nbsp;ชื่อ-นามสกุล:&nbsp;</strong><%= row.name %>&nbsp;&nbsp;<%= row.surname %></div>
+
+                <div style=" margin-left: 13px; margin-top: 18px;">
+                    <img src="/public/img/cake.png" style=" width: 22px; margin-top: -8px;"><strong style="margin-left: -1px;">&nbsp;&nbsp;&nbsp;วันเกิด:&nbsp;</strong><%= formatDate2(row.birthday) %> </div>
+
+
+                    <div style=" margin-left: 13px; margin-top: 18px;">
+                        <img src="/public/img/sex.png" style=" width: 21px;"><strong>&nbsp;&nbsp;&nbsp;เพศ:&nbsp;</strong><%= row.gender_name %></div>
+
+                            <div style=" margin-left: 13px; margin-top: 18px;">
+                                <img src="/public/img/phone.png" style=" width: 26px; margin-left: -2px;"><strong style="margin-left: 0px;">&nbsp;&nbsp;&nbsp;เบอร์โทรศัพท์:&nbsp;</strong><%= row.phone_no %></div>
+                                
+                        
+                                <div style=" margin-left: 13px; margin-top: 18px;">
+                                    <img src="/public/img/info-button.png" style=" width: 21px; margin-left: 1.5px;"><strong style="margin-left: 1px;">&nbsp;&nbsp;&nbsp;เกี่ยวกับ:&nbsp;</strong><%= row.about %></div>
+                        <div>         
+                            <span class="btn" style="background-color: #e4e6eb; width: 48%; margin-top: 60px; margin-left: 7px; color: black"data-bs-toggle="modal" data-bs-target="#businessSettingsModal" ><img src="/public/img/pencil.png" style="width: 18px; margin-top: -6px;" >&nbsp;<strong>แก้ไขรายละเอียด</strong></span>
+                            <a href="/market/profile/business" style="text-decoration: none; color: inherit;">
+                                <span class="btn" style="background-color: #e4e6eb; width: 48%; margin-top: 60px; margin-left: 7px; color: black" data-bs-toggle="modal">
+                                    <img src="/public/img/settings.png" style="width: 18px; margin-top: -6px;">
+                                    &nbsp;<strong>จัดการบัญชีธุรกิจ</strong>
+                                </span>
+                            </a>
+                            
+                            
                         </div>
-                        <div class="modal-body">
-                            <!-- ฟอร์มอัพโหลดรูปภาพ -->
-                            <form action="/img/upload/market" method="post" enctype="multipart/form-data">
-                                <div class="drop-zone1">
-                                    <p>ลากและวางไฟล์รูปภาพที่นี่หรือคลิกเพื่อเลือกไฟล์</p>
-                                    <input type="file" name="uploadedFile1" id="uploadedFile1" class="form-control" accept="image/*" hidden>
-                                </div>
-                                <img id="selectedImage1" src="#" alt="Selected Image" style="max-width: 100%; max-height: 200px; display: none;" />
-                                <input type="submit" value="Upload Image" name="submit" class="btn btn-primary mt-3" />
-                            </form>
-                        </div>
+
+
+                        
+            </div>
+            
+        
+        </div>
+
+        </div>
+
+
+        <% }); %>
+        <% } else { %>
+            <p class="text-center">No data available.</p>
+        <% } %>
+
+
+
+        <div class="modal fade" id="profileImageUploadPO" tabindex="-1" aria-labelledby="profileImageUploadModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="align-items: center;">
+                        <h5 class="modal-title" id="profileImageUploadModalLabel">อัพโหลดรูป Profile</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- ฟอร์มอัพโหลดรูปภาพ -->
+                        <form action="/img/upload/market" method="post" enctype="multipart/form-data">
+                            <div class="drop-zone1">
+                                <p>ลากและวางไฟล์รูปภาพที่นี่หรือคลิกเพื่อเลือกไฟล์</p>
+                                <input type="file" name="uploadedFile1" id="uploadedFile1" class="form-control" accept="image/*" hidden>
+                            </div>
+                            <img id="selectedImage1" src="#" alt="Selected Image" style="max-width: 100%; max-height: 200px; display: none;" />
+                            <input type="submit" value="Upload Image" name="submit" class="btn btn-primary mt-3" />
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
 
-           
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // กำหนดฟังก์ชันสำหรับการตั้งค่าอัปโหลดไฟล์
+                function setupFileUpload(dropZoneSelector, inputFileId, previewImageId) {
+                    var dropZone = document.querySelector(dropZoneSelector);
+                    var fileInput = document.getElementById(inputFileId);
+                    var previewImage = document.getElementById(previewImageId);
             
-                <!-- Modal แก้ไขโปรไฟล์ -->
-                <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header" style="align-items: center;">
-                                <h5 class="modal-title" id="editProfileModalLabel">แก้ไขข้อมูลผู้ใช้</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <% if (rows.length > 0) { %>
-                                <% rows.forEach(row => { %>
-                                    <!-- ฟอร์มแก้ไขข้อมูลผู้ใช้ -->
-                                    <div class="modal-body">
-                                        <form action="/market/update_profileEdit" method="post">
-                                            <input type="hidden" id="user_id" name="user_id" value="">
-                                            <div class="mb-3">
-                                                <label for="username" class="form-label">ชื่อผู้ใช้</label>
-                                                <input type="text" class="form-control" id="username" name="username" value="" required>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label for="name" class="form-label">ชื่อ</label>
-                                                    <input type="text" class="form-control" id="name" name="name" value="" required>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="surname" class="form-label">นามสกุล</label>
-                                                    <input type="text" class="form-control" id="surname" name="surname" value="" required>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label for="gender" class="form-label">เพศ</label>
-                                                    <select class="form-select" id="gender" name="gender">
-                                                        <option value="ชาย">ชาย</option>
-                                                        <option value="หญิง">หญิง</option>
-                                                        <option value="LGBTQ+">LGBTQ+</option>
-                                                        <option value="ไม่ระบุ">ไม่ระบุ</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="b_date" class="form-label">วัน/เดือน/ปีเกิด</label>
-                                                    <input type="date" class="form-control" id="b_date" name="b_date" value="" required>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="email" class="form-label">อีเมล</label>
-                                                <input type="email" class="form-control" id="email" name="email" value="" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="aboutMe" class="form-label">เกี่ยวกับฉัน</label>
-                                                <textarea class="form-control" id="aboutMe" name="aboutme"></textarea>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="phoneNumber" class="form-label">เบอร์โทรศัพท์</label>
-                                                <input type="tel" class="form-control" id="phonenumber" name="phoneNumber" value="">
-                                            </div>
-                                            
+                    dropZone.addEventListener('click', function() {
+                        fileInput.click();
+                    });
+            
+                    fileInput.addEventListener('change', function() {
+                        if (fileInput.files.length > 0) {
+                            var selectedFile = fileInput.files[0];
+                            var objectURL = URL.createObjectURL(selectedFile);
+                            previewImage.src = objectURL;
+                            previewImage.style.display = 'block';
+                        } else {
+                            previewImage.style.display = 'none';
+                        }
+                    });
+            
+                    dropZone.addEventListener('dragover', function(e) {
+                        e.preventDefault();
+                        dropZone.classList.add('drop-zone--over');
+                    });
+            
+                    ['dragleave', 'dragend'].forEach(type => {
+                        dropZone.addEventListener(type, function() {
+                            dropZone.classList.remove('drop-zone--over');
+                        });
+                    });
+            
+                    dropZone.addEventListener('drop', function(e) {
+                        e.preventDefault();
+                        dropZone.classList.remove('drop-zone--over');
+                        if (e.dataTransfer.files.length > 0) {
+                            fileInput.files = e.dataTransfer.files;
+                            var selectedFile = fileInput.files[0];
+                            var objectURL = URL.createObjectURL(selectedFile);
+                            previewImage.src = objectURL;
+                            previewImage.style.display = 'block';
+                        } else {
+                            previewImage.style.display = 'none';
+                        }
+                    });
+                }
+            
+                // เรียกใช้ฟังก์ชันสำหรับการอัปโหลดไฟล์ที่ 1
+                setupFileUpload('.drop-zone1', 'uploadedFile1', 'selectedImage1');
+            
+                // เรียกใช้ฟังก์ชันสำหรับการอัปโหลดไฟล์ที่ 2
+                setupFileUpload('.drop-zone2', 'uploadedFile2', 'selectedImage2');
+            
+                // โค้ดสำหรับการจัดการ dropdown menu
+                var dropdown = document.querySelector('.dropdown');
+                var dropdownMenu = document.querySelector('.dropdown-menu');
+            
+                dropdown.addEventListener('click', function (event) {
+                    if (dropdownMenu.style.display === 'block') {
+                        dropdownMenu.style.display = 'none';
+                    } else {
+                        dropdownMenu.style.display = 'block';
+                    }
+                });
+            
+                document.addEventListener('click', function (event) {
+                    var isClickInside = dropdown.contains(event.target);
+                    if (!isClickInside) {
+                        dropdownMenu.style.display = 'none';
+                    }
+                });
+            });
+            </script>
+       
 
-                                            <script>
-                                                document.getElementById('b_date').addEventListener('change', function() {
-                                                console.log('วันที่เลือก: ', this.value);
-                                                });
-                                            </script>
 
-                                            <button type="submit" class="btn btn-primary">บันทึก</button>
-                                        </form>
-                                    </div>
-                                <% }); %>
-                            <% } else { %>
-                                <p class="text-center">No data available.</p>
-                            <% } %>
-                        </div>
+  
+
+
+
+        
+        <div class="modal fade" id="businessSettingsModal" tabindex="-1" aria-labelledby="businessSettingsModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="align-items: center;">
+                        <h5 class="modal-title" id="businessSettingsModal">แก้ไขข้อมูลผู้ใช้</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <% if (rows.length > 0) { %>
+                        <% rows.forEach(row => { %>
+                            <!-- ฟอร์มแก้ไขข้อมูลผู้ใช้ -->
+                            <div class="modal-body">
+                                <form action="/market/update_profileEdit" method="post">
+                                    <input type="hidden" id="user_id" name="user_id" value="">
+                                    <div class="mb-3">
+                                        <label for="username" class="form-label">ชื่อผู้ใช้</label>
+                                        <input type="text" class="form-control" id="username" name="username" value="" required>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="name" class="form-label">ชื่อ</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="surname" class="form-label">นามสกุล</label>
+                                            <input type="text" class="form-control" id="surname" name="surname" value="" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="gender" class="form-label">เพศ</label>
+                                            <select class="form-select" id="gender" name="gender">
+                                                <option value="ชาย">ชาย</option>
+                                                <option value="หญิง">หญิง</option>
+                                                <option value="LGBTQ+">LGBTQ+</option>
+                                                <option value="ไม่ระบุ">ไม่ระบุ</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="b_date" class="form-label">วัน/เดือน/ปีเกิด</label>
+                                            <input type="date" class="form-control" id="b_date" name="b_date" value="" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">อีเมล</label>
+                                        <input type="email" class="form-control" id="email" name="email" value="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phoneNumber" class="form-label">เบอร์โทรศัพท์</label>
+                                        <input type="tel" class="form-control" id="phonenumber" name="phoneNumber" value="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="aboutMe" class="form-label">เกี่ยวกับฉัน</label>
+                                        <textarea class="form-control" id="aboutMe" name="aboutme"></textarea>
+                                    </div>
+                                   
+                                    
+
+                                    <script>
+                                        document.getElementById('b_date').addEventListener('change', function() {
+                                        console.log('วันที่เลือก: ', this.value);
+                                        });
+                                    </script>
+
+                                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                                </form>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p class="text-center">No data available.</p>
+                    <% } %>
                 </div>
+            </div>
+        </div>
 
+        
+      
+        
+        
+        
+        
+    
+        
 
-
-            
-                <% if (rows.length > 0) { %>
-                    <% rows.forEach(row => { %>
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function() {
-                                var editProfileModal = document.getElementById('editProfileModal');
-                                editProfileModal.addEventListener('show.bs.modal', function (event) {
-                                    var currentUserId = "<%= row.user_id %>"; 
-                                    var currentUsername = "<%= row.username %>"; 
-                                    var currentName = "<%= row.name %>";   
-                                    var currentSurname = "<%= row.surname %>"; 
-                                    var currentEmail = "<%= row.email %>"; 
-                                    var currentAboutMe = "<%= row.about %>"; 
-                                    var currentPhoneNumber = "<%= row.phone_no %>"; 
-                                    var currentHomeNumber = "<%= row.home_number %>"; 
-                                    var currentVillage = "<%= row.village %>"; 
-                                    var currentBDate = "<%= formatDate(row.birthday) %>"; 
-                                    var currentAddress = "<%= row.subdistrict_name + ' - ' + row.district_name + ' - ' + row.province_name + ' - ' + row.zip_code %>"; 
-                                    var currentGender = "<%= row.gender_name %>";
-                        
-                                    // ตั้งค่าค่าเริ่มต้นในฟอร์มแก้ไขข้อมูลผู้ใช้
+<% if (rows.length > 0) { %>
+    <% rows.forEach(row => { %>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var editProfileModal = document.getElementById('businessSettingsModal');
+                editProfileModal.addEventListener('show.bs.modal', function (event) {
+                    var currentUserId = "<%= row.user_id %>"; 
+                    var currentUsername = "<%= row.username %>"; 
+                    var currentName = "<%= row.name %>";   
+                    var currentSurname = "<%= row.surname %>"; 
+                    var currentEmail = "<%= row.email %>"; 
+                    var currentAboutMe = "<%= row.about %>"; 
+                    var currentPhoneNumber = "<%= row.phone_no %>"; 
+                    var currentHomeNumber = "<%= row.home_number %>"; 
+                    var currentVillage = "<%= row.village %>"; 
+                    var currentBDate = "<%= formatDate(row.birthday) %>"; 
+                    var currentAddress = "<%= row.subdistrict_name + ' - ' + row.district_name + ' - ' + row.province_name + ' - ' + row.zip_code %>"; 
+                    var currentGender = "<%= row.gender_name %>";
+        
+                    // ตั้งค่าค่าเริ่มต้นในฟอร์มแก้ไขข้อมูลผู้ใช้
                                     document.getElementById('user_id').value = currentUserId;
                                     document.getElementById('username').value = currentUsername;
                                     document.getElementById('name').value = currentName;
@@ -442,159 +813,37 @@
                                     document.getElementById('email').value = currentEmail;
                                     document.getElementById('aboutMe').value = currentAboutMe;
                                     document.getElementById('phonenumber').value = currentPhoneNumber;
-                                    document.getElementById('h_num').value = currentHomeNumber;
-                                    document.getElementById('village').value = currentVillage;
                                     document.getElementById('b_date').value = currentBDate;
                                     document.getElementById('search').value = currentAddress;
                                     document.getElementById('gender').value = currentGender;
-                                });
-                            });
-                        </script>
-                    <% }); %>
-                <% } %>
-            
-            
-        </main>
-        <div class="container">
-            <footer class="py-3 my-4">
-                <hr>
-                
-            </footer>
-        </div>
-    </div>
-</div>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // กำหนดฟังก์ชันสำหรับการตั้งค่าอัปโหลดไฟล์
-        function setupFileUpload(dropZoneSelector, inputFileId, previewImageId) {
-            var dropZone = document.querySelector(dropZoneSelector);
-            var fileInput = document.getElementById(inputFileId);
-            var previewImage = document.getElementById(previewImageId);
-    
-            dropZone.addEventListener('click', function() {
-                fileInput.click();
-            });
-    
-            fileInput.addEventListener('change', function() {
-                if (fileInput.files.length > 0) {
-                    var selectedFile = fileInput.files[0];
-                    var objectURL = URL.createObjectURL(selectedFile);
-                    previewImage.src = objectURL;
-                    previewImage.style.display = 'block';
-                } else {
-                    previewImage.style.display = 'none';
-                }
-            });
-    
-            dropZone.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                dropZone.classList.add('drop-zone--over');
-            });
-    
-            ['dragleave', 'dragend'].forEach(type => {
-                dropZone.addEventListener(type, function() {
-                    dropZone.classList.remove('drop-zone--over');
                 });
             });
-    
-            dropZone.addEventListener('drop', function(e) {
-                e.preventDefault();
-                dropZone.classList.remove('drop-zone--over');
-                if (e.dataTransfer.files.length > 0) {
-                    fileInput.files = e.dataTransfer.files;
-                    var selectedFile = fileInput.files[0];
-                    var objectURL = URL.createObjectURL(selectedFile);
-                    previewImage.src = objectURL;
-                    previewImage.style.display = 'block';
-                } else {
-                    previewImage.style.display = 'none';
-                }
-            });
-        }
-    
-        // เรียกใช้ฟังก์ชันสำหรับการอัปโหลดไฟล์ที่ 1
-        setupFileUpload('.drop-zone1', 'uploadedFile1', 'selectedImage1');
-    
-        // เรียกใช้ฟังก์ชันสำหรับการอัปโหลดไฟล์ที่ 2
-        setupFileUpload('.drop-zone2', 'uploadedFile2', 'selectedImage2');
-    
-        // โค้ดสำหรับการจัดการ dropdown menu
-        var dropdown = document.querySelector('.dropdown');
-        var dropdownMenu = document.querySelector('.dropdown-menu');
-    
-        dropdown.addEventListener('click', function (event) {
-            if (dropdownMenu.style.display === 'block') {
-                dropdownMenu.style.display = 'none';
-            } else {
-                dropdownMenu.style.display = 'block';
-            }
-        });
-    
-        document.addEventListener('click', function (event) {
-            var isClickInside = dropdown.contains(event.target);
-            if (!isClickInside) {
-                dropdownMenu.style.display = 'none';
-            }
-        });
-    });
-    </script>
-    
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    var menuItems = document.querySelectorAll('.snip1143 a');
-    menuItems.forEach(function(menuItem) {
-        menuItem.addEventListener('click', function(event) {
-            event.preventDefault();
-            var divId = menuItem.getAttribute('href').substring(2); // ลบ '#!' จาก href
-            var divToShow = document.getElementById(divId);
-
-            // ซ่อนทั้งหมด
-            hideAllDivs();
-            // แสดง div ที่เลือก
-            if (divToShow) {
-                divToShow.style.display = 'block';
-            }
-            
-            // ลบคลาส 'active' ออกจากทุกตัวเลือก
-            menuItems.forEach(function(item) {
-                item.classList.remove('active');
-            });
-
-            // เพิ่มคลาส 'active' ให้กับตัวเลือกที่ถูกคลิก
-            menuItem.classList.add('active');
-        });
-    });
-
-    // แสดง div "personalInfo" เป็นส่วนแรกเมื่อหน้าเว็บโหลด
-    showInitialDiv();
-});
-
-function hideAllDivs() {
-    var divs = document.querySelectorAll('.related-div');
-    divs.forEach(function(div) {
-        div.style.display = 'none';
-    });
-}
-
-function showInitialDiv() {
-    var initialDiv = document.getElementById('personalInfo');
-    if (initialDiv) {
-        initialDiv.style.display = 'block';
-    }
-    // เพิ่มคลาส 'active' ให้กับเมนูที่เกี่ยวข้อง (ถ้ามี)
-    var initialMenu = document.querySelector('.snip1143 a[href="#!personalInfo"]');
-    if (initialMenu) {
-        initialMenu.classList.add('active');
-    }
-}
-
+        </script>
+    <% }); %>
+<% } %>
+        
+        
 
 </script>
 
 
-    
+       
 
+ 
+
+ 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.1.16/dist/umd/popper.min.js"></script>
+<script src="script.js"></script>
+
+
+<script>
+    function viewStory(storyElement) {
+        alert("Viewing story: " + storyElement.querySelector('.story-image img').alt);
+    }
+</script>
+
+ 
 </body>
 </html>
