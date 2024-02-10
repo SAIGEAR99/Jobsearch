@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 let dbCon = require('../lib/db');
 const sessionConfig = require('../middleware/session-config')
-const { formatDate, calculateAge,formatDate2,formatTimeToZero } = require('../middleware/cal_Date_Age');
+const { formatDate, calculateAge,formatDate2,formatTimeToZero,formatCurrency } = require('../middleware/cal_Date_Age');
 
 
 router.use(sessionConfig);
@@ -435,6 +435,39 @@ WHERE
         });
     });
 });
+
+
+
+router.get('/explore',(req,res) => {
+
+    res.render('market/explore')
+});
+
+
+router.get('/explore/sh_job/:boardId',(req,res) => {
+
+    const boardId = req.params.boardId;
+
+    dbCon.query(`SELECT board.*, market.*, hire.*
+    FROM board
+    JOIN market ON board.market_id = market.market_id
+    JOIN hire ON board.hire_id = hire.hire_id
+    WHERE board.board_id = ?
+    
+    `,[boardId],(err,rows) => {
+
+        res.render('market/sh_mk_job',{
+            formatDate, calculateAge,formatDate2,formatTimeToZero,formatCurrency,
+
+            rows:rows
+        })
+
+    });
+
+   
+});
+
+
 
 
 module.exports = router;

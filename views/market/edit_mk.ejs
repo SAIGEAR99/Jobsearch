@@ -79,8 +79,7 @@
     .dropdown {
        position: absolute;
        bottom: 10px;
-    margin-top: 0; /* ลบ margin-top ที่กำหนดไว้ก่อนหน้านี้ */
-    width: 100%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+       width: 100%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
 }
  
 .dropdown-menu {
@@ -1027,11 +1026,10 @@ margin: 0;
 
 
         <div class="cc-content" style="width: 684px; margin: 0 auto; background-color: white; border-radius: 10px; margin-top: -30px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" > 
-        <div style="height: 15px;"></div>
-        <strong style="font-size: 20px; margin-left: 25px;">โพสต์ของฉัน</strong>
-        <button class="btn" style="margin-left: 373px; background-color: #e4e6eb; height: 50%; padding: auto; margin-top: -10px; font-weight: bold;"><img src="/public/img/settings.png" style="width: 15px;" >&nbsp; จัดการโพสต์</button>
-        <div style="height: 10px;"></div>
-        </div>
+            <div style="height: 10px;"></div>
+            <strong style="font-size: 20px; margin-left: 20px;">โพสต์ของฉัน</strong>
+            <div style="height: 10px;"></div>
+            </div>
 
 
 
@@ -1089,12 +1087,13 @@ margin: 0;
                             let likeButtonText = post.userLiked ? '' : '';
             
                             postElement.innerHTML = `
-                            <div class="post" style="margin-top: 20px; position: relative;">
+                            <div class="post" style="margin-top: 0px; position: relative;">
+                                <div style="height:23px"></div>
                     <div class="post-header" >
                         <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;" data-market-name="${post.market_id}" >
                         <div class="username" data-market-name="${post.market_id}" style="margin-top:-16px">${post.market_name}</div>
                         
-                    <div class="cross" style="position: absolute; top: 0; right: 0; margin: 20px; padding-top: 10px; margin-top: -10px;">
+                    <div class="cross" style="position: absolute; top: 0; right: 1.2%; margin: 20px; padding-top: 17px; margin-top: 0px;">
                     <img src="/public/img/close.png" style="width: 25px;" class="hover-effect" onclick="toggleDropdown('${post.post_id}')">
 
                     <div class="dropdown-content" id="dropdown-content-${post.post_id}">

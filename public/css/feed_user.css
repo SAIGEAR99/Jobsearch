@@ -1,0 +1,331 @@
+.sidebar {
+    height: 100vh;
+    position: fixed;
+    width: 250px; /* Adjusted width */
+    overflow-x:hidden;
+    overflow-y:hidden;
+    z-index: 1000;
+    background-color: #ffffff; /* Light gray background */
+    padding: 20px;
+    box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
+}
+
+.sidebar .nav-item {
+    list-style: none;
+    margin-bottom: 30px;
+    margin-left: -9px;
+    font-weight: 400;
+}
+
+.sidebar .nav-link {
+    text-decoration: none;
+    color: #000; /* Black text color */
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #e9ecef; /* Light hover effect */
+    color: #007bff; /* Blue text on hover */
+}
+
+.sidebar .nav-link img {
+    margin-top: 18px;
+    margin-right: 10px;
+    vertical-align:bottom;
+}
+
+
+.aa{
+    font-size: 20px;
+}
+.custom-rounded-img {
+    border-radius: 50%; /* Make the image round */
+    width: 40px;
+    height: 40px;
+    /* Adjust width as needed * /* Adjust height as needed */
+    object-fit:cover; /* Ensure the image covers the area */
+}
+
+.dropdown {
+    position: absolute;
+    bottom: 10px;
+    margin-top: 0; /* ลบ margin-top ที่กำหนดไว้ก่อนหน้านี้ */
+    width: 100%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+}
+
+.dropdown-menu {
+    display: none; /* ซ่อน dropdown menu ไว้เริ่มต้น */
+    position: absolute;
+    bottom: 100%; /* ตั้งค่าให้ปรากฏด้านล่างของปุ่ม */
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    width: 90%; /* ขยายความกว้างเพื่อให้เต็มปุ่ม */
+}
+
+/* อาจต้องปรับแต่งสไตล์ของปุ่มที่อยู่ภายใน .dropdown ให้สอดคล้องกับปุ่มอื่นๆ */
+.dropdown button {
+    width: 50%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+    /* สไตล์อื่นๆ ตามที่ต้องการ */
+}
+.dropdown-toggle::after {
+    display: none;
+}
+
+.card {
+    border: #a8a8a8 1px solid;
+    border-radius: 6px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.card-header {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    margin-top: 0.25rem; /* 1 rem มักเทียบเท่ากับ 16px, ดังนั้น 0.25 rem จะเป็น 4px */
+}
+
+.card_profile_img {
+    border-radius: 50%;
+    margin-right: 4px;
+    width: 50px; 
+    height: 50px;
+    object-fit: cover; 
+    padding: 0.10rem;
+}
+
+.card_profile_img_role {
+    border-radius: 50%;
+    margin-right: 4px;
+    width: 40px; 
+    height: 40px;
+    object-fit: cover; 
+    padding: 0.10rem;
+    position: absolute;
+    right: 5px;
+}
+
+.card_profile_name {
+    display: flex;
+    flex-direction: column; /* จัดเรียงเนื้อหาในแนวตั้ง */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 300px;
+    height: 262px;
+    padding: 0;
+}
+
+.card-img-body {
+    width: 300px;
+    height: 175px;
+    object-fit: cover;
+}
+
+.post-name {
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 0;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%; /* หรือความกว้างที่ต้องการ */
+}
+
+.post-description {
+    padding: 10px;
+    padding-top: 0px;
+    overflow: hidden; /* ซ่อนข้อความที่เกิน */
+    text-overflow: ellipsis; /* แสดง '...' เมื่อข้อความเกิน */
+    white-space: normal; /* อนุญาตให้ข้อความขึ้นบรรทัดใหม่ */
+    display: -webkit-box; /* ใช้งาน flexbox */
+    -webkit-line-clamp: 2; /* จำกัดจำนวนบรรทัดที่แสดง */
+    -webkit-box-orient: vertical; /* ตั้งค่าการเรียงข้อความให้เป็นแนวตั้ง */
+    max-height: 3em; /* ตั้งค่าความสูงสูงสุดตามจำนวนบรรทัดที่ต้องการ (1.5em ต่อบรรทัด) */
+    line-height: 1.5; /* ความสูงของแต่ละบรรทัด */
+}
+
+.card-footer {
+    background-color: #ffffff; 
+}
+
+.rate_time, .rate_money {
+    font-size: 25px;
+    display: block;
+    width: auto; /* หรือคุณสามารถตั้งค่าความกว้างที่ต้องการ */
+    margin-bottom: 0; /* หรือคุณสามารถปรับค่านี้ตามต้องการ */
+}
+
+.card_save, .card_detail {
+    display: block;
+    width: auto; /* หรือคุณสามารถตั้งค่าความกว้างที่ต้องการ */
+    margin-bottom: 5px; /* หรือคุณสามารถปรับค่านี้ตามต้องการ */
+}
+
+.card-rateday {
+    background-color: #ffffff; 
+    padding-left: 150px;
+    /* ลบหรือแก้ไขบรรทัดนี้ */
+    /* border: solid #bebebe 3px; */
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 1rem;
+}
+
+.card-rateday + .card-rateday {
+    border-top: 2px solid #ccc; /* กำหนดความหนาและสีของเส้นกั้น */
+    margin-top: 20px; /* กำหนดระยะห่างด้านบนจากเส้นกั้น */
+    padding-top: 20px; /* กำหนดระยะห่างด้านล่างของเส้นกั้น */
+}
+
+.name-rateday {
+    width: 100%; /* กำหนดความกว้างให้เต็มขอบ */
+    display: block; /* ทำให้เป็นบล็อกของตัวเอง */
+    font-size: 50px;
+    margin-bottom: 20px; /* ระยะห่างด้านล่าง */
+    margin-left: 150px;
+    
+}
+
+.in-name-rateday{
+    width: 260px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: #fffc00 5px solid;
+    border-radius: 50px;
+}
+
+.rateday_all {
+    display: flex;
+    align-items: stretch; /* ทำให้ items มีความสูงเท่ากัน */
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding-left: 90px; /* หรือใช้ margin-left: 20px; ตามความต้องการ */
+}
+
+.card_1, .card_2, .card_3, .card_4, .card_5 , .card_6{
+    width: 311px; /* กำหนดความกว้างคงที่ */
+    margin: 5px; /* ปรับขนาดของ margin */
+}
+
+.card_1 .card, .card_2 .card, .card_3 .card, .card_4 .card, .card_5 .card, .card_6 .card {
+    height: 440px; /* หรือความสูงอื่นที่ต้องการ */
+}
+
+.card_6 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    /* ส่วนอื่นๆ ของสไตล์ */
+}
+
+.text-card_6 {
+    /* ปรับแต่งข้อความให้อยู่ตรงกลางใน container ที่เป็น flex item */
+    text-align: center;
+    padding-top: 175px;
+    width: 100%; /* ข้อความขยายเต็มกล่อง */
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.card-rateweek {
+    background-color: #ffffff; 
+    padding-left: 150px;
+    /* ลบหรือแก้ไขบรรทัดนี้ */
+    /* border: solid #bebebe 3px; */
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 1rem;
+}
+
+.card-rateday + .card-rateweek {
+    border-top: 2px solid #ccc; /* กำหนดความหนาและสีของเส้นกั้น */
+    margin-top: 20px; /* กำหนดระยะห่างด้านบนจากเส้นกั้น */
+    padding-top: 20px; /* กำหนดระยะห่างด้านล่างของเส้นกั้น */
+}
+
+.name-rateweek {
+    width: 100%; /* กำหนดความกว้างให้เต็มขอบ */
+    display: block; /* ทำให้เป็นบล็อกของตัวเอง */
+    font-size: 50px;
+    margin-bottom: 20px; /* ระยะห่างด้านล่าง */
+    margin-left: 150px;
+}
+
+.in-name-rateweek{
+    width: 355px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: #1100ff 5px solid;
+    border-radius: 50px;
+}
+
+.rateweek_all {
+    display: flex;
+    align-items: stretch; /* ทำให้ items มีความสูงเท่ากัน */
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding-left: 90px; /* หรือใช้ margin-left: 20px; ตามความต้องการ */
+}
+
+.card-ratemonth {
+    background-color: #ffffff; 
+    padding-left: 150px;
+    /* ลบหรือแก้ไขบรรทัดนี้ */
+    /* border: solid #bebebe 3px; */
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 1rem;
+}
+
+.card-rateweek + .card-ratemonth {
+    border-top: 2px solid #ccc; /* กำหนดความหนาและสีของเส้นกั้น */
+    margin-top: 20px; /* กำหนดระยะห่างด้านบนจากเส้นกั้น */
+    padding-top: 20px; /* กำหนดระยะห่างด้านล่างของเส้นกั้น */
+}
+
+.name-ratemonth {
+    width: 100%; /* กำหนดความกว้างให้เต็มขอบ */
+    display: block; /* ทำให้เป็นบล็อกของตัวเอง */
+    font-size: 50px;
+    margin-bottom: 20px; /* ระยะห่างด้านล่าง */
+    margin-left: 150px;
+}
+
+.in-name-ratemonth{
+    width: 315px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: #ff0000 5px solid;
+    border-radius: 50px;
+}
+
+.ratemonth_all {
+    display: flex;
+    align-items: stretch; /* ทำให้ items มีความสูงเท่ากัน */
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding-left: 90px; /* หรือใช้ margin-left: 20px; ตามความต้องการ */
+}

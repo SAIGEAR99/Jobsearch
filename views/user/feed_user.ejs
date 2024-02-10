@@ -5,96 +5,98 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>job-search
+    </title>
+    <link rel="icon" href="/g65103/img/camera.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
- 
- 
-    <!-- Custom styles -->
-    <style>
- 
-        .sidebar {
-            height: 100vh;
-            position: fixed;
-            width: 250px; /* Adjusted width */
-            overflow-x:hidden;
-            overflow-y:hidden;
-            z-index: 1000;
-            background-color: #ffffff; /* Light gray background */
-            padding: 20px;
-            box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
-        }
- 
-        .sidebar .nav-item {
-            list-style: none;
-            margin-bottom: 30px;
-            margin-left: -9px;
-            font-weight: 400;
-           
- 
-        }
- 
-        .sidebar .nav-link {
-            text-decoration: none;
-            color: #000; /* Black text color */
-            font-size: 18px;
-            display: block;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
- 
-        .sidebar .nav-link:hover {
-            background-color: #e9ecef; /* Light hover effect */
-            color: #007bff; /* Blue text on hover */
-        }
- 
-        .sidebar .nav-link img {
-              margin-top: 18px;
-            margin-right: 10px;
-            vertical-align:bottom;
-        }
- 
-       
-        .aa{
-              font-size: 20px;
-        }
-        .custom-rounded-img {
-        border-radius: 50%; /* Make the image round */
-        width: 40px;
-        height: 40px;
-         /* Adjust width as needed * /* Adjust height as needed */
-        object-fit:cover; /* Ensure the image covers the area */
-    }
- 
-    .dropdown {
-       position: absolute;
-       bottom: 10px;
-    margin-top: 0; /* ลบ margin-top ที่กำหนดไว้ก่อนหน้านี้ */
-    width: 100%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
-}
- 
-.dropdown-menu {
-    display: none; /* ซ่อน dropdown menu ไว้เริ่มต้น */
-    position: absolute;
-    bottom: 100%; /* ตั้งค่าให้ปรากฏด้านล่างของปุ่ม */
-    left: 0;
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+   
+
+
+</head>
+<style>
+ .sidebar {
+    height: 100%;
+    position: fixed;
+    width: 250px; /* Adjusted width */
+    overflow-x:hidden;
+    overflow-y:hidden;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    background-color: white;
-    width: 90%; /* ขยายความกว้างเพื่อให้เต็มปุ่ม */
+    background-color: #ffffff; /* Light gray background */
+    padding: 20px;
+    box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
 }
- 
+
+.sidebar .nav-item {
+    list-style: none;
+    margin-bottom: 30px;
+    margin-left: -9px;
+    font-weight: 400;
+   
+
+}
+
+.sidebar .nav-link {
+    text-decoration: none;
+    color: #000; /* Black text color */
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #e9ecef; /* Light hover effect */
+    color: #007bff; /* Blue text on hover */
+}
+
+.sidebar .nav-link img {
+      margin-top: 18px;
+    margin-right: 10px;
+    vertical-align:bottom;
+}
+
+
+.aa{
+      font-size: 20px;
+}
+.custom-rounded-img {
+border-radius: 50%; /* Make the image round */
+width: 40px;
+height: 40px;
+ /* Adjust width as needed * /* Adjust height as needed */
+object-fit:cover; /* Ensure the image covers the area */
+}
+
+.dropdown {
+position: absolute;
+bottom: 10px;
+margin-top: 0; /* ลบ margin-top ที่กำหนดไว้ก่อนหน้านี้ */
+width: 100%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+}
+
+.dropdown-menu {
+display: none; /* ซ่อน dropdown menu ไว้เริ่มต้น */
+position: absolute;
+bottom: 100%; /* ตั้งค่าให้ปรากฏด้านล่างของปุ่ม */
+left: 0;
+z-index: 1000;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+background-color: white;
+width: 90%; /* ขยายความกว้างเพื่อให้เต็มปุ่ม */
+}
+
 /* อาจต้องปรับแต่งสไตล์ของปุ่มที่อยู่ภายใน .dropdown ให้สอดคล้องกับปุ่มอื่นๆ */
 .dropdown button {
-    width: 50%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
-    /* สไตล์อื่นๆ ตามที่ต้องการ */
+width: 50%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+/* สไตล์อื่นๆ ตามที่ต้องการ */
 }
 .dropdown-toggle::after {
-    display: none;
+display: none;
 }
- 
- 
+
 .post {
     width: 684px;
     height: auto;
@@ -108,7 +110,8 @@
 .post-header {
     display: flex;
     align-items: center;
-    padding-left: 12px;
+    padding-left: 22px;
+    
 }
  
 .profile-pic {
@@ -137,7 +140,7 @@
     max-height: 100%; /* ความสูงสูงสุดของรูปภาพ */
 }
 .post-footer {
-    padding: 15px;
+    padding: 21px;
     display: flex;
     justify-content: flex-start;
 }
@@ -146,55 +149,686 @@
  
 .post-content {
     flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
-    padding: 20px; /* ระยะห่างขอบของกล่องโพสต์ */
+    padding: 21px; /* ระยะห่างขอบของกล่องโพสต์ */
     overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
 }
 /* สไตล์เริ่มต้นของปุ่มไลค์ */
 .like-button {
-    color: #333; /* สีข้อความ */
-    background-color: #f5f5f5; /* สีพื้นหลัง */
-    border: 1px solid #ddd; /* สีขอบ */
-    padding: 5px 10px; /* ระยะห่าง */
-    border-radius: 3px; /* มุมโค้ง */
-    cursor: pointer; /* รูปแบบเคอร์เซอร์ */
-    transition: all 0.3s ease; /* ผลลัพธ์การเคลื่อนไหว */
+color: #333; /* สีข้อความ */
+background-color: #f5f5f5; /* สีพื้นหลัง */
+border: 1px solid #ddd; /* สีขอบ */
+padding: 5px 10px; /* ระยะห่าง */
+border-radius: 3px; /* มุมโค้ง */
+cursor: pointer; /* รูปแบบเคอร์เซอร์ */
+transition: all 0.3s ease; /* ผลลัพธ์การเคลื่อนไหว */
+}
+.modal {
+display: none; 
+position: fixed;
+z-index: 1; 
+left: 0;
+top: 0;
+width: 100%;
+height: 100%; 
+overflow: auto; 
+background-color: rgb(0,0,0);
+background-color: rgba(0,0,0,0.4); 
+}
+.modal-content {
+background-color: #fefefe;
+margin: 15% auto;
+padding: 20px;
+border: 1px solid #888;
+width: 80%;
+}
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+.modal {
+display: none; 
+position: fixed; /* ใช้ position fixed เพื่อให้อยู่ตรงกลาง */
+z-index: 1000;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: hidden; /* ป้องกันไม่ให้เลื่อนได้ */
+background-color: rgba(0, 0, 0, 0.6); 
+}
+.modal-content {
+background-color: #fefefe;
+margin: auto; /* จัดให้อยู่ตรงกลาง */
+padding: 20px;
+border-radius: 5px;
+border: 1px solid #888;
+width: 30%;
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+/* ตั้งค่าเพิ่มเติมเพื่อจัดตำแหน่งให้อยู่ตรงกลาง */
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+/* ปรับแต่งปุ่มภายใน modal */
+.modal button {
+background-color: #007bff;
+color: white;
+padding: 10px 15px;
+margin: 10px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+.modal button:hover {
+background-color: #0056b3;
+}
+/* ปรับแต่งฟอร์มภายใน modal */
+.modal form {
+display: flex;
+flex-direction: column;
+}
+.modal textarea, .modal select, .modal input[type="file"] {
+margin-top: 10px;
+padding: 10px;
+border-radius: 5px;
+border: 1px solid #ddd;
+width: 95%;
+}
+.modal input[type="submit"] {
+background-color: #28a745;
+color: white;
+margin-top: 15px;
+padding: 10px 15px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+.modal input[type="submit"]:hover {
+background-color: #218838;
+}
+#imageUploadContainer {
+border: 2px dashed #ddd;
+padding: 10px;
+text-align: center;
+margin-top: 10px;
+cursor: pointer;
+}
+#imageUploadContainer p {
+margin: 0;
+font-size: 16px;
+color: #666;
+}
+#previewImage {
+max-width: 100%;
+height: auto;
+margin-top: 10px;
+}
+.modal-header {
+display: flex;
+justify-content: center;
+align-items: center;
+padding-bottom: 15px;
+position: relative;
+}
+.postHeader {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 10px;
+}
+.profile-pic {
+width: 50px; /* หรือขนาดที่ต้องการ */
+height: 50px; /* หรือขนาดที่ต้องการ */
+border-radius: 50%;
+}
+.postContent textarea {
+border: none;
+outline: none;
+box-shadow: none;
+resize: none;
+height: 200px;
+font-size: 25px;
+overflow: hidden;
+}
+.postContent textarea::placeholder {
+font-size: 25px;
+}
+.postFooter {
+display: flex;
+justify-content: flex-end;
+
+}
+.modal-title {
+text-align: center;
+flex-grow: 1;
+}
+.postHeader {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px;
+}
+.postContent textarea {
+resize: none;
+height: 200px; /* กำหนดความสูงตายตัว */
+font-size: 25px; /* ขนาดตั้งต้น */
+overflow: hidden; /* ป้องกันการแสดง scrollbar */
+border: none; /* ซ่อนกรอบของ textarea */
+box-shadow: none; /* ซ่อนเงาหากมี */
+padding-left: 20px;
+}
+.postContent textarea::placeholder {
+font-size: 25px;
+padding-left: 0px;
+}
+/* ปรับแต่งให้ขนาดข้อความลดลงตามจำนวนความยาว */
+textarea {
+font-size: calc(25px - (0.005 * length));
+}
+#previewImage {
+
+max-width: 100%; /* กำหนดความกว้างสูงสุดไม่ให้เกินกล่อง modal */
+max-height: 300px; /* กำหนดความสูงสูงสุด */
+margin-top: 10px;
+object-fit: contain; /* รักษาอัตราส่วนของรูปภาพ */
+}
+#imageUploadContainer {
+/* ปรับขนาดและความสูงของกล่องอัปโหลดรูปภาพ */
+max-height: 350px; /* กำหนดความสูงสูงสุด */
+overflow-y: auto; /* เพิ่มการเลื่อนเมื่อเนื้อหาเกินความสูงที่กำหนด */
+border: 2px dashed #ddd;
+padding: 10px;
+text-align: center;
+margin-top: 10px;
+cursor: pointer;
+}
+.user-info {
+display: flex;
+align-items: center;
+}
+.user-info img {
+margin-right: 10px; /* หรือระยะห่างที่ต้องการ */
+}
+.modal select, #imageUploadContainer {
+
+width: 95%; /* ตั้งค่าความกว้างเท่ากับ 100% ของพื้นที่บรรจุของมัน */
+margin: auto;
+margin-left: 10.5px;
+
+
+}
+.publish-button{
+width: 100%;
+
+}
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+cursor: pointer;
+background-color: transparent;
+border: none;
+outline: none;
+border-radius: 50%;
+width: 30px;
+height: 30px;
+display: flex;
+align-items: center;
+justify-content: center;
+position: absolute;
+top: 10px;
+right: 10px;
+}
+.close:hover {
+background-color: #e0e0e0; /* สีเทาเมื่อเอาเมาส์ไปวาง */
 }
 .like-button {
-  padding: 5px 10px;
-  border: none; /* ลบขอบ */
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 50px;
-  background-image: url('/public/img/heart_T.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 60px;
-  height: 30px;
-  background-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
-  box-shadow: none; /* ลบเงา (ถ้ามี) */
-  margin-left: -13px;
+padding: 5px 10px;
+border: none; /* ลบขอบ */
+border-radius: 5px;
+cursor: pointer;
+font-size: 50px;
+background-image: url('/public/img/heart_T.png');
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+width: 60px;
+height: 30px;
+background-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
+box-shadow: none; /* ลบเงา (ถ้ามี) */
+margin-left: -13px;
 }
 
 
 
 .like-button:hover {
-  transform: scale(1.05);
+transform: scale(1.05);
 }
 .like-button.liked {
-    background-image: url('/public/img/heartsB.png');
+background-image: url('/public/img/heartsB.png');
 }
 
 .like-button.liked:hover {
-    transform: scale(1.05);
+transform: scale(1.05);
 }
 
 
-    </style>
-</head>
+
+#postTypeModal .modal-content {
+
+margin: auto;
+background-color: #fff;
+border-radius: 10px;
+padding: 20px;
+width: 40%;
+height: 80%;
+margin: auto;
+
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+transition: all 0.3s ease-in-out;
+}
+
+
+#scan_m .modal-content {
+
+    margin: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 40%;
+    height: 80%;
+    margin: auto;
+    
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    }
+
+
+
+
+#postTypeModal .close {
+position: absolute;
+top: 10px;
+right: 15px;
+/* การตั้งค่าอื่นๆ */
+}
+
+.modal-buttons-container {
+display: flex;
+justify-content: center;
+margin-top: 20px; /* ปรับระยะห่างจากเนื้อหาด้านบน */
+
+
+}
+
+.modal-buttons-container > button {
+margin: 0 5px;
+padding: 10px 20px;
+background-color: #000;
+/* การตั้งค่าอื่นๆ */
+}
+
+/* ปรับขนาดและจัดกลางรูปภาพ */
+#postTypeModal img {
+width: 20%;
+margin-top: 35%;
+align-self: center; /* จัดกลางในแนวแกนตั้ง */
+width: 15%;
+}
+.button-link {
+display: inline-block;
+padding: 10px 20px;
+margin: 5px;
+background-color: #000000;
+color: white;
+text-align: center;
+border-radius: 5px;
+text-decoration: none;
+font-size: 16px;
+transition: background-color 0.3s;
+}
+
+.button-link:hover, .button-link:focus {
+background-color: #0056b3;
+}
+
+
+.username:hover {
+    color: #555; /* เปลี่ยนสีของข้อความ */
+    cursor: pointer; /* แสดงเคอร์เซอร์เป็นรูปมือชี้ */
+    text-decoration: underline; /* เพิ่มเส้นใต้ข้อความ */
+}
+
+.hover-effect {
+    border-radius: 50%; /* ทำให้รูปภาพมีขอบเป็นวงกลม */
+    transition: background-color 0.3s, opacity 0.3s; /* เพิ่มการเปลี่ยนแปลงอย่างราบรื่น */
+}
+
+.hover-effect:hover {
+   
+    cursor: pointer; /* แสดงเคอร์เซอร์เป็นรูปมือชี้ */
+    background-color: rgba(180, 180, 180, 0.5); /* เพิ่มพื้นหลังสีเทาแบบโปร่งแสง */
+    padding: 0px; /* เพิ่ม padding เพื่อทำให้พื้นหลังมองเห็นชัดเจน */
+}
+
+
+
+.dropbtn {
+    /* สไตล์ของปุ่ม */
+    background: none;
+    border: none;
+    font-size: 24px;
+    }
+    
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 5px 5px 0.1px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 10px;
+    }
+    
+    .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 10px;
+    }
+    
+    .dropdown-content a:hover { background-color: #f1f1f1; }
+
+    .result-image {
+        width: 60px;      /* ตั้งค่าความกว้าง */
+        height: 60px;     /* ตั้งค่าความสูง */
+        border-radius: 50%; /* ทำให้มุมเป็นวงกลม */
+        object-fit: cover;  /* ให้ภาพปรับให้พอดีกับขนาด */
+        margin-bottom: 20px;
+       
+      
+    }
+    .result-text {
+        margin-left: 10px;
+        vertical-align:15px;
+        
+        
+        
+    }
+   .result-text2 {
+        display: block; /* ทำให้แต่ละ span แสดงในบรรทัดของตัวเอง */
+        margin-left: 71px;
+        margin-top: -50px;
+        color: gray;
+        font-size: 12px;
+        margin-bottom: 10px;
+
+    }
+    .profile-pic {
+        text-decoration: none; /* ลบเส้นใต้ของลิงก์ */
+        color: inherit; /* ใช้สีข้อความเดียวกับที่รอบๆ มัน */
+    }
+    
+
+    .ads{
+            
+                position: fixed; 
+                right: 0; 
+                top: 10%; 
+                width: 280px; 
+                height: 100vh;
+                overflow-x: hidden;
+                overflow-y: hidden; 
+                padding: 20px;
+                border-radius: 10px;
+    }
+
+    .postX-content{
+        width: 684px; margin: 0 auto; background-color: white;  width: 684px;
+        height: auto;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    /*---------------------------------*/
+   .mm{
+    width: 84%; border-radius: 30px; border: 0px; background-color:#e4e6eb; height: 50px;
+   }
+   .hh{
+    margin-top: 20px;
+   }
+   .logo{
+    display: none;
+   }
+
+
+    .pic-logo{
+        display: none;
+    }
+    .top-logo{
+        display: block;
+        height: 20px;
+    }
+    .time_post{
+        margin-top:-22px; font-size:13px; margin-left:83px; color:gray;
+    }
+    .username{
+        margin-top: -16px;
+    }
+    
+    .contentA {
+       display: none;
+        /* สไตล์อื่นๆ สำหรับเนื้อหาหลัก */
+    }
+    
+    .bottom-nav {
+        display: none;
+        background-color: #333;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    
+    .bottom-nav a {
+        color: #f2f2f2;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+    
+    .bottom-nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+    
+    .bottom-nav a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .barb-config{
+        display: none;
+    }
+
+
+    @media screen and (min-width: 0px) and (max-width: 1000px) and (max-height: 1080px) {
+        .barb-config{
+            display:inline-block;
+            width: 5vw;
+        }
+        .bottom-nav {
+            display:block;
+            background-color: #ffffff; /* สีพื้นหลังของแถบนำทาง */
+            color: #f2f2f2;
+            top: 0;
+            width: 100vw;
+            z-index: 2000; 
+            position: fixed;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            
+
+        }
+
+        .username{
+            margin-top: -13px;
+        }
+        .time_post{
+            margin-top:-18px; font-size:11px; margin-left:72px; color:gray;
+        }
+
+       .top-logo{
+        display: none;
+       }
+        .logo{
+            display: block;
+            
+            background-color: white;
+        }
+        
+        .pic-logo{
+            display: block;
+                width: 27vw;
+                margin-left: 19px;
+                background-color: white;
+                margin-top: 5px;
+            }
+    
+        .sidebar {
+            display: none;
+     
+
+        }
+        .ads{
+           
+            visibility: hidden;
+        }
+
+        .postX-content{
+            display:inline-block;
+            width: 100vw;
+            margin: 0 auto;
+            background-color: white;
+            height: auto;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 0px;
+            overflow: hidden;
+       
+        }
+        .mm{
+            width: 65vw; border-radius: 30px; border: 0px; background-color:#e4e6eb; height: px;
+        }
+    
+        
+.post {
+    
+    display: block;
+    width: 100vw;
+    height: auto;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 0px;
+    overflow: hidden;
+   
+   
+}
+ 
+.post-header {
+    display: flex;
+    align-items: center;
+    padding-left: 22px;
+    
+}
+ 
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+ 
+.username {
+    font-weight: bold;
+    font-size: 16px;
+}
+ 
+.post-image {
+    width: 100%; /* กว้างเต็มโพสต์ */
+    display: flex;
+    justify-content: center; 
+    overflow: hidden;
+}
+ 
+.post-image img {
+    width: 100%; /* กว้างเต็มโพสต์ */
+    height: auto; /* ความสูงปรับตามรูปภาพ */
+    object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+    max-height: 100%; /* ความสูงสูงสุดของรูปภาพ */
+}
+.post-footer {
+    padding: 21px;
+    display: flex;
+    justify-content: flex-start;
+}
+ 
+
+ 
+.post-content {
+    flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
+    padding: 21px; /* ระยะห่างขอบของกล่องโพสต์ */
+    overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
+}
+        
+    }
+    @media screen and (min-width: 421px) and (max-width: 1300px) and (max-height: 1080px) {
+    
+        .sidebar {
+            display: none;
+ 
+        }
+        
+    }
+    
+
+      
+  
+    
+    
+    
+</style>
  
  
 <body style="background-color: #f0f2f5;">
+
+        
+    <div class="bottom-nav">
+        <img src="/public/img/icon_img/Logo-Instagram.png" style="width: 35px; margin-left: 0vw;">
+        <img src="/g65103/imgsearch-interface-circular-symbol.png" alt="" style="width: 32px; margin-left: 1vw;">
+        <img src="/g65103/imgmore.png " style="width: 28px; margin-left: 6vw; opacity: 0.7;">
+        <img src="/g65103/img/mk_img_mk/<%= market_id %>" style=" 
+       
+        vertical-align: -12px; margin-left: 40vw;
+         margin-top: -10px; width: 35px; height:
+          35px; object-fit: cover;" alt="Profile Picture"
+           class="profile-pic" style="object-fit:cover;"
+            data-market-name="<%= market_id %>" >
+        
+        
+    </div>
  
 <div class="container-fluid">
     <div class="row">
@@ -203,7 +837,7 @@
         <div class="sidebar">
             <!-- Sidebar content here -->
             <div>
-              <a href="/"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
+              <a href="/user/feed"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
                 <span class="fs-4"><img src="/public/img/Logo-Instagram.png" style="width: 60%; margin-left: -2px; margin-bottom: 10px;"></span>
               </a>
              
@@ -212,24 +846,119 @@
              
                   <a href="/user/feed" class="nav-link active" aria-current="page">
                      <img src="/public/img/homepage.png" alt="" style="width: 13%;">
+                     <img src="/img/homepage.png" alt="" style="width: 13%;">
                     <span class="aa">หน้าหลัก</span>
                   </a>
-               
-               
-                  <a href="#" class="nav-link active" aria-current="page">
+
+                   <a href="#" id="scan" class="nav-link link-body-emphasis">
                      <img src="/public/img/search.png" alt="" style="width: 12%;">
                      <span class="aa">ค้นหา </span>
                   </a>
+               
+               
+                  <div id="scan_m" class="modal">
+                    <div class="modal-content">
+                
+                        <label for="scan" class="form-label" style="margin-top: 10px;">ค้นหา</label>
+                        <input type="text" class="form-control" id="scans" name="scans" placeholder="คำค้นหา...">
+                        <div id="search-results-scan"  class="list-group"></div>
+                    </div>
+                </div>
+                
+                <script>
+                    function showModal(modalId) {
+                        var modal = document.getElementById(modalId);
+                        modal.style.display = "block";
+                        document.body.style.overflow = 'hidden';
+                    }
+                
+                    function hideModal(modalId) {
+                        var modal = document.getElementById(modalId);
+                        modal.style.display = "none";
+                        document.body.style.overflow = '';
+                    }
+                
+                    document.getElementById('scan').addEventListener('click', function () {
+                        showModal('scan_m');
+                    });
+                    // ซ่อน modal ค้นหาเมื่อคลิกนอกเขต modal
+window.onclick = function(event) {
+    var modal = document.getElementById('scan_m');
+    if (event.target == modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = '';
+    }
+}
+
+                
+                    // สคริปต์สำหรับการค้นหาที่อยู่
+                    document.getElementById('scans').addEventListener('input', function () {
+    var query = this.value;
+    var resultsDiv = document.getElementById('search-results-scan');
+
+    if (query.trim() !== '') {
+        fetch('/search/api/scan?query=' + encodeURIComponent(query))
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(function (data) {
+                resultsDiv.innerHTML = '';
+                data.results.forEach(function (result) {
+                    var resultItem = document.createElement('a');
+                    resultItem.href = "javascript:void(0);";
+                    resultItem.className = 'list-group-item list-group-item-action';
+
+                    // สร้างและเพิ่มภาพ
+                    var image = document.createElement('img');
+                    image.src = '/img/mk_img_mk/' + result.market_id;
+                    image.alt = 'Image';
+                    image.className = 'result-image';
+                    resultItem.appendChild(image);
+
+                    // สร้างและเพิ่มข้อความ (market_name)
+                    var text = document.createElement('span');
+                    text.className = 'result-text';
+                    text.appendChild(document.createTextNode(result.market_name));
+                    resultItem.appendChild(text);
+
+                    // สร้างและเพิ่มข้อความ (mk_discript)
+                    var descriptionText = document.createElement('span');
+                    descriptionText.className = 'result-text2';
+                    descriptionText.appendChild(document.createTextNode(result.business_name));
+                    resultItem.appendChild(descriptionText);
+
+                    resultItem.addEventListener('click', function () {
+                        document.getElementById('scan').value = result.textContent;
+                        resultsDiv.innerHTML = '';
+                        window.location.href = '/user/show_mk?market_id=' + encodeURIComponent(result.market_id);
+                    });
+
+                    resultsDiv.appendChild(resultItem);
+                });
+            })
+            .catch(function (error) {
+                console.error('Fetch error:', error);
+            });
+    } else {
+        resultsDiv.innerHTML = '';
+    }
+});
+
+                </script>
+                
+
+
+
                
                
                   <a href="#" class="nav-link">
                      <img src="/public/img/compass.png" alt="" style="width: 12%;">
                      <span class="aa">สำรวจ</span>
                   </a>
-               
-               
-               
-   
+
  
                   <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
                      <a href="/user/profile" class="nav-link">
@@ -256,18 +985,151 @@
             </div>
           </div>
         </div>
+
+
+
+        <div class="top-logo"></div>
+
+        <div class="logo"><img src="/public/img/Logo-Instagram.png" class="pic-logo"></div>
+      
+
+
+                <div class="ads" style="margin-left:1550px; display: block; margin-top: -75px;height: 100vh;"> 
+                
+
+                    <div class="">
+                        <% if(rows && rows.length) { %>
+                        <table class="">
+                            <div style="color: gray; margin-bottom: 10px; font-weight: 700;">บัญชีแนะนำ</div>
+                            <tbody>
+                                <% rows.forEach((row, index) => { %>
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0);" data-market-id="<%= row.market_id %>" class="profile-pic">
+                                            <img src="/img/mk_img_mk/<%= row.market_id %>" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; margin-top: 10px;">
+                                            <span style="margin-left: 10px; vertical-align:-5px; font-weight: 500;"><%= row.market_name %></span>
+                                        </a>
+                                </td>
+                                    
+                                    
+                                </tr>
+
+                                <% }); %>
+                            </tbody>
+                        </table>
+                        <% } else { %>
+                        <p class="text-center">No User found!</p>
+                        <% } %>
+                    </div>
+                
+                </div>
+            </div>
  
-       
- 
+
+
+
                 <div class="main-content" style="width: 684px; margin: 0 auto;"> </div>
 
- 
 
 
+ <script>
+                    // Function to show modal by modalId
+                    function showModal(modalId) {
+                        var modal = document.getElementById(modalId);
+                        modal.style.display = "block";
+                        document.body.style.overflow = 'hidden';
+                    }
+                    
+                    // Function to hide modal by modalId
+                    function hideModal(modalId) {
+                        var modal = document.getElementById(modalId);
+                        modal.style.display = "none";
+                        document.body.style.overflow = '';
+                    }
+                    
+                    // Function to handle the click event of 'Post' button
+                    function showPostPopup() {
+                        showModal('postTypeModal');
+                    }
+                    
+                    // Function to handle the click event of 'ฟีดข่าว' button
+                    document.querySelector('#newsFeedButton').addEventListener('click', function() {
+                        hideModal('postTypeModal');
+                        showModal('newsFeedModal');
+                    });
+                    
+                    // Handling closing buttons on all Modals
+                    var closeButtons = document.getElementsByClassName("close");
+                    for (var i = 0; i < closeButtons.length; i++) {
+                        closeButtons[i].onclick = function() {
+                            var modal = this.closest('.modal');
+                            modal.style.display = "none";
+                        }
+                    }
+                    
+                    // Handling click outside modal to close it
+                    window.onclick = function(event) {
+                        if (event.target.classList.contains('modal')) {
+                            event.target.style.display = "none";
+                        }
+                    }
+                
+// Function to handle the click event of 'ฟีดข่าว' button
+document.querySelector('#newsFeedButton').addEventListener('click', function() {
+    hideModal('postTypeModal');
+    showModal('newsFeedModal');
+});
 
-            <script>
+// Handling form submission
+document.getElementById('newsFeedForm').addEventListener('submit', function(event) {
+    // Prevent normal form submission
+    event.preventDefault();
+
+    // Get post content and image
+    const postContent = document.querySelector('textarea[name="postContent"]').value;
+    const postImage = document.getElementById('fileInput').files[0];
+
+    // Check if postContent has data
+    if (!postContent.trim()) {
+        alert('โปรดใส่เนื้อหาของโพสต์ก่อนเผยแพร่');
+        return; // Stop function execution
+    }
+
+    // Sending form data to server
+    const formData = new FormData();
+    formData.append('postContent', postContent);
+    formData.append('postImage', postImage);
+
+    fetch('/post/api/post_Content', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data); // Display data received from server
+        
+        // Close modal after posting
+        hideModal('newsFeedModal');
+        
+        // Clear form fields
+        document.getElementById('newsFeedForm').reset();
+        
+        // Reload the page
+        location.reload();
+    })
+    .catch(error => {
+        console.error('เกิดข้อผิดพลาด:', error);
+        // Handle errors as needed
+    });
+});
 
 
+                </script>
+
+
+                
+              
+<script>
 function toggleLike(postId, userId) {
     fetch(`/post/api/like?postId=${postId}&userId=${userId}`, { method: 'POST' })
         .then(response => response.json())
@@ -295,7 +1157,7 @@ function toggleLike(postId, userId) {
             const limit = 5;
             let isFetching = false;
  
-            function loadMorePosts() {
+    function loadMorePosts() {
     if (isFetching) return;
     isFetching = true;
 
@@ -314,29 +1176,45 @@ function toggleLike(postId, userId) {
                 let likeButtonText = post.userLiked ? '' : '';
 
                 postElement.innerHTML = `
-                    <div class="post" style="margin-top: 20px;">
-                        <div class="post-header">
-                            <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;">
-                            <span class="username">${post.market_name}</span>
-                        </div>
-                        <div class="post-content">
-                            ${post.post_discript}
-                            
-                        </div>
-                        <div class="post-image">
-                            <img src="/img/select/${post.post_id}" alt="Post">
-                            
-                        </div>
+
+                                <div class="post" style="margin-top: 20px; position: relative;">
+                    <div class="post-header" >
+                        <img src=/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;" data-market-name="${post.market_id}" >
+                        <div class="username" data-market-name="${post.market_id}" >${post.market_name}</div>
                         
-                        <div class="post-footer">
-                            <div id="post">
-                                <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
-                                <button class ="${likeButtonClass}" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id},${post.user_id});">${likeButtonText}</button>
-                        </div>
+                    <div class="cross" style="position: absolute; top: 0; right: 0; margin: 20px; padding-top: 10px; margin-top: -10px;">
+                    <img src="/public/img/close.png" style="width: 25px;" class="hover-effect" onclick="toggleDropdown('${post.post_id}')">
+
+                    <div class="dropdown-content" id="dropdown-content-${post.post_id}">
+                     <a href="#" onclick="reportPost(${post.post_id});">รายงาน</a>
+                    
                     </div>
+
+
+                    </div>
+    
+                    </div>
+                    <div class="time_post">${post.post_time}</div>
+
+                    <div class="post-content">
+                        ${post.post_discript}
+                    </div>
+                    <div class="post-image">
+                        <img src="/img/select/${post.post_id}" alt="Post">
+                    </div>
+                    
+                    <div class="post-footer">
+                        <div id="post">
+                            <div style="padding-left: 5px; padding-bottom: 7px;" id="likeCount-${post.post_id}">${post.likes} Likes</div>
+                            <button class ="${likeButtonClass}" id="likeButton-${post.post_id}" onclick="toggleLike(${post.post_id},${post.user_id});">${likeButtonText}</button>
+                            
+                    </div>
+                </div>
+  
                 `;
                 mainContent.appendChild(postElement);
             });
+            addUsernameClickListeners();
 
             currentPage++;
             isFetching = false;
@@ -349,6 +1227,149 @@ function toggleLike(postId, userId) {
          }
             };
                 loadMorePosts();
+
+
+                
+            </script>
+
+            <script>
+
+function openCommentModal(postId) {
+    // โค้ดเพื่อดึงคอมเมนต์และแสดงใน Modal
+    document.getElementById('commentModal').style.display = 'block';
+}
+
+function closeCommentModal() {
+    document.getElementById('commentModal').style.display = 'none';
+}
+
+function submitComment(postId) {
+    let comment = document.getElementById('newComment').value;
+    
+    // ตรวจสอบว่าคอมเมนต์ไม่ว่างเปล่า
+    if (!comment) {
+        alert('กรุณาป้อนคอมเมนต์');
+        return;
+    }
+
+    // สร้างอ็อบเจกต์ข้อมูลที่จะส่ง
+    let data = {
+        postId: postId,
+        comment: comment
+    };
+
+    // สร้างคำขอ AJAX
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/submitComment', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // จัดการกับคำตอบจากเซิร์ฟเวอร์
+            let response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                // เพิ่มคอมเมนต์ไปยัง UI หรือแสดงผลอย่างอื่น
+                alert('คอมเมนต์ได้ถูกส่งแล้ว');
+                closeCommentModal();
+            } else {
+                // แสดงข้อผิดพลาด
+                alert('เกิดข้อผิดพลาดในการส่งคอมเมนต์');
+            }
+        }
+    };
+    xhr.send(JSON.stringify(data));
+}
+
+
+
+            </script>
+
+
+<script>
+function toggleDropdown(postId) {
+    const dropdownContent = document.querySelector(`#dropdown-content-${postId}`);
+    const computedStyle = window.getComputedStyle(dropdownContent);
+
+    if (computedStyle.getPropertyValue('display') === 'block') {
+        dropdownContent.style.display = 'none';
+        document.removeEventListener('click', closeDropdownOnClickOutside);
+    } else {
+        dropdownContent.style.display = 'block';
+
+        // Use setTimeout to ensure the event listener is added after the UI update
+        setTimeout(() => {
+            document.addEventListener('click', closeDropdownOnClickOutside);
+        }, 0);
+
+        dropdownContent.addEventListener('mouseleave', function closeDropdown() {
+            dropdownContent.style.display = 'none';
+            dropdownContent.removeEventListener('mouseleave', closeDropdown);
+            document.removeEventListener('click', closeDropdownOnClickOutside);
+        });
+    }
+
+    function closeDropdownOnClickOutside(event) {
+        if (!dropdownContent.contains(event.target)) {
+            dropdownContent.style.display = 'none';
+            document.removeEventListener('click', closeDropdownOnClickOutside);
+        }
+    }
+}
+
+             
+function reportPost(postId) {
+    // Prompt the user for a report reason
+    let reportReason = prompt("กรุณาระบุเหตุผลในการรายงานโพสต์นี้:");
+    if (reportReason !== null && reportReason.trim() !== "") {
+        // Send the report request with the report reason
+        fetch('/post/report-post/' + postId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ reason: reportReason }) // Send the report reason in the request body
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("โพสต์ถูกรายงานแล้ว");
+                // You can update the UI or take any necessary actions
+            } else {
+                console.error("เกิดข้อผิดพลาดในการรายงานโพสต์");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    } else {
+        // User cancelled the report or entered an empty reason
+        console.log("การรายงานถูกยกเลิกหรือไม่มีเหตุผลที่ระบุ");
+    }
+}
+
+</script>
+
+
+
+            <script>
+function addUsernameClickListeners() {
+    const usernameElements = document.querySelectorAll('.profile-pic, .username');
+
+    usernameElements.forEach(usernameElement => {
+        if (!usernameElement.classList.contains('event-listener-added')) {
+            usernameElement.addEventListener('click', function(event) {
+                // ตรวจสอบว่า element มี attribute data-market-id หรือไม่
+                const marketId = usernameElement.getAttribute('data-market-id') || usernameElement.getAttribute('data-market-name');
+                const newURL = `/user/show_mk?market_id=${encodeURIComponent(marketId)}`;
+                window.location.href = newURL;
+            });
+            usernameElement.classList.add('event-listener-added');
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    addUsernameClickListeners();
+});
+
             </script>
 
 
@@ -385,19 +1406,34 @@ document.addEventListener('DOMContentLoaded', function () {
  
        </script>
  
+<script>
+    function loadContentForWindowSize() {
+    if (window.innerWidth <= 414) {
+        
+    } else if (window.innerWidth <= 1300) {
+        // โหลด HTML/CSS สำหรับหน้าจอขนาดกลาง
+    } else {
+        // โหลด HTML/CSS สำหรับหน้าจอขนาดใหญ่
+    }
+}
 
- 
+// ตรวจสอบเมื่อหน้าเว็บโหลด
+window.onload = loadContentForWindowSize;
+
+// ตรวจสอบเมื่อขนาดหน้าจอเปลี่ยนแปลง
+window.onresize = loadContentForWindowSize;
+
+</script>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.1.16/dist/umd/popper.min.js"></script>
 <script src="script.js"></script>
 
 
-<script>
-    function viewStory(storyElement) {
-        alert("Viewing story: " + storyElement.querySelector('.story-image img').alt);
-    }
-</script>
+
 
  
 </body>

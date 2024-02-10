@@ -8,7 +8,7 @@ const sessionConfig = require('../my_EJS/middleware/session-config')
 const fileUpload = require('express-fileupload')
 
 const app = express();
-const port = 3000;
+
 
 app.use(fileUpload());
 
@@ -52,6 +52,7 @@ const checkLog  = require('../my_EJS/middleware/check_login');
 //api
 const apiSearch = require('../my_EJS/API/search');
 const apiPost = require('../my_EJS/API/post');
+const apiExplore = require('../my_EJS/API/explore')
 
 
 
@@ -70,6 +71,7 @@ app.use('/img',imgRoutes );
 
 app.use('/search',apiSearch );
 app.use('/post',apiPost);
+app.use('/explore',apiExplore);
 
 
 

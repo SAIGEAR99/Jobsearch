@@ -79,8 +79,8 @@ width: 50%; /* กำหนดความกว้างเท่ากับ�
 display: none;
 }
 
-.post {
-    width: 684px;
+/* .post {
+    width: 300px;
     height: auto;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -88,7 +88,7 @@ display: none;
     overflow: hidden;
    
    
-}
+} */
  
 .post-header {
     display: flex;
@@ -318,18 +318,6 @@ text-align: center;
 margin-top: 10px;
 cursor: pointer;
 }
-
-
-#imageUploadContainer2 {
-    /* ปรับขนาดและความสูงของกล่องอัปโหลดรูปภาพ */
-    max-height: 350px; /* กำหนดความสูงสูงสุด */
-    overflow-y: auto; /* เพิ่มการเลื่อนเมื่อเนื้อหาเกินความสูงที่กำหนด */
-    border: 2px dashed #ddd;
-    padding: 10px;
-    text-align: center;
-    margin-top: 10px;
-    cursor: pointer;
-    }
 .user-info {
 display: flex;
 align-items: center;
@@ -873,6 +861,120 @@ background-color: #0056b3;
 
 }
 
+.card {
+    border: #ffffff 1px solid;
+    border-radius: 6px;
+    margin-right: 10px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    
+}
+
+.card-header {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    margin-top: 0.25rem; /* 1 rem มักเทียบเท่ากับ 16px, ดังนั้น 0.25 rem จะเป็น 4px */
+}
+
+.card_profile_img {
+    border-radius: 50%;
+    margin-right: 4px;
+    width: 50px; 
+    height: 50px;
+    object-fit: cover; 
+    padding: 0.10rem;
+}
+
+.card_profile_img_role {
+    border-radius: 50%;
+    margin-right: 4px;
+    width: 40px; 
+    height: 40px;
+    object-fit: cover; 
+    padding: 0.10rem;
+    position: absolute;
+    right: 5px;
+}
+
+.card_profile_name {
+    display: flex;
+    flex-direction: column; /* จัดเรียงเนื้อหาในแนวตั้ง */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 300px;
+    height: 262px;
+    padding: 0;
+}
+
+.card-img-body {
+    width: 300px;
+    height: 175px;
+    object-fit: cover;
+}
+
+.post-name {
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 0;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%; /* หรือความกว้างที่ต้องการ */
+}
+
+.post-description {
+    padding: 10px;
+    padding-top: 0px;
+    overflow: hidden; /* ซ่อนข้อความที่เกิน */
+    text-overflow: ellipsis; /* แสดง '...' เมื่อข้อความเกิน */
+    white-space: normal; /* อนุญาตให้ข้อความขึ้นบรรทัดใหม่ */
+    display: -webkit-box; /* ใช้งาน flexbox */
+    -webkit-line-clamp: 2; /* จำกัดจำนวนบรรทัดที่แสดง */
+    -webkit-box-orient: vertical; /* ตั้งค่าการเรียงข้อความให้เป็นแนวตั้ง */
+    max-height: 3em; /* ตั้งค่าความสูงสูงสุดตามจำนวนบรรทัดที่ต้องการ (1.5em ต่อบรรทัด) */
+    line-height: 1.5; /* ความสูงของแต่ละบรรทัด */
+   
+}
+
+.card-footer {
+    background-color: #ffffff; 
+}
+
+.rate_time, .rate_money {
+    font-size: 25px;
+    display: block;
+    width: auto; /* หรือคุณสามารถตั้งค่าความกว้างที่ต้องการ */
+    margin-bottom: 0; /* หรือคุณสามารถปรับค่านี้ตามต้องการ */
+}
+
+
+
+.card-rateday {
+    background-color: #ffffff; 
+    padding-left: 150px;
+    /* ลบหรือแก้ไขบรรทัดนี้ */
+    /* border: solid #bebebe 3px; */
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 1rem;
+}
+
+.card_1, .card_2, .card_3, .card_4, .card_5 , .card_6{
+    width: 311px; /* กำหนดความกว้างคงที่ */
+    margin: 5px; /* ปรับขนาดของ margin */
+}
+
+.card_1 .card, .card_2 .card, .card_3 .card, .card_4 .card, .card_5 .card, .card_6 .card {
+    height: 440px; /* หรือความสูงอื่นที่ต้องการ */
+}
         
 
       

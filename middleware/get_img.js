@@ -115,6 +115,58 @@ const getImageMk3 = (mkId, callback) => {
 };
 
 
+const getImageMk4 = (mkId, callback) => {
+
+    let from_b = {
+        market_id: mkId
+    }
+    dbCon.query(`SELECT board.*, market.*
+    FROM board
+    JOIN market ON board.market_id = market.market_id
+    WHERE board.board_id = ?
+    
+    
+    
+    `, [from_b.market_id], (err, rows) => {
+        if (err) {
+            return callback(err, null);
+        }
+        if (rows.length > 0) {
+            return callback(null, rows[0].board_img);
+        } else {
+            console.log("----------> err : ", err);
+            return callback(new Error("No image found"), null);
+        }
+    });
+};
 
 
-module.exports = { getImagePath,getImagePath_b,getImageMk ,getImageMk2,getImageMk3};
+
+const getImageMk5 = (mkId, callback) => {
+
+    let from_b = {
+        market_id: mkId
+    }
+    dbCon.query(`SELECT board.*, market.*, hire.*
+    FROM board
+    JOIN market ON board.market_id = market.market_id
+    JOIN hire ON board.hire_id = hire.hire_id
+    WHERE board.board_id = ?;
+    
+
+    `, [from_b.market_id], (err, rows) => {
+        if (err) {
+            return callback(err, null);
+        }
+        if (rows.length > 0) {
+            return callback(null, rows[0].hire_img);
+        } else {
+            console.log("----------> err : ", err);
+            return callback(new Error("No image found"), null);
+        }
+    });
+};
+
+
+
+module.exports = { getImagePath,getImagePath_b,getImageMk ,getImageMk2,getImageMk3,getImageMk4,getImageMk5};

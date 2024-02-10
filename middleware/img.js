@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 let dbCon = require('../lib/db');
 const { formatDate, calculateAge,formatDate2 } = require('../middleware/cal_Date_Age');
-const { getImagePath , getImagePath_b,getImageMk ,getImageMk2,getImageMk3} = require('../middleware/get_img');
+const { getImagePath , getImagePath_b,getImageMk ,getImageMk2,getImageMk3,getImageMk4,getImageMk5} = require('../middleware/get_img');
 
 
 const path = require('path');
@@ -103,12 +103,12 @@ router.post('/upload', (req, res) => {
         return res.status(400).send('No files were uploaded.');
     }
 
-    let uploadedFile = req.files.uploadedFile;
+    let uploadedFile1 = req.files.uploadedFile1;
 
     // สร้างตำแหน่งสำหรับเก็บไฟล์
-    const uploadPath = path.join('./middleware/img', uploadedFile.name);
+    const uploadPath = path.join('./middleware/img', uploadedFile1.name);
 
-    uploadedFile.mv(uploadPath, err => {
+    uploadedFile1.mv(uploadPath, err => {
         if (err) return res.status(500).send(err);
 
         let query = 'UPDATE user SET img_profile = ? WHERE user_id = ?;';
@@ -286,6 +286,32 @@ router.get('/mk_cover/:mkId', (req, res) => {
         res.sendFile(filePath, { root: '.' });
     });
 });
+
+
+router.get('/board_img/:mkId', (req, res) => {
+    getImageMk4(req.params.mkId, (err, filePath) => {
+        if (err) {
+            console.log(err)
+            res.status(404).send("Image not found");
+            return;
+        }
+        res.sendFile(filePath, { root: '.' });
+    });
+});
+
+
+router.get('/board_hire/:mkId', (req, res) => {
+    getImageMk5(req.params.mkId, (err, filePath) => {
+        if (err) {
+            console.log(err)
+            res.status(404).send("Image not found");
+            return;
+        }
+        res.sendFile(filePath, { root: '.' });
+    });
+});
+
+
 
 
 

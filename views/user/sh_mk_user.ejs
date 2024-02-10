@@ -12,7 +12,6 @@
  
     <!-- Custom styles -->
     <style>
- 
         .sidebar {
             height: 100vh;
             position: fixed;
@@ -237,7 +236,6 @@
     
     .dropdown-content a:hover { background-color: #f1f1f1; }
 
-
     </style>
 </head>
  
@@ -251,7 +249,7 @@
         <div class="sidebar">
             <!-- Sidebar content here -->
             <div>
-              <a href="/"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
+              <a href="/user/feed"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
                 <span class="fs-4"><img src="/public/img/Logo-Instagram.png" style="width: 60%; margin-left: -2px; margin-bottom: 10px;"></span>
               </a>
              
@@ -280,8 +278,8 @@
    
  
                   <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
-                     <a href="/market/profile" class="nav-link">
-                    <img src="/img/file" class="custom-rounded-img" alt="" style="width: 25px; height: 25px; margin-right: 6px; margin-left: 3px;">
+                     <a href="/user/profile" class="nav-link">
+                    <img src="/public/img/file" class="custom-rounded-img" alt="" style="width: 25px; height: 25px; margin-right: 6px; margin-left: 3px;">
                         <span class="aa">โปรไฟล์</span>
                              </a>
  
@@ -465,12 +463,12 @@
             
                             postElement.innerHTML = `
                             <div class="post" style="margin-top: 0px; position: relative;">
-                                <div style="height:23px"></div>
+                                <div style="height:23px;"></div>
                     <div class="post-header" >
                         <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;" data-market-name="${post.market_id}" >
                         <div class="username" data-market-name="${post.market_id}" style="margin-top:-16px">${post.market_name}</div>
                         
-                    <div class="cross" style="position: absolute; top: 0; right: 1.2%; margin: 20px; padding-top: 17px; margin-top: 0px;">
+                    <div class="cross" style="position: absolute; top: 0; right: 1.2%; margin: 20px; padding-top: 10px; margin-top: 0px;">
                     <img src="/public/img/close.png" style="width: 25px;" class="hover-effect" onclick="toggleDropdown('${post.post_id}')">
 
                     <div class="dropdown-content" id="dropdown-content-${post.post_id}">

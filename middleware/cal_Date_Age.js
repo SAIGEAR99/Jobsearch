@@ -62,4 +62,18 @@ const formatTimeToZero = (timeString) => {
     return `${hours}:${minutes}`;
 };
 
-module.exports = { formatDate, calculateAge,formatDate2 ,formatTimeToZero};
+
+const formatCurrency = (amountString) => {
+    const amount = parseFloat(amountString); // แปลงสตริงเป็นตัวเลขทศนิยม
+    if (isNaN(amount)) return '0'; // ถ้าไม่ใช่ตัวเลข กลับค่าเป็น 0
+
+    return amount.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'THB', // สามารถเปลี่ยนเป็นสกุลเงินที่ต้องการ เช่น 'EUR', 'THB', ฯลฯ
+        minimumFractionDigits: 0, // ไม่แสดงตัวเลขทศนิยม
+        maximumFractionDigits: 0  // ไม่แสดงตัวเลขทศนิยม
+    });
+};
+
+
+module.exports = { formatDate, calculateAge,formatDate2 ,formatTimeToZero,formatCurrency};
