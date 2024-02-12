@@ -79,8 +79,8 @@ width: 50%; /* กำหนดความกว้างเท่ากับ�
 display: none;
 }
 
-/* .post {
-    width: 300px;
+.post {
+    width: 684px;
     height: auto;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -88,7 +88,7 @@ display: none;
     overflow: hidden;
    
    
-} */
+}
  
 .post-header {
     display: flex;
@@ -170,21 +170,6 @@ height: 100%;
 overflow: hidden; /* ป้องกันไม่ให้เลื่อนได้ */
 background-color: rgba(0, 0, 0, 0.6); 
 }
-.modal-content {
-background-color: #fefefe;
-margin: auto; /* จัดให้อยู่ตรงกลาง */
-padding: 20px;
-border-radius: 10px;
-border: 1px solid #888;
-width: 600px;
-height:auto;
-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-}
-
 
 .modal button {
 background-color: #007bff;
@@ -318,6 +303,18 @@ text-align: center;
 margin-top: 10px;
 cursor: pointer;
 }
+
+
+#imageUploadContainer2 {
+    /* ปรับขนาดและความสูงของกล่องอัปโหลดรูปภาพ */
+    max-height: 350px; /* กำหนดความสูงสูงสุด */
+    overflow-y: auto; /* เพิ่มการเลื่อนเมื่อเนื้อหาเกินความสูงที่กำหนด */
+    border: 2px dashed #ddd;
+    padding: 10px;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
+    }
 .user-info {
 display: flex;
 align-items: center;
@@ -359,35 +356,6 @@ right: 10px;
 .close:hover {
 background-color: #e0e0e0; /* สีเทาเมื่อเอาเมาส์ไปวาง */
 }
-.like-button {
-padding: 5px 10px;
-border: none; /* ลบขอบ */
-border-radius: 5px;
-cursor: pointer;
-font-size: 50px;
-background-image: url('/public/img/heart_T.png');
-background-size: contain;
-background-repeat: no-repeat;
-background-position: center;
-width: 60px;
-height: 30px;
-background-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
-box-shadow: none; /* ลบเงา (ถ้ามี) */
-margin-left: -13px;
-}
-
-
-
-.like-button:hover {
-transform: scale(1.05);
-}
-.like-button.liked {
-background-image: url('/public/img/heartsB.png');
-}
-
-.like-button.liked:hover {
-transform: scale(1.05);
-}
 
 
 
@@ -397,8 +365,8 @@ margin: auto;
 background-color: #fff;
 border-radius: 10px;
 padding: 20px;
-width: 600px;
-height: 700px;
+width: 40%;
+height: 80%;
 margin: auto;
 
 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -860,6 +828,10 @@ background-color: #0056b3;
 }
 
 }
+
+        
+
+      
 
 .card {
     border: #ffffff 1px solid;

@@ -30,6 +30,26 @@
   text-align: center;
   cursor: pointe;
 }
+.active-link {
+    background-color: black !important; /* ใช้ !important เพื่อแทนที่สไตล์อื่นๆ */
+    color: white !important; /* เปลี่ยนสีข้อความเป็นสีขาวเพื่อให้เห็นชัดเจน */
+    border-radius: 40px !important;
+    padding: 0px !important;
+
+}
+
+.iconbar {
+    filter: invert(100%) !important;
+    vertical-align: 10px !important;
+    margin-left: 10px !important;
+
+}
+.active-text {
+    /* ตัวอย่าง style สำหรับข้อความที่เป็น active */
+    color: white !important; /* เปลี่ยนสีข้อความเป็นสีขาว */
+    font-weight: bold; /* ทำให้ข้อความหนาขึ้น */
+    vertical-align: 15px !important;
+}
     </style>
     
 </head>
@@ -42,7 +62,7 @@
         <!-- Your sidebar code here -->
         <!-- (Sidebar content remains unchanged) -->
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <a href="/market/feed" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
               <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
               <span class="fs-4">Job $earch</span>
             </a>
@@ -317,6 +337,40 @@
                     });
                   });
               </script>
+              <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                var path = window.location.pathname;
+                if (path === '/market/feed' || path === '/market/explore'|| path === '/market/profile'|| path === 'market/profile/business') {
+                    // ลบคลาส active-link จากทุก nav-link และลบคลาส iconbar จากทุก icons
+                    document.querySelectorAll('.nav-link').forEach(function (link) {
+                        link.classList.remove('active-link');
+                        var icon = link.querySelector('.iconbar');
+                        if (icon) {
+                            icon.classList.remove('iconbar');
+                        }
+                        var text = link.querySelector('.aa');
+                        if (text) {
+                            text.classList.remove('active-text'); // สมมุติว่าคุณมีคลาส CSS ชื่อ .active-text
+                        }
+                    });
+            
+                    // เพิ่มคลาส active-link และ iconbar และ active-text ให้กับ nav-link และ elements ที่ตรงกับเส้นทาง
+                    var activeLink = document.querySelector(`.nav-link[href="${path}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active-link');
+                        var icon = activeLink.querySelector('img, i');
+                        if (icon) {
+                            icon.classList.add('iconbar');
+                        }
+                        var text = activeLink.querySelector('.aa');
+                        if (text) {
+                            text.classList.add('active-text'); // ใช้คลาสนี้เพื่อกำหนดสไตล์ให้กับข้อความ
+                        }
+                    }
+                }
+            });
+            
+            </script>
               
 
 <!-- Footer and Scripts remain unchanged -->

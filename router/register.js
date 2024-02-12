@@ -34,6 +34,7 @@ router.post('/add', (req, res) => {
             });
         }
         const uploadPath = path.join('./middleware/img','../img/aa.jpg');
+        const uploadPath2 = path.join('./middleware/img','../img/download.png');
         // If no errors
         if (!errors) {
             let form_data = {
@@ -42,6 +43,7 @@ router.post('/add', (req, res) => {
                 password: password,
                 role : 3 ,
                 img_profile : uploadPath,
+                img_cover : uploadPath2,
                 name : 'ไม่ระบุ',
                 surname : 'ไม่ระบุ',
                 gender : 4

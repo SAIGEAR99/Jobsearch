@@ -11,9 +11,9 @@ router.use(sessionConfig);
 
 
 router.get('/api/boards', function(req, res) {
-    const page = parseInt(req.query.page) || 0;
-    const limit = parseInt(req.query.limit) || 5;
-    const offset = page * limit;
+    const pageEx = parseInt(req.query.page) || 0;
+    const limitEx = parseInt(req.query.limit) || 5;
+    const offset = pageEx * limitEx;
 
  
     // ส่งคำสั่ง SQL เพื่อดึงข้อมูลโพสต์จากฐานข้อมูล
@@ -24,7 +24,7 @@ router.get('/api/boards', function(req, res) {
     ORDER BY board.board_id DESC
     LIMIT ? , ?
     `;
-    dbCon.query(sql, [offset, limit], function(err, results) {
+    dbCon.query(sql, [offset, limitEx], function(err, results) {
         if (err) {
             console.error('Error querying MySQL database:', err);
             res.status(500).json({ error: 'Internal server error' });
@@ -34,6 +34,42 @@ router.get('/api/boards', function(req, res) {
             });
         
             res.json(formattedResults);
+    });
+});
+
+router.get('/api/boards/mk', function(req, res) {
+    const pageEx = parseInt(req.query.page) || 0;
+    const limitEx = parseInt(req.query.limit) || 5;
+    const offset = pageEx * limitEx;
+    const yourMkId = req.query.mk_id;
+    const userId = req.session.userId;
+
+ 
+    // ส่งคำสั่ง SQL เพื่อดึงข้อมูลโพสต์จากฐานข้อมูล
+    const sql = `
+    
+SELECT board.*, market.*,hire.*
+FROM board
+JOIN market ON board.market_id = market.market_id 
+JOIN user ON market.market_id = user.market_id
+JOIN hire ON board.hire_id = hire.hire_id
+AND market.market_id = ?
+ORDER BY board.board_id DESC
+LIMIT ? , ?
+
+`;
+    dbCon.query(sql,[yourMkId,offset, limitEx], function(err, results) {
+        if (err) {
+            console.error('Error querying MySQL database:', err);
+            res.status(500).json({ error: 'Internal server error' });
+            return;
+        }
+
+        const formattedResults = results.map(board => {
+            return { ...board, board_date: formatDate2(board.board_date),board_rate:formatCurrency(board.board_rate)  };
+        });
+    
+        res.json(formattedResults);
     });
 });
 
@@ -118,6 +154,19 @@ router.post('/api/board_form', function(req, res) {
             });
     }
 });
+
+
+router.delete('/delete-board/:boardId', (req, res) => {
+    const boardId = req.params.boardId;
+    dbCon.query('DELETE FROM board WHERE board_id = ?', [boardId], (err) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("เกิดข้อผิดพลาดในการลบโพสต์");
+        }
+        res.status(200).send("โพสต์ถูกลบแล้ว");
+    });
+});
+
 
 
 module.exports = router;

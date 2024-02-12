@@ -621,6 +621,7 @@ background-color: #0056b3;
     .top-logo{
         display: block;
         height: 20px;
+        display: none;
     }
     .time_post{
         margin-top:-22px; font-size:13px; margin-left:83px; color:gray;
@@ -803,6 +804,26 @@ background-color: #0056b3;
         
     }
     
+    .active-link {
+    background-color: black !important; /* ใช้ !important เพื่อแทนที่สไตล์อื่นๆ */
+    color: white !important; /* เปลี่ยนสีข้อความเป็นสีขาวเพื่อให้เห็นชัดเจน */
+    border-radius: 40px !important;
+    padding: 0px !important;
+
+}
+
+.iconbar {
+    filter: invert(100%) !important;
+    vertical-align: 10px !important;
+    margin-left: 10px !important;
+
+}
+.active-text {
+    /* ตัวอย่าง style สำหรับข้อความที่เป็น active */
+    color: white !important; /* เปลี่ยนสีข้อความเป็นสีขาว */
+    font-weight: bold; /* ทำให้ข้อความหนาขึ้น */
+    vertical-align: 15px !important;
+}
 
       
   
@@ -817,9 +838,9 @@ background-color: #0056b3;
         
     <div class="bottom-nav">
         <img src="/public/img/icon_img/Logo-Instagram.png" style="width: 35px; margin-left: 0vw;">
-        <img src="/g65103/imgsearch-interface-circular-symbol.png" alt="" style="width: 32px; margin-left: 1vw;">
-        <img src="/g65103/imgmore.png " style="width: 28px; margin-left: 6vw; opacity: 0.7;">
-        <img src="/g65103/img/mk_img_mk/<%= market_id %>" style=" 
+        <img src="/public/img/search-interface-circular-symbol.png" alt="" style="width: 32px; margin-left: 1vw;">
+        <img src="/public/img/imgmore.png " style="width: 28px; margin-left: 6vw; opacity: 0.7;">
+        <img src="/img/mk_img_mk/<%= market_id %>" style=" 
        
         vertical-align: -12px; margin-left: 40vw;
          margin-top: -10px; width: 35px; height:
@@ -844,20 +865,39 @@ background-color: #0056b3;
               <ul class="nav">
                 <li class="nav-item">
              
-                  <a href="/user/feed" class="nav-link active" aria-current="page">
-                     <img src="/public/img/homepage.png" alt="" style="width: 13%;">
-                     <img src="/img/homepage.png" alt="" style="width: 13%;">
-                    <span class="aa">หน้าหลัก</span>
-                  </a>
+                    <a href="/user/feed" class="nav-link active" aria-current="page">
+                        <img src="/public/img/homepage.png" alt="" style="width: 13%;" class="iconbar">
+                        <span class="aa">หน้าหลัก</span>
+                    </a>
 
                    <a href="#" id="scan" class="nav-link link-body-emphasis">
                      <img src="/public/img/search.png" alt="" style="width: 12%;">
                      <span class="aa">ค้นหา </span>
                   </a>
+
+
+                  <style>
+                    .modal-content-a {
+                            background-color: #fefefe;
+                            margin: auto; /* จัดให้อยู่ตรงกลาง */
+                            padding: 20px;
+                            border-radius: 10px;
+                            border: 1px solid #888;
+                            width: 40%;
+                            height:80%;
+                            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            }
+
+                  </style>
+
                
                
                   <div id="scan_m" class="modal">
-                    <div class="modal-content">
+                    <div class="modal-content-a">
                 
                         <label for="scan" class="form-label" style="margin-top: 10px;">ค้นหา</label>
                         <input type="text" class="form-control" id="scans" name="scans" placeholder="คำค้นหา...">
@@ -954,7 +994,7 @@ window.onclick = function(event) {
 
                
                
-                  <a href="#" class="nav-link">
+                  <a href="/user/explore" class="nav-link">
                      <img src="/public/img/compass.png" alt="" style="width: 12%;">
                      <span class="aa">สำรวจ</span>
                   </a>
@@ -1032,7 +1072,7 @@ window.onclick = function(event) {
 
 
 
- <script>
+                    <script>
                     // Function to show modal by modalId
                     function showModal(modalId) {
                         var modal = document.getElementById(modalId);
@@ -1122,9 +1162,7 @@ document.getElementById('newsFeedForm').addEventListener('submit', function(even
         // Handle errors as needed
     });
 });
-
-
-                </script>
+</script>
 
 
                 
@@ -1232,55 +1270,6 @@ function toggleLike(postId, userId) {
                 
             </script>
 
-            <script>
-
-function openCommentModal(postId) {
-    // โค้ดเพื่อดึงคอมเมนต์และแสดงใน Modal
-    document.getElementById('commentModal').style.display = 'block';
-}
-
-function closeCommentModal() {
-    document.getElementById('commentModal').style.display = 'none';
-}
-
-function submitComment(postId) {
-    let comment = document.getElementById('newComment').value;
-    
-    // ตรวจสอบว่าคอมเมนต์ไม่ว่างเปล่า
-    if (!comment) {
-        alert('กรุณาป้อนคอมเมนต์');
-        return;
-    }
-
-    // สร้างอ็อบเจกต์ข้อมูลที่จะส่ง
-    let data = {
-        postId: postId,
-        comment: comment
-    };
-
-    // สร้างคำขอ AJAX
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', '/submitComment', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // จัดการกับคำตอบจากเซิร์ฟเวอร์
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                // เพิ่มคอมเมนต์ไปยัง UI หรือแสดงผลอย่างอื่น
-                alert('คอมเมนต์ได้ถูกส่งแล้ว');
-                closeCommentModal();
-            } else {
-                // แสดงข้อผิดพลาด
-                alert('เกิดข้อผิดพลาดในการส่งคอมเมนต์');
-            }
-        }
-    };
-    xhr.send(JSON.stringify(data));
-}
-
-
-
             </script>
 
 
@@ -1315,7 +1304,9 @@ function toggleDropdown(postId) {
     }
 }
 
-             
+</script>
+
+<script>      
 function reportPost(postId) {
     // Prompt the user for a report reason
     let reportReason = prompt("กรุณาระบุเหตุผลในการรายงานโพสต์นี้:");
@@ -1422,6 +1413,40 @@ window.onload = loadContentForWindowSize;
 
 // ตรวจสอบเมื่อขนาดหน้าจอเปลี่ยนแปลง
 window.onresize = loadContentForWindowSize;
+
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var path = window.location.pathname;
+    if (path === '/user/feed' || path === '/user/explore'|| path === '/user/profile') {
+        // ลบคลาส active-link จากทุก nav-link และลบคลาส iconbar จากทุก icons
+        document.querySelectorAll('.nav-link').forEach(function (link) {
+            link.classList.remove('active-link');
+            var icon = link.querySelector('.iconbar');
+            if (icon) {
+                icon.classList.remove('iconbar');
+            }
+            var text = link.querySelector('.aa');
+            if (text) {
+                text.classList.remove('active-text'); // สมมุติว่าคุณมีคลาส CSS ชื่อ .active-text
+            }
+        });
+
+        // เพิ่มคลาส active-link และ iconbar และ active-text ให้กับ nav-link และ elements ที่ตรงกับเส้นทาง
+        var activeLink = document.querySelector(`.nav-link[href="${path}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active-link');
+            var icon = activeLink.querySelector('img, i');
+            if (icon) {
+                icon.classList.add('iconbar');
+            }
+            var text = activeLink.querySelector('.aa');
+            if (text) {
+                text.classList.add('active-text'); // ใช้คลาสนี้เพื่อกำหนดสไตล์ให้กับข้อความ
+            }
+        }
+    }
+});
 
 </script>
 

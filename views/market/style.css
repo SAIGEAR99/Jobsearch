@@ -170,20 +170,6 @@ height: 100%;
 overflow: hidden; /* ป้องกันไม่ให้เลื่อนได้ */
 background-color: rgba(0, 0, 0, 0.6); 
 }
-.modal-content {
-background-color: #fefefe;
-margin: auto; /* จัดให้อยู่ตรงกลาง */
-padding: 20px;
-border-radius: 10px;
-border: 1px solid #888;
-width: 600px;
-height:auto;
-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-}
 
 
 .modal button {
@@ -409,8 +395,8 @@ margin: auto;
 background-color: #fff;
 border-radius: 10px;
 padding: 20px;
-width: 600px;
-height: 700px;
+width: 40%;
+height: 80%;
 margin: auto;
 
 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);

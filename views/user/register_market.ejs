@@ -83,7 +83,7 @@
         }
 
         .dropdown-menu {
-            display: none; /* ซ่อน dropdown menu ไว้เริ่มต้น */
+           
             position: absolute;
             bottom: 100%; /* ตั้งค่าให้ปรากฏด้านล่างของปุ่ม */
             left: 0;
@@ -93,7 +93,7 @@
             width: 90%; /* ขยายความกว้างเพื่อให้เต็มปุ่ม */
         }
 
-        /* อาจต้องปรับแต่งสไตล์ของปุ่มที่อยู่ภายใน .dropdown ให้สอดคล้องกับปุ่มอื่นๆ */
+        
         .dropdown button {
             width: 50%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
             /* สไตล์อื่นๆ ตามที่ต้องการ */
@@ -144,15 +144,6 @@
             transition: all 0.3s ease;
         }
 
-
-    
-
-   
-        
-
-        
-
-        
         .custom-button {
             width: 130px;
             height: 32px;
@@ -172,120 +163,6 @@
             position: relative;
             top: -35px; /* ปรับค่านี้ตามที่คุณต้องการ */
         }
-
-
-        /* .menu {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            max-width: 500px;
-            margin: 0 auto;
-            height: 5vh;
-            list-style: none;
-        }
-
-        .menu li {
-            width: 150px;
-            height: 50px;
-            transition: background-position-x 0.9s linear;
-            text-align: center;
-
-            a {
-                margin-bottom: 5px;
-                font-size: 16px;
-                color: #777;
-                text-decoration: none;
-                transition: all 0.45s;
-            }
-
-            &:hover {
-                
-                text-decoration: underline; 
-                text-decoration-color: red; 
-                text-decoration-thickness: 2px; 
-                
-            }
-
-            &:hover a {
-                color: #d94f5c;
-            }
-
-            &:not(:last-child) {
-                margin-right: 30px;
-            }
-        } */
-        
-        .snip1143 {
-            
-            text-align: center;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-        
-        .snip1143 * {
-            box-sizing: border-box;
-            -webkit-transition: all 0.35s ease;
-            transition: all 0.35s ease;
-        }
-
-        .snip1143 li {
-            display: inline-block;
-            list-style: outside none none;
-            margin: 0 1.5em;
-            overflow: hidden;
-        }
-
-        .snip1143 a {
-            padding: 0.3em 0;
-            color: rgba(0, 0, 0, 0.5);
-            position: relative;
-            display: inline-block;
-            letter-spacing: 1px;
-            margin: 0;
-            text-decoration: none;
-        }
-
-        .snip1143 a:before,
-        .snip1143 a:after {
-            position: absolute;
-            -webkit-transition: all 0.35s ease;
-            transition: all 0.35s ease;
-        }
-
-        .snip1143 a:before {
-            top: 100%;
-            display: block;
-            height: 3px;
-            width: 100%;
-            content: "";
-            background-color: #000000; /*สีเส้น*/
-
-        }
-
-        .snip1143 a:after {
-            padding: 0.3em 0;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            content: attr(data-hover);
-            color: rgb(0, 0, 0);
-            white-space: nowrap;
-        }
-
-        .snip1143 li:hover a,
-        .snip1143 .current a {
-            transform: translateY(-100%);
-        }
-
-        .snip1143 a.active {
-            color: rgb(0, 0, 0); /* สีแดงเพื่อเน้น */
-            text-decoration: overline; /* เส้นใต้ */
-            text-decoration-thickness: 20%;
-
-        }
-
-
-
 
         hr{
             width: 850px;
@@ -452,44 +329,193 @@
         <div class="sidebar">
             <!-- Sidebar content here -->
             <div>
-                <a href="/"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
+                <a href="/user/feed"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
                     <span class="fs-4"><img src="/public/img/Logo-Instagram.png" style="width: 60%; margin-left: -2px; margin-bottom: 10px;"></span>
                 </a>
             
                 <ul class="nav">
                     <li class="nav-item">
                 
-                        <a href="/market/feed" class="nav-link active" aria-current="page">
+                        <a href="/user/feed" class="nav-link active" aria-current="page">
                             <img src="/public/img/homepage.png" alt="" style="width: 13%;">
                             <span class="aa">หน้าหลัก</span>
                         </a>
                         
                         
-                        <a href="#" class="nav-link active" aria-current="page">
+                        <a href="#" id="scan" class="nav-link link-body-emphasis">
                             <img src="/public/img/search.png" alt="" style="width: 12%;">
                             <span class="aa">ค้นหา </span>
-                        </a>
-                        
-                        
-                        <a href="#" class="nav-link">
+                         </a>
+       
+       
+                         <style>
+                           .modal-content-a {
+                                   background-color: #fefefe;
+                                   margin: auto; /* จัดให้อยู่ตรงกลาง */
+                                   padding: 20px;
+                                   border-radius: 10px;
+                                   border: 1px solid #888;
+                                   width: 40%;
+                                   height:80%;
+                                   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                                   position: absolute;
+                                   top: 50%;
+                                   left: 50%;
+                                   transform: translate(-50%, -50%);
+                                   }
+
+                                    .modal {
+                                display: none; 
+                                position: fixed; /* ใช้ position fixed เพื่อให้อยู่ตรงกลาง */
+                                z-index: 1000;
+                                left: 0;
+                                top: 0;
+                                width: 100%;
+                                height: 100%;
+                                overflow: hidden; /* ป้องกันไม่ให้เลื่อนได้ */
+                                background-color: rgba(0, 0, 0, 0.6); 
+                                }
+
+                        .result-image {
+                                width: 60px;      /* ตั้งค่าความกว้าง */
+                                height: 60px;     /* ตั้งค่าความสูง */
+                                border-radius: 50%; /* ทำให้มุมเป็นวงกลม */
+                                object-fit: cover;  /* ให้ภาพปรับให้พอดีกับขนาด */
+                                margin-bottom: 20px;
+                            
+                            
+                            }
+                            .result-text {
+                                margin-left: 10px;
+                                vertical-align:15px;
+                                
+                                
+                                
+                            }
+                        .result-text2 {
+                                display: block; /* ทำให้แต่ละ span แสดงในบรรทัดของตัวเอง */
+                                margin-left: 71px;
+                                margin-top: -50px;
+                                color: gray;
+                                font-size: 12px;
+                                margin-bottom: 10px;
+
+                            }
+                            .profile-pic {
+                                text-decoration: none; /* ลบเส้นใต้ของลิงก์ */
+                                color: inherit; /* ใช้สีข้อความเดียวกับที่รอบๆ มัน */
+                            }
+
+                            
+                            
+
+
+                         </style>
+       
+                      
+                      
+                         <div id="scan_m" class="modal">
+                           <div class="modal-content-a">
+                       
+                               <label for="scan" class="form-label" style="margin-top: 10px;">ค้นหา</label>
+                               <input type="text" class="form-control" id="scans" name="scans" placeholder="คำค้นหา...">
+                               <div id="search-results-scan"  class="list-group"></div>
+                           </div>
+                       </div>
+                       
+                       <script>
+                           function showModal(modalId) {
+                               var modal = document.getElementById(modalId);
+                               modal.style.display = "block";
+                               document.body.style.overflow = 'hidden';
+                           }
+                       
+                           function hideModal(modalId) {
+                               var modal = document.getElementById(modalId);
+                               modal.style.display = "none";
+                               document.body.style.overflow = '';
+                           }
+                       
+                           document.getElementById('scan').addEventListener('click', function () {
+                               showModal('scan_m');
+                           });
+                           // ซ่อน modal ค้นหาเมื่อคลิกนอกเขต modal
+       window.onclick = function(event) {
+           var modal = document.getElementById('scan_m');
+           if (event.target == modal) {
+               modal.style.display = "none";
+               document.body.style.overflow = '';
+           }
+       }
+       
+                       
+                           // สคริปต์สำหรับการค้นหาที่อยู่
+                           document.getElementById('scans').addEventListener('input', function () {
+           var query = this.value;
+           var resultsDiv = document.getElementById('search-results-scan');
+       
+           if (query.trim() !== '') {
+               fetch('/search/api/scan?query=' + encodeURIComponent(query))
+                   .then(function (response) {
+                       if (!response.ok) {
+                           throw new Error('Network response was not ok');
+                       }
+                       return response.json();
+                   })
+                   .then(function (data) {
+                       resultsDiv.innerHTML = '';
+                       data.results.forEach(function (result) {
+                           var resultItem = document.createElement('a');
+                           resultItem.href = "javascript:void(0);";
+                           resultItem.className = 'list-group-item list-group-item-action';
+       
+                           // สร้างและเพิ่มภาพ
+                           var image = document.createElement('img');
+                           image.src = '/img/mk_img_mk/' + result.market_id;
+                           image.alt = 'Image';
+                           image.className = 'result-image';
+                           resultItem.appendChild(image);
+       
+                           // สร้างและเพิ่มข้อความ (market_name)
+                           var text = document.createElement('span');
+                           text.className = 'result-text';
+                           text.appendChild(document.createTextNode(result.market_name));
+                           resultItem.appendChild(text);
+       
+                           // สร้างและเพิ่มข้อความ (mk_discript)
+                           var descriptionText = document.createElement('span');
+                           descriptionText.className = 'result-text2';
+                           descriptionText.appendChild(document.createTextNode(result.business_name));
+                           resultItem.appendChild(descriptionText);
+       
+                           resultItem.addEventListener('click', function () {
+                               document.getElementById('scan').value = result.textContent;
+                               resultsDiv.innerHTML = '';
+                               window.location.href = '/user/show_mk?market_id=' + encodeURIComponent(result.market_id);
+                           });
+       
+                           resultsDiv.appendChild(resultItem);
+                       });
+                   })
+                   .catch(function (error) {
+                       console.error('Fetch error:', error);
+                   });
+           } else {
+               resultsDiv.innerHTML = '';
+           }
+       });
+       
+                       </script>
+                        <a href="/user/explore" class="nav-link">
                             <img src="/public/img/compass.png" alt="" style="width: 12%;">
                             <span class="aa">สำรวจ</span>
                         </a>
                         
                         
-                        <a href="#" class="nav-link">
-                            <img src="/public/img/bell1.png" alt="" style="width: 14%; margin-right: 5px;" >
-                            <span class="aa">การแจ้งเตือน</span>
-                        </a>
-
-                        <a href="#" class="nav-link">
-                            <img src="/public/img/post.png" alt="" style="width: 12%;">
-                            <span class="aa">สร้าง</span>
-                        </a>
-
+    
 
                     <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
-                        <a href="/market/profile" class="nav-link">
+                        <a href="/user/profile" class="nav-link">
                             <img src="/img/file" class="custom-rounded-img" alt="">
                             <span class="aa">โปรไฟล์</span>
                         </a>
@@ -611,23 +637,6 @@
                     </div>
 
                 </div>
-
-                <!-- <div class="px-4 py-5 my-5 text-center border rounded preview" style="width: 500px; height: 500px;">
-                    <img src="/img/file" class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
-                    <br><br>
-                    <h5 type="text" class="display-5 fw-bold text-body-emphasis" ><div id="outputDiv">ชื่อธุรกิจ</div></h5>
-                        <div class="col-lg-6 mx-auto">
-                            <div id="outputDiv3"></div>                       
-                                <div class="card-body">
-                                    <div class="row mb-3">
-                                        <div class="col">
-                                            <div class="rows"></div>
-                                            <strong>ประเภทธุรกิจ</strong><div id="outputDiv2"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                </div> -->
             </div>
         </div>
 
@@ -667,15 +676,12 @@ document.getElementById('search').addEventListener('input', function () {
       resultsDiv.innerHTML = '';
   }
 });
-
-                  </script>
+</script>
   
   
   
 
-  <!-- เรียกใช้ Bootstrap JS และ Popper.js และ jQuery (ถ้าต้องการใช้ Modal หรืออื่น ๆ) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js" integrity="sha384-bFj4l4A8NqnxF5R5QVx6cvlkyO5rFEC6cBwI3orFEFtF5foqyz63uqqq5O5F5fF5F5F5F5" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+T6D5CcL6I2/jU5mF0XFeF5F5S5O5F5F5F5F5F5F5F5F5F5F5" crossorigin="anonymous"></script>
+
 
   <script>
       document.getElementById('business').addEventListener('input', function() {
@@ -700,108 +706,44 @@ document.getElementById('search').addEventListener('input', function () {
   });
 </script>
 
-<!-- Modal อัพโหลดรูปภาพ -->
-<div class="modal fade" id="profileImageUploadModal" tabindex="-1" aria-labelledby="profileImageUploadModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header" style="align-items: center;">
-                <h5 class="modal-title" id="profileImageUploadModalLabel">อัพโหลดรูป Profile</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- ฟอร์มอัพโหลดรูปภาพ -->
-                <form action="/img/upload/market" method="post" enctype="multipart/form-data">
-                    <div class="drop-zone1">
-                        <p>ลากและวางไฟล์รูปภาพที่นี่หรือคลิกเพื่อเลือกไฟล์</p>
-                        <input type="file" name="uploadedFile1" id="uploadedFile1" class="form-control" accept="image/*" hidden>
-                    </div>
-                    <img id="selectedImage1" src="#" alt="Selected Image" style="max-width: 100%; max-height: 200px; display: none;" />
-                    <input type="submit" value="Upload Image" name="submit" class="btn btn-primary mt-3" />
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // กำหนดฟังก์ชันสำหรับการตั้งค่าอัปโหลดไฟล์
-        function setupFileUpload(dropZoneSelector, inputFileId, previewImageId) {
-            var dropZone = document.querySelector(dropZoneSelector);
-            var fileInput = document.getElementById(inputFileId);
-            var previewImage = document.getElementById(previewImageId);
-    
-            dropZone.addEventListener('click', function() {
-                fileInput.click();
-            });
-    
-            fileInput.addEventListener('change', function() {
-                if (fileInput.files.length > 0) {
-                    var selectedFile = fileInput.files[0];
-                    var objectURL = URL.createObjectURL(selectedFile);
-                    previewImage.src = objectURL;
-                    previewImage.style.display = 'block';
-                } else {
-                    previewImage.style.display = 'none';
-                }
-            });
-    
-            dropZone.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                dropZone.classList.add('drop-zone--over');
-            });
-    
-            ['dragleave', 'dragend'].forEach(type => {
-                dropZone.addEventListener(type, function() {
-                    dropZone.classList.remove('drop-zone--over');
-                });
-            });
-    
-            dropZone.addEventListener('drop', function(e) {
-                e.preventDefault();
-                dropZone.classList.remove('drop-zone--over');
-                if (e.dataTransfer.files.length > 0) {
-                    fileInput.files = e.dataTransfer.files;
-                    var selectedFile = fileInput.files[0];
-                    var objectURL = URL.createObjectURL(selectedFile);
-                    previewImage.src = objectURL;
-                    previewImage.style.display = 'block';
-                } else {
-                    previewImage.style.display = 'none';
-                }
-            });
-        }
-    
-        // เรียกใช้ฟังก์ชันสำหรับการอัปโหลดไฟล์ที่ 1
-        setupFileUpload('.drop-zone1', 'uploadedFile1', 'selectedImage1');
-    
-        // เรียกใช้ฟังก์ชันสำหรับการอัปโหลดไฟล์ที่ 2
-        setupFileUpload('.drop-zone2', 'uploadedFile2', 'selectedImage2');
-    
-        // โค้ดสำหรับการจัดการ dropdown menu
+ 
+    document.addEventListener('DOMContentLoaded', function () {
         var dropdown = document.querySelector('.dropdown');
         var dropdownMenu = document.querySelector('.dropdown-menu');
-    
+     
+        // เมื่อคลิกที่ปุ่ม dropdown
         dropdown.addEventListener('click', function (event) {
+            // ป้องกันเหตุการณ์เริ่มต้นของลิงก์
+           
+           
+            // แสดงหรือซ่อน dropdown menu
             if (dropdownMenu.style.display === 'block') {
                 dropdownMenu.style.display = 'none';
             } else {
                 dropdownMenu.style.display = 'block';
             }
         });
-    
+     
+        // ซ่อน dropdown เมื่อคลิกนอกเขต dropdown
         document.addEventListener('click', function (event) {
             var isClickInside = dropdown.contains(event.target);
+     
             if (!isClickInside) {
                 dropdownMenu.style.display = 'none';
             }
         });
     });
-</script>
+     
+           </script>
+     
 
+  
 
-    
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- เรียกใช้ Bootstrap JS และ Popper.js และ jQuery (ถ้าต้องการใช้ Modal หรืออื่น ๆ) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js" integrity="sha384-bFj4l4A8NqnxF5R5QVx6cvlkyO5rFEC6cBwI3orFEFtF5foqyz63uqqq5O5F5fF5F5F5F5" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+T6D5CcL6I2/jU5mF0XFeF5F5S5O5F5F5F5F5F5F5F5F5F5F5" crossorigin="anonymous"></script>
 </body>
 </html>

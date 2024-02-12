@@ -10,276 +10,1829 @@
     <link rel="icon" href="/public/img/camera.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="/views/market/style_ex.css">
    
-
-
 </head>
- 
+<style>
+    .text-yellow { color: #ffc107; }
+    .text-blue { color: blue; }
+    .text-red { color: red; }
+
+
+                .sidebar {
+                height: 100%;
+                position: fixed;
+                width: 250px; /* Adjusted width */
+                overflow-x:hidden;
+                overflow-y:hidden;
+                z-index: 1000;
+                background-color: #ffffff; /* Light gray background */
+                padding: 20px;
+                box-shadow: 0 0 2.5px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
+            }
+
+            .sidebar .nav-item {
+                list-style: none;
+                margin-bottom: 30px;
+                margin-left: -9px;
+                font-weight: 400;
+            
+
+            }
+
+            .sidebar .nav-link {
+                text-decoration: none;
+                color: #000; /* Black text color */
+                font-size: 18px;
+                display: block;
+                padding: 10px;
+                border-radius: 5px;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .sidebar .nav-link:hover {
+                background-color: #e9ecef; /* Light hover effect */
+                color: #007bff; /* Blue text on hover */
+            }
+
+            .sidebar .nav-link img {
+                margin-top: 18px;
+                margin-right: 10px;
+                vertical-align:bottom;
+            }
+
+
+            .aa{
+                font-size: 20px;
+            }
+            .custom-rounded-img {
+            border-radius: 50%; /* Make the image round */
+            width: 40px;
+            height: 40px;
+            /* Adjust width as needed * /* Adjust height as needed */
+            object-fit:cover; /* Ensure the image covers the area */
+            }
+
+            .dropdown {
+            position: absolute;
+            bottom: 10px;
+            margin-top: 0; /* ลบ margin-top ที่กำหนดไว้ก่อนหน้านี้ */
+            width: 100%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+            }
+
+            .dropdown-menu {
+            display: none; /* ซ่อน dropdown menu ไว้เริ่มต้น */
+            position: absolute;
+            bottom: 100%; /* ตั้งค่าให้ปรากฏด้านล่างของปุ่ม */
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: white;
+            width: 90%; /* ขยายความกว้างเพื่อให้เต็มปุ่ม */
+            }
+
+            /* อาจต้องปรับแต่งสไตล์ของปุ่มที่อยู่ภายใน .dropdown ให้สอดคล้องกับปุ่มอื่นๆ */
+            .dropdown button {
+            width: 50%; /* กำหนดความกว้างเท่ากับปุ่มอื่นๆ */
+            /* สไตล์อื่นๆ ตามที่ต้องการ */
+            }
+            .dropdown-toggle::after {
+            display: none;
+            }
+
+            .post {
+                width: 684px;
+                height: auto;
+                background-color: white;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                overflow: hidden;
+            
+            
+            }
+            
+            .post-header {
+                display: flex;
+                align-items: center;
+                padding-left: 22px;
+            
+                
+            }
+            
+            .profile-pic {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+            
+            .username {
+                font-weight: bold;
+                font-size: 16px;
+            }
+            
+            .post-image {
+                width: 100%; /* กว้างเต็มโพสต์ */
+                display: flex;
+                justify-content: center; 
+                overflow: hidden;
+            }
+            
+            .post-image img {
+                width: 100%; /* กว้างเต็มโพสต์ */
+                height: auto; /* ความสูงปรับตามรูปภาพ */
+                object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+                max-height: 100%; /* ความสูงสูงสุดของรูปภาพ */
+            }
+            .post-footer {
+                padding: 21px;
+                display: flex;
+                justify-content: flex-start;
+            }
+            
+
+            
+            .post-content {
+                flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
+                padding: 21px; /* ระยะห่างขอบของกล่องโพสต์ */
+                overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
+            }
+            /* สไตล์เริ่มต้นของปุ่มไลค์ */
+            .like-button {
+            color: #333; /* สีข้อความ */
+            background-color: #f5f5f5; /* สีพื้นหลัง */
+            border: 1px solid #ddd; /* สีขอบ */
+            padding: 5px 10px; /* ระยะห่าง */
+            border-radius: 3px; /* มุมโค้ง */
+            cursor: pointer; /* รูปแบบเคอร์เซอร์ */
+            transition: all 0.3s ease; /* ผลลัพธ์การเคลื่อนไหว */
+            }
+
+            .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            }
+            .close:hover,
+            .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+            }
+            .modal {
+            display: none; 
+            position: fixed; /* ใช้ position fixed เพื่อให้อยู่ตรงกลาง */
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* ป้องกันไม่ให้เลื่อนได้ */
+            background-color: rgba(0, 0, 0, 0.6); 
+            }
+
+            .modal button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            }
+            .modal button:hover {
+            background-color: #0056b3;
+            }
+            /* ปรับแต่งฟอร์มภายใน modal */
+            .modal form {
+            display: flex;
+            flex-direction: column;
+            }
+            .modal textarea, .modal select, .modal input[type="file"] {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 95%;
+            }
+            .modal input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            margin-top: 15px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            }
+            .modal input[type="submit"]:hover {
+            background-color: #218838;
+            }
+            #imageUploadContainer {
+            border: 2px dashed #ddd;
+            padding: 10px;
+            text-align: center;
+            margin-top: 10px;
+            cursor: pointer;
+            }
+            #imageUploadContainer p {
+            margin: 0;
+            font-size: 16px;
+            color: #666;
+            }
+            #previewImage {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            }
+            .modal-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 15px;
+            position: relative;
+            }
+            .postHeader {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            }
+            .profile-pic {
+            width: 50px; /* หรือขนาดที่ต้องการ */
+            height: 50px; /* หรือขนาดที่ต้องการ */
+            border-radius: 50%;
+            }
+            .postContent textarea {
+            border: none;
+            outline: none;
+            box-shadow: none;
+            resize: none;
+            height: 200px;
+            font-size: 25px;
+            overflow: hidden;
+            }
+            .postContent textarea::placeholder {
+            font-size: 25px;
+            }
+            .postFooter {
+            display: flex;
+            justify-content: flex-end;
+
+            }
+            .modal-title {
+            text-align: center;
+            flex-grow: 1;
+            }
+            .postHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            }
+            .postContent textarea {
+            resize: none;
+            height: 200px; /* กำหนดความสูงตายตัว */
+            font-size: 25px; /* ขนาดตั้งต้น */
+            overflow: hidden; /* ป้องกันการแสดง scrollbar */
+            border: none; /* ซ่อนกรอบของ textarea */
+            box-shadow: none; /* ซ่อนเงาหากมี */
+            padding-left: 20px;
+            }
+            .postContent textarea::placeholder {
+            font-size: 25px;
+            padding-left: 0px;
+            }
+            /* ปรับแต่งให้ขนาดข้อความลดลงตามจำนวนความยาว */
+            textarea {
+            font-size: calc(25px - (0.005 * length));
+            }
+            #previewImage {
+
+            max-width: 100%; /* กำหนดความกว้างสูงสุดไม่ให้เกินกล่อง modal */
+            max-height: 100px; /* กำหนดความสูงสูงสุด */
+            margin:auto;
+
+            }
+            #imageUploadContainer {
+            /* ปรับขนาดและความสูงของกล่องอัปโหลดรูปภาพ */
+            max-height: 350px; /* กำหนดความสูงสูงสุด */
+            overflow-y: auto; /* เพิ่มการเลื่อนเมื่อเนื้อหาเกินความสูงที่กำหนด */
+            border: 2px dashed #ddd;
+            padding: 10px;
+            text-align: center;
+            margin-top: 10px;
+            cursor: pointer;
+            }
+
+
+            #imageUploadContainer2 {
+                /* ปรับขนาดและความสูงของกล่องอัปโหลดรูปภาพ */
+                max-height: 350px; /* กำหนดความสูงสูงสุด */
+                overflow-y: auto; /* เพิ่มการเลื่อนเมื่อเนื้อหาเกินความสูงที่กำหนด */
+                border: 2px dashed #ddd;
+                padding: 10px;
+                text-align: center;
+                margin-top: 10px;
+                cursor: pointer;
+                }
+            .user-info {
+            display: flex;
+            align-items: center;
+            }
+            .user-info img {
+            margin-right: 10px; /* หรือระยะห่างที่ต้องการ */
+            }
+            .modal select, #imageUploadContainer {
+
+            width: 95%; /* ตั้งค่าความกว้างเท่ากับ 100% ของพื้นที่บรรจุของมัน */
+            margin: auto;
+            margin-left: 10.5px;
+
+
+            }
+            .publish-button{
+            width: 100%;
+
+            }
+            .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            }
+            .close:hover {
+            background-color: #e0e0e0; /* สีเทาเมื่อเอาเมาส์ไปวาง */
+            }
+
+
+
+            #postTypeModal .modal-content {
+
+            margin: auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 40%;
+            height: 80%;
+            margin: auto;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+            }
+
+
+            #scan_m .modal-content {
+
+                margin: auto;
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 20px;
+                width: 40%;
+                height: 80%;
+                margin: auto;
+                
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease-in-out;
+                }
+
+
+
+
+            #postTypeModal .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            /* การตั้งค่าอื่นๆ */
+            }
+
+            .modal-buttons-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* ปรับระยะห่างจากเนื้อหาด้านบน */
+
+
+            }
+
+            .modal-buttons-container > button {
+            margin: 0 5px;
+            padding: 10px 20px;
+            background-color: #000;
+            /* การตั้งค่าอื่นๆ */
+            }
+
+            /* ปรับขนาดและจัดกลางรูปภาพ */
+            #postTypeModal img {
+            width: 20%;
+            margin-top: 35%;
+            align-self: center; /* จัดกลางในแนวแกนตั้ง */
+            width: 15%;
+            }
+            .button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #000000;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            }
+
+            .button-link:hover, .button-link:focus {
+            background-color: #0056b3;
+            }
+
+
+            .username:hover {
+                color: #555; /* เปลี่ยนสีของข้อความ */
+                cursor: pointer; /* แสดงเคอร์เซอร์เป็นรูปมือชี้ */
+                text-decoration: underline; /* เพิ่มเส้นใต้ข้อความ */
+            }
+
+            .hover-effect {
+                border-radius: 50%; /* ทำให้รูปภาพมีขอบเป็นวงกลม */
+                transition: background-color 0.3s, opacity 0.3s; /* เพิ่มการเปลี่ยนแปลงอย่างราบรื่น */
+            }
+
+            .hover-effect:hover {
+            
+                cursor: pointer; /* แสดงเคอร์เซอร์เป็นรูปมือชี้ */
+                background-color: rgba(180, 180, 180, 0.5); /* เพิ่มพื้นหลังสีเทาแบบโปร่งแสง */
+                padding: 0px; /* เพิ่ม padding เพื่อทำให้พื้นหลังมองเห็นชัดเจน */
+            }
+
+
+
+            .dropbtn {
+                /* สไตล์ของปุ่ม */
+                background: none;
+                border: none;
+                font-size: 24px;
+                }
+                
+                .dropdown-content {
+                display: none;
+                position: absolute;
+                right: 0;
+                background-color: #ffffff;
+                min-width: 160px;
+                box-shadow: 0px 5px 5px 0.1px rgba(0,0,0,0.2);
+                z-index: 1;
+                border-radius: 10px;
+                }
+                
+                .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                border-radius: 10px;
+                }
+                
+                .dropdown-content a:hover { background-color: #f1f1f1; }
+
+                .result-image {
+                    width: 60px;      /* ตั้งค่าความกว้าง */
+                    height: 60px;     /* ตั้งค่าความสูง */
+                    border-radius: 50%; /* ทำให้มุมเป็นวงกลม */
+                    object-fit: cover;  /* ให้ภาพปรับให้พอดีกับขนาด */
+                    margin-bottom: 20px;
+                
+                
+                }
+                .result-text {
+                    margin-left: 10px;
+                    vertical-align:15px;
+                    
+                    
+                    
+                }
+            .result-text2 {
+                    display: block; /* ทำให้แต่ละ span แสดงในบรรทัดของตัวเอง */
+                    margin-left: 71px;
+                    margin-top: -50px;
+                    color: gray;
+                    font-size: 12px;
+                    margin-bottom: 10px;
+
+                }
+                .profile-pic {
+                    text-decoration: none; /* ลบเส้นใต้ของลิงก์ */
+                    color: inherit; /* ใช้สีข้อความเดียวกับที่รอบๆ มัน */
+                }
+                
+
+                .ads{
+                            
+                            position: fixed; 
+                            right: 0; 
+                            top: 3%; 
+                            width: 280px; 
+                            height: 100vh;
+                            overflow-x: hidden;
+                            overflow-y: hidden; 
+                            padding: 20px;
+                            border-radius: 10px;
+                }
+
+                .postX-content{
+                    width: 684px; margin: 0 auto; background-color: white;  width: 684px;
+                    height: auto;
+                    background-color: white;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    border-radius: 10px;
+                    overflow: hidden;
+                }
+                /*---------------------------------*/
+            
+            .hh{
+                margin-top: 20px;
+            }
+                .pic-logo{
+                    display: none;
+                }
+                .top-logo{
+                    display: block;
+                    height: 20px;
+                }
+                .time_post{
+                    margin-top:-22px; font-size:13px; margin-left:83px; color:gray;
+                }
+                .username{
+                    margin-top: -16px;
+                }
+                
+                .contentA {
+                display: none;
+                    /* สไตล์อื่นๆ สำหรับเนื้อหาหลัก */
+                }
+                
+                .bottom-nav {
+                    display: none;
+                    background-color: #333;
+                    color: #f2f2f2;
+                    text-align: center;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                }
+                
+                .bottom-nav a {
+                    color: #f2f2f2;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                    font-size: 17px;
+                }
+                
+                .bottom-nav a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+                
+                .bottom-nav a.active {
+                    background-color: #4CAF50;
+                    color: white;
+                }
+
+                .barb-config{
+                    display: none;
+                }
+
+                body{
+                    background-color: #f0f2f5;
+                
+                }
+                .main-content{
+                    width: 684px; margin: 0 auto;
+                }
+                .head-top{
+                    height: 20px;
+                }
+                .img_post-bar{
+                    margin-left: 20px;
+                    margin-top: -10px;
+                    width: 50px;
+                    height: 50px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+                .mm{
+                    margin-left: 10px;
+                    width: 84%;
+                    border-radius: 30px;
+                    border: 0px;
+                    background-color:#e4e6eb;
+                        height: 50px;
+                }
+            
+                
+                
+
+                @media screen and (min-width: 352px) and (max-width: 1252px) and (max-height: 1080px) {
+                
+
+                    .modal-content {
+                    
+                        background-color: #fefefe;
+                        margin: auto; /* จัดให้อยู่ตรงกลาง */
+                        padding: 20px;
+                        border-radius: 10px;
+                        border: 1px solid #888;
+                        width: 80%;
+                        height:auto;
+                        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        }
+
+                    #postTypeModal .modal-content {
+
+                        margin: auto;
+                        background-color: #fff;
+                        border-radius: 10px;
+                        padding: 20px;
+                        width: 80%;
+                        height: 400px;
+                        margin: auto;
+                        
+                        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                        transition: all 0.3s ease-in-out;
+                        }
+                        
+                    .mm{
+                    
+                        position:absolute;
+                        right: 3.5%;
+                    
+                        width: 75%;
+                        margin-top: -40px;
+
+                        
+                            
+                    }
+                    .img_post-bar{
+                    
+                        position: absolute;
+                        left: 0;
+                        margin-top: -40px;
+                    }
+                    .post-bar{
+                    
+                        padding-top: 25px;
+                    
+                    }
+                
+                    
+                    
+                    
+                    
+                    .head-top{
+                        height: 95px;
+                    }
+                    .main-content{
+                        width: 100vw;
+                    }
+                
+                    body{
+                        
+                        max-width: 50vw;
+                        overflow-x: hidden;
+                    }
+                    * {
+                        box-sizing: border-box;
+                    }
+                    .barb-config{
+                        display:inline-block;
+                        width: 5vw;
+                    }
+                    .bottom-nav {
+                        display:block;
+                        background-color: #ffffff; /* สีพื้นหลังของแถบนำทาง */
+                        color: #f2f2f2;
+                        top: 0;
+                        width: 100vw;
+                        height: 65px;
+                        z-index: 2000; 
+                        position: fixed;
+                        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+                        
+
+                    }
+
+                    .username{
+                        margin-top: -13px;
+                    }
+                    .time_post{
+                        margin-top:-18px; font-size:11px; margin-left:72px; color:gray;
+                    }
+
+                .top-logo{
+                    display: none;
+                }
+                    .logo{
+                    
+                        display: none;
+                        
+                        background-color: white;
+                    }
+                    
+                    .pic-logo{
+                        display: block;
+                            width: 27vw;
+                            margin-left: 19px;
+                            background-color: white;
+                            margin-top: 5px;
+                        }
+                
+                    .sidebar {
+                        display: none;
+                
+
+                    }
+                    .ads{
+                    
+                        display: none;
+                    }
+
+                    .postX-content{
+                        display:inline-block;
+                        width: 100vw;
+                        margin: 0 auto;
+                        background-color: white;
+                        height: auto;
+                        background-color: white;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                        border-radius: 0px;
+                        overflow: hidden;
+                
+                    }
+                
+                    
+            .post {
+                
+                display: block;
+                width: 100vw;
+                height: auto;
+                background-color: white;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                border-radius: 0px;
+                overflow: hidden;
+            
+            
+            
+            }
+            
+            .post-header {
+                display: flex;
+                align-items: center;
+                padding-left: 22px;
+                
+            }
+            
+            .profile-pic {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+            
+            .username {
+                font-weight: bold;
+                font-size: 16px;
+            }
+            
+            .post-image {
+                width: 100%; /* กว้างเต็มโพสต์ */
+                display: flex;
+                justify-content: center; 
+                overflow: hidden;
+            }
+            
+            .post-image img {
+                width: 100%; /* กว้างเต็มโพสต์ */
+                height: auto; /* ความสูงปรับตามรูปภาพ */
+                object-fit: cover; /* ทำให้รูปภาพอยู่ภายในขนาดของตัว container */
+                max-height: 100%; /* ความสูงสูงสุดของรูปภาพ */
+            }
+            .post-footer {
+                padding: 21px;
+                display: flex;
+                justify-content: flex-start;
+            }
+            
+
+            
+            .post-content {
+                flex-grow: 1; /* ขยายตามพื้นที่ที่เหลือในโพสต์ */
+                padding: 21px; /* ระยะห่างขอบของกล่องโพสต์ */
+                overflow: hidden; /* ซ่อนเนื้อหาเกินขอบกล่อง */
+            }
+            .icon-bar{
+            background: red;
+            }
+
+            }
+
+                    
+
+                
+
+            .card {
+                border: #ffffff 1px solid;
+                border-radius: 6px;
+                margin-right: 10px;
+                margin-top: -10px;
+                margin-bottom: -10px;
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+                
+            }
+
+            .card-header {
+                background-color: #ffffff;
+                display: flex;
+                align-items: center;
+                margin-top: 0.25rem; /* 1 rem มักเทียบเท่ากับ 16px, ดังนั้น 0.25 rem จะเป็น 4px */
+            }
+
+            .card_profile_img {
+                border-radius: 50%;
+                margin-right: 4px;
+                width: 50px; 
+                height: 50px;
+                object-fit: cover; 
+                padding: 0.10rem;
+            }
+
+            .card_profile_img_role {
+                border-radius: 50%;
+                margin-right: 4px;
+                width: 40px; 
+                height: 40px;
+                object-fit: cover; 
+                padding: 0.10rem;
+                position: absolute;
+                right: 5px;
+            }
+
+            .card_profile_name {
+                display: flex;
+                flex-direction: column; /* จัดเรียงเนื้อหาในแนวตั้ง */
+            }
+
+            .card-body {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                width: 300px;
+                height: 262px;
+                padding: 0;
+            }
+
+            .card-img-body {
+                width: 300px;
+                height: 175px;
+                object-fit: cover;
+            }
+
+            .post-name {
+                padding: 10px;
+                padding-top: 5px;
+                padding-bottom: 0;
+                font-size: 20px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                max-width: 100%; /* หรือความกว้างที่ต้องการ */
+            }
+
+            .post-description {
+                padding: 10px;
+                padding-top: 0px;
+                overflow: hidden; /* ซ่อนข้อความที่เกิน */
+                text-overflow: ellipsis; /* แสดง '...' เมื่อข้อความเกิน */
+                white-space: normal; /* อนุญาตให้ข้อความขึ้นบรรทัดใหม่ */
+                display: -webkit-box; /* ใช้งาน flexbox */
+                -webkit-line-clamp: 2; /* จำกัดจำนวนบรรทัดที่แสดง */
+                -webkit-box-orient: vertical; /* ตั้งค่าการเรียงข้อความให้เป็นแนวตั้ง */
+                max-height: 3em; /* ตั้งค่าความสูงสูงสุดตามจำนวนบรรทัดที่ต้องการ (1.5em ต่อบรรทัด) */
+                line-height: 1.5; /* ความสูงของแต่ละบรรทัด */
+            
+            }
+
+            .card-footer {
+                background-color: #ffffff; 
+            }
+
+            .rate_time, .rate_money {
+                font-size: 25px;
+                display: block;
+                width: auto; /* หรือคุณสามารถตั้งค่าความกว้างที่ต้องการ */
+                margin-bottom: 0; /* หรือคุณสามารถปรับค่านี้ตามต้องการ */
+            }
+
+
+
+            .card-rateday {
+                background-color: #ffffff; 
+                padding-left: 150px;
+                /* ลบหรือแก้ไขบรรทัดนี้ */
+                /* border: solid #bebebe 3px; */
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+                margin-bottom: 1rem;
+            }
+
+            .card_1, .card_2, .card_3, .card_4, .card_5 , .card_6{
+                width: 311px; /* กำหนดความกว้างคงที่ */
+                margin: 5px; /* ปรับขนาดของ margin */
+            }
+
+            .card_1 .card, .card_2 .card, .card_3 .card, .card_4 .card, .card_5 .card, .card_6 .card {
+                height: 440px; /* หรือความสูงอื่นที่ต้องการ */
+            }
+            
+            .active-link {
+    background-color: black !important; /* ใช้ !important เพื่อแทนที่สไตล์อื่นๆ */
+    color: white !important; /* เปลี่ยนสีข้อความเป็นสีขาวเพื่อให้เห็นชัดเจน */
+    border-radius: 40px !important;
+    padding: 0px !important;
+
+}
+
+.iconbar {
+    filter: invert(100%) !important;
+    vertical-align: 10px !important;
+    margin-left: 10px !important;
+
+}
+.active-text {
+    /* ตัวอย่าง style สำหรับข้อความที่เป็น active */
+    color: white !important; /* เปลี่ยนสีข้อความเป็นสีขาว */
+    font-weight: bold; /* ทำให้ข้อความหนาขึ้น */
+    vertical-align: 15px !important;
+}
+
+                
+            
+    
+    
+</style>
  
 <body class="body_edit">
-
-        <div class="icon-bar">
-    <div class="bottom-nav">
-        <a href="/market/feed" style=" position:absolute; left: 0%; margin-top: -20px;">
-            <img src="/public/img/job-search.png" style="width: 45px;">
-        </a>
+    <div class="icon-bar">
+        <div class="bottom-nav">
+            <a href="/market/feed" style=" position:absolute; left: 0%; margin-top: -20px;">
+                <img src="/public/img/job-search.png" style="width: 45px;">
+            </a>
     
-         
-        <img src="/public/img/sa.jpg" alt="" style="width: 37px; position:absolute; left:0%;margin-left: 70px; margin-top: 0px; opacity: 0.6;">
+            <img src="/public/img/sa.jpg" alt="" style="width: 37px; position:absolute; left:0%;margin-left: 70px; margin-top: 0px; opacity: 0.6;">
 
-        <a href="/market/feed" style=" position:absolute; left: 30%; margin-top: -10px; opacity: 0.6;">
-        <img src="/public/img/more.png " style="width: 30px;">
-        </a>
+            <a href="/market/feed" style=" position:absolute; left: 30%; margin-top: -10px; opacity: 0.6;">
+                <img src="/public/img/more.png " style="width: 30px;">
+            </a>
         
-        <a href="/market/profile" style=" position: absolute;  margin-top: -20px; right: 0%;">
-        <img src="/img/file" style=" 
-       
-        vertical-align: -15px;
-         width: 45px; height:45px; object-fit: cover;" alt="Profile Picture"
-           class="profile-pic" style="object-fit:cover;" ></a>
-        
+            <a href="/market/profile" style=" position: absolute;  margin-top: -20px; right: 0%;">
+                <img src="/img/file" style="vertical-align: -15px; width: 45px; height:45px; object-fit: cover;" alt="Profile Picture" class="profile-pic" style="object-fit:cover;" >
+            </a>
         </div>
     </div>
  
 <div class="container-fluid">
     <div class="row">
- 
         <!-- Custom Sidebar -->
         <div class="sidebar">
             <!-- Sidebar content here -->
             <div>
-              <a href="/"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
-                <span class="fs-4"><img src="/public/img/Logo-Instagram.png" style="width: 60%; margin-left: -2px; margin-bottom: 10px;"></span>
-              </a>
+                <a href="/market/feed"ß class="d-flex mb-3 mb-md-0 text-decoration-none">
+                    <span class="fs-4"><img src="/public/img/Logo-Instagram.png" style="width: 60%; margin-left: -2px; margin-bottom: 10px;"></span>
+                </a>
              
-              <ul class="nav">
-                <li class="nav-item">
+                <ul class="nav">
+                    <li class="nav-item">
              
-                  <a href="/market/feed" class="nav-link active" aria-current="page">
-                     <img src="/public/img/homepage.png" alt="" style="width: 13%;">
-                    <span class="aa">หน้าหลัก</span>
-                  </a>
+                        <a href="/market/feed" class="nav-link active" aria-current="page">
+                            <img src="/public/img/homepage.png" alt="" style="width: 13%;">
+                            <span class="aa">หน้าหลัก</span>
+                        </a>
 
-                   <a href="#" id="scan" class="nav-link link-body-emphasis" >
-                     <img src="/public/img/search.png" alt="" style="width: 12%;" >
-                     <span class="aa">ค้นหา </span>
-                  </a>
+
+
+                        <!-- เปิดแคปซูลหลัก -->
+
+                        <div id="scan" class="nav-link link-body-emphasis" style="cursor: pointer;">
+                            <img src="/public/img/search.png" alt="" style="width: 12%;">
+                            <span class="aa">ค้นหา</span>
+                        </div>
+                        
                
-               
-                  <div id="scan_m" class="modal">
-                    <div class="modal-content">
-                
-                        <label for="scan" class="form-label" style="margin-top: 10px;">ค้นหา</label>
-                        <input type="text" class="form-control" id="scans" name="scans" placeholder="คำค้นหา...">
-                        <div id="search-results-scan"  class="list-group"></div>
-                    </div>
-                </div>
-                
-                <script>
-                    function showModal(modalId) {
-                        var modal = document.getElementById(modalId);
-                        modal.style.display = "block";
-                        document.body.style.overflow = 'hidden';
-                    }
-                
-                    function hideModal(modalId) {
-                        var modal = document.getElementById(modalId);
-                        modal.style.display = "none";
-                        document.body.style.overflow = '';
-                    }
-                
-                    document.getElementById('scan').addEventListener('click', function () {
-                        showModal('scan_m');
-                    });
-                
-                    // สคริปต์สำหรับการค้นหาที่อยู่
-                    document.getElementById('scans').addEventListener('input', function () {
-    var query = this.value;
-    var resultsDiv = document.getElementById('search-results-scan');
-
-    if (query.trim() !== '') {
-        fetch('/search/api/scan?query=' + encodeURIComponent(query))
-            .then(function (response) {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(function (data) {
-                resultsDiv.innerHTML = '';
-                data.results.forEach(function (result) {
-                    var resultItem = document.createElement('a');
-                    resultItem.href = "javascript:void(0);";
-                    resultItem.className = 'list-group-item list-group-item-action';
-
-                    // สร้างและเพิ่มภาพ
-                    var image = document.createElement('img');
-                    image.src = '/img/mk_img_mk/' + result.market_id;
-                    image.alt = 'Image';
-                    image.className = 'result-image';
-                    resultItem.appendChild(image);
-
-                    // สร้างและเพิ่มข้อความ (market_name)
-                    var text = document.createElement('span');
-                    text.className = 'result-text';
-                    text.appendChild(document.createTextNode(result.market_name));
-                    resultItem.appendChild(text);
-
-                    // สร้างและเพิ่มข้อความ (mk_discript)
-                    var descriptionText = document.createElement('span');
-                    descriptionText.className = 'result-text2';
-                    descriptionText.appendChild(document.createTextNode(result.business_name));
-                    resultItem.appendChild(descriptionText);
-
-                    resultItem.addEventListener('click', function () {
-                        document.getElementById('scan').value = result.textContent;
-                        resultsDiv.innerHTML = '';
-                        window.location.href = '/market/show_mk?market_id=' + encodeURIComponent(result.market_id);
-                    });
-
-                    resultsDiv.appendChild(resultItem);
-                });
-            })
-            .catch(function (error) {
-                console.error('Fetch error:', error);
-            });
-    } else {
-        resultsDiv.innerHTML = '';
-    }
-});
-
-                </script>
-                
-
-
-
-               
-               
-                  <a href="#" class="nav-link">
-                     <img src="/public/img/compass.png" alt="" style="width: 12%;">
-                     <span class="aa">สำรวจ</span>
-                  </a>
-               
-               
-                  
-                  <a href="#" id="postLink" class="nav-link link-body-emphasis" onclick="showPostPopup()">
-                    <img src="/public/img/post.png" alt="" style="width: 12%; " >
-                    <span class="aa">สร้าง</span>
-                 </a>
- 
-   
- 
-                  <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
-                     <a href="/market/profile" class="nav-link">
-                    <img src="/img/file" class="custom-rounded-img" alt="" style="width: 25px; height: 25px; margin-right: 6px; margin-left: 3px;">
-                        <span class="aa">โปรไฟล์</span>
-                             </a>
- 
- 
-                             <div class="dropdown">
-                                   <button class="btn dropdown-toggle " type="button" >
-                                       <img src="/public/img/more.png" alt="Logo" style="width: 25%; margin-right: 10px;">
-                                       <span class="aa">เพิ่มเติม</span>
-                                   </button>
-                                   <ul class="dropdown-menu" style="display: none;">
-                                       <li><a class="dropdown-item " href="/logout" >สลับบัญชี</a></li>
-                                       <li><a class="dropdown-item " href="/logout">ออกจากระบบ</a></li>
-                                   </ul>
+                        <div id="scan_m" class="modal">
+                            <div class="modal-content-a">
+                                <span class="close-button" onclick="hideModal('scan_m')" style="position: absolute;
+                                top: 10px;
+                                right: 15px;
+                                font-size: 25px;
+                                cursor: pointer;">&times;</span>
+                                <label for="scan" class="form-label" style="margin-top: 10px; font-weight: 700; font-size: 25px;"><img src="/public/img/search.png" style="width: 20px;"> ค้นหาบัญชีธุรกิจ </label>
+                                <input type="text" class="form-control" id="scans" name="scans" placeholder="ชื่อบัญชีธุรกิจที่ต้องการ...">
+                                <div id="search-results-scan"  class="list-group"></div>
                             </div>
+                        </div>
+                        <style>
+                            .modal-content-a {
+                            background-color: #fefefe;
+                            margin: auto; /* จัดให้อยู่ตรงกลาง */
+                            padding: 20px;
+                            border-radius: 10px;
+                            border: 1px solid #888;
+                            width: 40%;
+                            height:80%;
+                            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            }
+
+                            .modal-content-b {
+                                background-color: #fefefe;
+                                margin: auto; /* จัดให้อยู่ตรงกลาง */
+                                padding: 20px;
+                                border-radius: 10px;
+                                border: 1px solid #888;
+                                width: 600px;
+                                height:auto;
+                                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                }
+                                .modal-content-c {
+                                background-color: #fefefe;
+                                margin: auto; /* จัดให้อยู่ตรงกลาง */
+                                padding: 20px;
+                                border-radius: 10px;
+                                border: 1px solid #888;
+                                width: 40%;
+                                height:80%;
+                                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                }
+                                #postTypeModal .modal-content {
+
+                            margin: auto;
+                            background-color: #fff;
+                            border-radius: 10px;
+                            padding: 20px;
+                            width: 40%;
+                            height: 80%;
+                            margin: auto;
+
+                            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                            transition: all 0.3s ease-in-out;
+                            }
+
+
+                            #scan_m .modal-content {
+
+                                margin: auto;
+                                background-color: #fff;
+                                border-radius: 10px;
+                                padding: 20px;
+                                width: 40%;
+                                height: 80%;
+                                margin: auto;
+                                
+                                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                                transition: all 0.3s ease-in-out;
+                                }
+
+                            #postTypeModal .close {
+                            position: absolute;
+                            top: 10px;
+                            right: 15px;
+                            /* การตั้งค่าอื่นๆ */
+                            }
+
+                            .modal-buttons-container {
+                            display: flex;
+                            justify-content: center;
+                            margin-top: 20px; /* ปรับระยะห่างจากเนื้อหาด้านบน */
+
+
+                            }
+
+                            .modal-buttons-container > button {
+                            margin: 0 5px;
+                            padding: 10px 20px;
+                            background-color: #000;
+                            /* การตั้งค่าอื่นๆ */
+                            }
+
+                            /* ปรับขนาดและจัดกลางรูปภาพ */
+                            #postTypeModal img {
+                            width: 20%;
+                            margin-top: 35%;
+                            align-self: center; /* จัดกลางในแนวแกนตั้ง */
+                            width: 15%;
+                            }
+                            .close {
+                            color: #aaa;
+                            float: right;
+                            font-size: 28px;
+                            font-weight: bold;
+                            }
+                            .close:hover,
+                            .close:focus {
+                            color: black;
+                            text-decoration: none;
+                            cursor: pointer;
+                            }
+                            .modal {
+                            display: none; 
+                            position: fixed; /* ใช้ position fixed เพื่อให้อยู่ตรงกลาง */
+                            z-index: 1000;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                            overflow: hidden; /* ป้องกันไม่ให้เลื่อนได้ */
+                            background-color: rgba(0, 0, 0, 0.6); 
+                            }
+
+                            .modal button {
+                            background-color: #007bff;
+                            color: white;
+                            padding: 10px 15px;
+                            margin: 10px;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            }
+                            .modal button:hover {
+                            background-color: #0056b3;
+                            }
+                            /* ปรับแต่งฟอร์มภายใน modal */
+                            .modal form {
+                            display: flex;
+                            flex-direction: column;
+                            }
+                            .modal textarea, .modal select, .modal input[type="file"] {
+                            margin-top: 10px;
+                            padding: 10px;
+                            border-radius: 5px;
+                            border: 1px solid #ddd;
+                            width: 95%;
+                            }
+                            .modal input[type="submit"] {
+                            background-color: #28a745;
+                            color: white;
+                            margin-top: 15px;
+                            padding: 10px 15px;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            }
+                            .modal input[type="submit"]:hover {
+                            background-color: #218838;
+                            }
+                            #imageUploadContainer {
+                            border: 2px dashed #ddd;
+                            padding: 10px;
+                            text-align: center;
+                            margin-top: 10px;
+                            cursor: pointer;
+                            }
+                            #imageUploadContainer p {
+                            margin: 0;
+                            font-size: 16px;
+                            color: #666;
+                            }
+                            #previewImage {
+                            max-width: 100%;
+                            height: auto;
+                            margin-top: 10px;
+                            }
+                            .modal-header {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding-bottom: 15px;
+                            position: relative;
+                            }
+                            .postHeader {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 10px;
+                            }
+                            .profile-pic {
+                            width: 50px; /* หรือขนาดที่ต้องการ */
+                            height: 50px; /* หรือขนาดที่ต้องการ */
+                            border-radius: 50%;
+                            }
+                            .postContent textarea {
+                            border: none;
+                            outline: none;
+                            box-shadow: none;
+                            resize: none;
+                            height: 200px;
+                            font-size: 25px;
+                            overflow: hidden;
+                            }
+                            .postContent textarea::placeholder {
+                            font-size: 25px;
+                            }
+                            .postFooter {
+                            display: flex;
+                            justify-content: flex-end;
+
+                            }
+                            .modal-title {
+                            text-align: center;
+                            flex-grow: 1;
+                            }
+                            .postHeader {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 10px;
+                            }
+                            .postContent textarea {
+                            resize: none;
+                            height: 200px; /* กำหนดความสูงตายตัว */
+                            font-size: 25px; /* ขนาดตั้งต้น */
+                            overflow: hidden; /* ป้องกันการแสดง scrollbar */
+                            border: none; /* ซ่อนกรอบของ textarea */
+                            box-shadow: none; /* ซ่อนเงาหากมี */
+                            padding-left: 20px;
+                            }
+                            .postContent textarea::placeholder {
+                            font-size: 25px;
+                            padding-left: 0px;
+                            }
+                            /* ปรับแต่งให้ขนาดข้อความลดลงตามจำนวนความยาว */
+                            textarea {
+                            font-size: calc(25px - (0.005 * length));
+                            }
+                            #previewImage {
+
+                            max-width: 100%; /* กำหนดความกว้างสูงสุดไม่ให้เกินกล่อง modal */
+                            max-height:auto; /* กำหนดความสูงสูงสุด */
+                            margin:auto;
+
+                            }
+                            #imageUploadContainer {
+                            /* ปรับขนาดและความสูงของกล่องอัปโหลดรูปภาพ */
+                            max-height: 250px; /* กำหนดความสูงสูงสุด */
+                            overflow-y: auto; /* เพิ่มการเลื่อนเมื่อเนื้อหาเกินความสูงที่กำหนด */
+                            border: 2px dashed #ddd;
+                            padding: 10px;
+                            text-align: center;
+                            margin-top: 10px;
+                            cursor: pointer;
+                            }
+
+                            .user-info {
+                            display: flex;
+                            align-items: center;
+                            }
+                            .user-info img {
+                            margin-right: 10px; /* หรือระยะห่างที่ต้องการ */
+                            }
+                            .modal select, #imageUploadContainer {
+
+                            width: 95%; /* ตั้งค่าความกว้างเท่ากับ 100% ของพื้นที่บรรจุของมัน */
+                            margin: auto;
+                            margin-left: 10.5px;
+
+
+                            }
+                            .publish-button{
+                            width: 100%;
+
+                            }
+                            .close {
+                            color: #aaa;
+                            float: right;
+                            font-size: 28px;
+                            font-weight: bold;
+                            cursor: pointer;
+                            background-color: transparent;
+                            border: none;
+                            outline: none;
+                            border-radius: 50%;
+                            width: 30px;
+                            height: 30px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            position: absolute;
+                            top: 10px;
+                            right: 10px;
+                            }
+                            .close:hover {
+                            background-color: #e0e0e0; /* สีเทาเมื่อเอาเมาส์ไปวาง */
+                            }
+
+                        </style>
+                
+                        <script>
+                       
+                            function showModal(modalId) {
+                                var modal = document.getElementById(modalId);
+                                modal.style.display = "block";
+                                document.body.style.overflow = 'hidden';
+                            }
+
+                            function hideModal(modalId) {
+                                var modal = document.getElementById(modalId);
+                                modal.style.display = "none";
+                                document.body.style.overflow = '';
+                            }
+
+                            // ทำการเพิ่ม event listener ให้กับ div ที่มี ID เป็น 'scan'
+                            document.getElementById('scan').addEventListener('click', function() {
+                                showModal('scan_m');
+                            });
+                            document.addEventListener('click', function(event) {
+                        var modal = document.getElementById('scan_m');
+                        // Check if the modal is open and if the click was outside of the modal
+                        if (modal.style.display === "block" && !modal.contains(event.target) && event.target.id !== 'scan') {
+                            hideModal('scan_m');
+                        }
+                    });
+
+                            // สคริปต์สำหรับการค้นหาที่อยู่
+                            document.getElementById('scans').addEventListener('input', function () {
+                                var query = this.value;
+                                var resultsDiv = document.getElementById('search-results-scan');
+                        
+                                if (query.trim() !== '') {
+                                    fetch('/search/api/scan?query=' + encodeURIComponent(query))
+                                        .then(function (response) {
+                                            if (!response.ok) {
+                                                throw new Error('Network response was not ok');
+                                            }
+                                            return response.json();
+                                        })
+                                        .then(function (data) {
+                                            resultsDiv.innerHTML = '';
+                                            data.results.forEach(function (result) {
+                                                var resultItem = document.createElement('a');
+                                                resultItem.href = "javascript:void(0);";
+                                                resultItem.className = 'list-group-item list-group-item-action';
+                        
+                                                // สร้างและเพิ่มภาพ
+                                                var image = document.createElement('img');
+                                                image.src = '/img/mk_img_mk/' + result.market_id;
+                                                image.alt = 'Image';
+                                                image.className = 'result-image';
+                                                resultItem.appendChild(image);
+                        
+                                                // สร้างและเพิ่มข้อความ (market_name)
+                                                var text = document.createElement('span');
+                                                text.className = 'result-text';
+                                                text.appendChild(document.createTextNode(result.market_name));
+                                                resultItem.appendChild(text);
+                        
+                                                // สร้างและเพิ่มข้อความ (mk_discript)
+                                                var descriptionText = document.createElement('span');
+                                                descriptionText.className = 'result-text2';
+                                                descriptionText.appendChild(document.createTextNode(result.business_name));
+                                                resultItem.appendChild(descriptionText);
+                        
+                                                resultItem.addEventListener('click', function () {
+                                                    document.getElementById('scan').value = result.textContent;
+                                                    resultsDiv.innerHTML = '';
+                                                    window.location.href = '/market/show_mk?market_id=' + encodeURIComponent(result.market_id);
+                                                });
+                        
+                                                resultsDiv.appendChild(resultItem);
+                                            });
+                                        })
+                                        .catch(function (error) {
+                                            console.error('Fetch error:', error);
+                                        });
+                                } else {
+                                    resultsDiv.innerHTML = '';
+                                }
+                            });
+                        </script> 
+                        
+  
+    <div id="postTypeModal" class="modal">
+        <div class="modal-content-c">
+            <span class="close">&times;</span>
+            <img src="/public/img/edit.png" alt="Edit" style="margin-left: 298px;">
+            <h2 style="text-align: center; font-size: 20px; margin-top: 20px;">Please Choose feeds or bords</h2>
+            <div class="modal-buttons-container">
+                <button  id="newsFeedButton" style="margin-top: auto; margin-bottom: auto; background-color:black;padding: 10px 20px;">ฟีดข่าว</button>
+                <button id="createBoardButton" style="background-color:black; margin-left: 0px; padding: 10px 20px;">สร้างกระดาน</button>
+            </div>  
+        </div>
+    </div>
+    
+    
+    
+    <div id="newsFeedModal" class="modal">
+        <div class="modal-content-b">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h5 class="modal-title" style="font-weight: 700; font-size: 23px;">สร้างโพสต์</h5>
+            </div>
+            <div class="postHeader">
+                <div class="user-info">
+                    <img src="/img/mk_img/<%= userId %>" alt="Profile Pic" class="profile-pic" style="object-fit: cover;">
+                    <span style="font-weight: 600; font-size: 25px;"><%= market_name %></span>
+                </div>
+            </div>
+            <form id="newsFeedForm" class="postContent">
+                <textarea name="postContent" placeholder="คุณกำลังคิดอะไรอยู่ <%= market_name %>" maxlength="5000"></textarea>
+                <div id="imageUploadContainer" onclick="document.getElementById('fileInput').click()">
+                    <p>คลิกเพื่อเลือกรูปภาพ</p>
+                    <img id="previewImage" style="display:none;"/>
+            
+                </div>
+                <input type="file" id="fileInput" name="postImage" style="display:none;" onchange="previewFile()">
+            </form>
+            <div class="postFooter">
+                <button type="submit" form="newsFeedForm" class="publish-button" style="background-color: black;">เผยแพร่</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="newsFeedModalboard" class="modal">
+        <div class="modal-content-b">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h5 class="modal-title" style="font-weight: 700; font-size: 23px;">สร้างกระดาน</h5>
+            </div>
+            <div class="postHeader">
+                <div class="user-info">
+                    <img src="/img/mk_img/<%= userId %>" alt="Profile Pic" class="profile-pic" style="object-fit: cover;">
+                    <span style="font-weight: 600; font-size: 25px;"><%= market_name %></span>
+                </div>
+            </div>
+            <form id="newsBoardForm" class="postContent">
+                <label style="font-size: 20px; font-weight: 600; margin-left: 13px;">ชื่อกระดาน</label>
+                <input name="trailer" placeholder="--------- เพิ่มชื่อกระดาน ---------" style="border-radius: 6px;  font-size: 20px; padding: 5px; text-align: center; margin-left: 12px; width: 95%;  border-color:gray "></input>
+                <textarea name="boardContent" placeholder="คำอธิบายสำหรับกระดาน" maxlength="5000" style="font-size: 20px; border-radius: 6px; border: gray;"></textarea>
+                <label style="font-size: 20px; font-weight: 600; margin-left: 13px; ">ค่าจ้าง</label>
+                <span style="font-weight: 600; font-size: 20px;"><input name="rate" style="border-radius: 6px;  font-size: 20px; padding: 5px; text-align: center; margin-left: 12px;  border-color:gray " placeholder="----- จำนวนค่าจ้าง -----"></input> บาท</span>
+                <div class="form-group">
+                    <label for="boardType" style="font-size: 20px; font-weight: 600; margin-top: 10px; margin-left: 13px;">ค่าจ้าง / (D/W/M)</label>
+                    <select class="form-control" id="boardType" name="type_rate" style="border-radius: 6px; border-color:gray ; font-size: 20px;">
+                        <option value="1">จ้างต่อวัน (Day)</option>
+                        <option value="2">จ้างต่อสัปดาห์ (Week)</option>
+                        <option value="3">จ้างต่อเดือน (Month)</option>
+                    </select>
+                </div>
+                <div style="height: 20px;"></div>
+                <div id="imageUploadContainer" onclick="document.getElementById('fileInput2').click()">
+                    <p>คลิกเพื่อเลือกรูปภาพ</p>
+                    <img id="previewImageBoard" style="display:none;"/>
+                </div>
+                <input type="file" id="fileInput2" name="postImage" style="display:none;" onchange="previewFileBoard()">
+            </form>
+            <div class="postFooter">
+                <button type="submit" form="newsBoardForm" class="publish-button" style="background-color: black;">เผยแพร่</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        function previewFile() {
+        var preview = document.getElementById('previewImage');
+        var file = document.getElementById('fileInput').files[0];
+        var reader = new FileReader();
+        var removeButton = document.getElementById('removeImageButton');
+        reader.onloadend = function () {
+            if (file) {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+                removeButton.style.display = 'block'; // แสดงปุ่มลบ
+            } else {
+                preview.src = "";
+                preview.style.display = 'none';
+                removeButton.style.display = 'none'; // ซ่อนปุ่มลบ
+            }
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+        // Function to show modal by modalId
+        function showModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.style.display = "block";
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Function to hide modal by modalId
+        function hideModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.style.display = "none";
+            document.body.style.overflow = '';
+        }
+        
+        // Function to handle the click event of 'Post' button
+        function showPostPopup() {
+            showModal('postTypeModal');
+        }
+        
+        // Function to handle the click event of 'ฟีดข่าว' button
+        document.querySelector('#newsFeedButton').addEventListener('click', function() {
+            hideModal('postTypeModal');
+            showModal('newsFeedModal');
+        });
+        
+        // Handling closing buttons on all Modals
+        var closeButtons = document.getElementsByClassName("close");
+        for (var i = 0; i < closeButtons.length; i++) {
+            closeButtons[i].onclick = function() {
+                var modal = this.closest('.modal');
+                modal.style.display = "none";
+            }
+        }
+        
+        // Handling click outside modal to close it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+    
+        // Function to handle the click event of 'ฟีดข่าว' button
+        document.querySelector('#newsFeedButton').addEventListener('click', function() {
+            hideModal('postTypeModal');
+            showModal('newsFeedModal');
+        });
+
+        // Handling form submission
+        document.getElementById('newsFeedForm').addEventListener('submit', function(event) {
+            // Prevent normal form submission
+            event.preventDefault();
+
+            // Get post content and image
+            const postContent = document.querySelector('textarea[name="postContent"]').value;
+            const postImage = document.getElementById('fileInput').files[0];
+
+            // Check if postContent has data
+            if (!postContent.trim()) {
+                alert('โปรดใส่เนื้อหาของโพสต์ก่อนเผยแพร่');
+                return; // Stop function execution
+            }
+
+            // Sending form data to server
+            const formData = new FormData();
+            formData.append('postContent', postContent);
+            formData.append('postImage', postImage);
+
+            fetch('/post/api/post_Content', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data); // Display data received from server
+                
+                // Close modal after posting
+                hideModal('newsFeedModal');
+                
+                // Clear form fields
+                document.getElementById('newsFeedForm').reset();
+                
+                // Reload the page
+                window.location.href = '/market/feed';
+            })
+            .catch(error => {
+                console.error('เกิดข้อผิดพลาด:', error);
+                // Handle errors as needed
+            });
+        });
+            </script>
+
+
+            <script>
+            document.querySelector('#createBoardButton').addEventListener('click', function() {
+            hideModal('postTypeModal');
+            showModal('newsFeedModalboard');
+            });
+            // Function for image preview
+            function previewFileBoard() {
+            var preview = document.getElementById('previewImageBoard');
+            var file = document.getElementById('fileInput2').files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+            if (file) {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+                // หากมีปุ่มลบ, ให้เพิ่มโค้ดเพื่อแสดงปุ่มลบที่นี่
+            } else {
+                preview.src = "";
+                preview.style.display = 'none';
+                // และซ่อนปุ่มลบ
+            }
+            }
+            if (file) {
+            reader.readAsDataURL(file);
+            }
+            }
+
+            // Function to show modal
+            function showModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.style.display = "block";
+            document.body.style.overflow = 'hidden';
+            }
+
+            // Function to hide modal
+            function hideModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.style.display = "none";
+            document.body.style.overflow = '';
+            }
+
+            // Handling form submission for newsBoard
+            document.getElementById('newsBoardForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const boardContent = document.querySelector('textarea[name="boardContent"]').value;
+            const postImage = document.getElementById('fileInput2').files[0];
+            const trailer = document.querySelector('input[name="trailer"]').value;
+            const rate = document.querySelector('input[name="rate"]').value;
+            const type_rate = document.querySelector('select[name="type_rate"]').value;
+
+            if (!boardContent.trim()) {
+            alert('โปรดใส่เนื้อหาของโพสต์ก่อนเผยแพร่');
+            return;
+            }
+            const formData = new FormData();
+            formData.append('boardContent', boardContent);
+            formData.append('postImage', postImage);
+            formData.append('trailer', trailer);
+            formData.append('rate', rate);
+            formData.append('type_rate', type_rate);
+
+            fetch('/explore/api/board_form', {
+            method: 'POST',
+            body: formData,
+            })
+            .then(response => response.text())
+            .then(data => {
+            console.log(data);
+            hideModal('newsFeedModalboard');
+            document.getElementById('newsBoardForm').reset();
+            window.location.href = '/market/explore';
+            })
+            .catch(error => {
+            console.error('เกิดข้อผิดพลาด:', error);
+            });
+            });
+</script>
+
+
+
+
+
+<!-- ปิดแคปซูลหลัก -->
+                        
+                        
+
+                        <a href="/market/explore" class="nav-link">
+                            <img src="/public/img/compass.png" alt="" style="width: 12%;">
+                            <span class="aa">สำรวจ</span>
+                        </a>
+               
+                        <a href="#" id="postLink" class="nav-link link-body-emphasis" onclick="showPostPopup()">
+                            <img src="/public/img/post.png" alt="" style="width: 12%; " >
+                            <span class="aa">สร้าง</span>
+                        </a>
+ 
+                        <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
+                        <a href="/market/profile" class="nav-link">
+                            <img src="/img/file" class="custom-rounded-img" alt="" style="width: 25px; height: 25px; margin-right: 6px; margin-left: 3px;">
+                            <span class="aa">โปรไฟล์</span>
+                        </a>
+ 
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle " type="button" >
+                                <img src="/public/img/more.png" alt="Logo" style="width: 25%; margin-right: 10px;">
+                                <span class="aa">เพิ่มเติม</span>
+                            </button>
+                            <ul class="dropdown-menu" style="display: none;">
+                                <li><a class="dropdown-item " href="/logout" >สลับบัญชี</a></li>
+                                <li><a class="dropdown-item " href="/logout">ออกจากระบบ</a></li>
+                            </ul>
+                        </div>
    
                     </li>        
-                    </div>
-               
-              </ul>
+                    
+                </ul>
             </div>
-          </div>
         </div>
+    </div>
 
-
-
-                <div class="main-content" style="display: grid;
+    <div class="main-content" style="
+                 display: grid;
                 grid-template-columns: repeat(auto-fill, 300px);
                 grid-column-gap: 20px;
                 grid-row-gap: 10px;
-                justify-content: center;
                 width: 1000px;
-                position:absolute;
-                right: 16%;
-                "> </div>
+                margin: auto;
+               "> 
+    </div>
+
                 
-       
-
-
-
-<script>
-            let currentPage = 0;
-            const limit = 7;
-            let isFetching = false;
+    <script>
+        let currentPageEx = 0;
+        const limitEx = 7;
+        let isFetchingEx = false;
  
-    function loadMorePosts() {
-    if (isFetching) return;
-    isFetching = true;
+        function loadMorePosts() {
+            if (isFetchingEx) return;
+            isFetchingEx = true;
 
-    fetch(`/explore/api/boards?page=${currentPage}&limit=${limit}`)
-        .then(response => response.json())
-        .then(data => {
-            const mainContent = document.querySelector('.main-content');
+            fetch(`/explore/api/boards?page=${currentPageEx}&limit=${limitEx}`)
+            .then(response => response.json())
+            .then(data => {
+                const mainContent = document.querySelector('.main-content');
 
-            data.forEach(board => {
-                const postElement = document.createElement('div');
-                postElement.classList.add('board');
-                postElement.style.marginTop = "20px";
+                data.forEach(board => {
+                    const postElement = document.createElement('div');
+                    postElement.classList.add('board');
+                    postElement.style.marginTop = "20px";
 
-
-                postElement.innerHTML = `
-                <div class="card_1">
-                    <div class="card">
-                        <div class="card-header">
-                            <a href="/market/explore/sh_job/${board.board_id}">
-                            <img src="/img/mk_img_mk/${board.market_id}" class="card_profile_img"></a>
-                            <div class="card_profile_name ">
-                                <strong>${board.market_name}</strong>
-                                <span>${board.board_date}</span>
-                            </div>
-                            <img src="/img/board_hire/${board.board_id}" class="card_profile_img_role">
-                        </div>
-                        <div class="card-body">
-                            <img src="/img//board_img/${board.board_id}" class="card-img-body" alt="...">
-                            <!-- link -->
-                            <strong class="post-name card-text">${board.board_trailer}</strong>
-                            <p class="post-description card-text">${board.board_discript}</p>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">
-                                <div class="rate">
-                                    <span style="color:gray; font-size: 14px; font-weight: 700; margin-top: -10px">ค่าจ้าง/${board.hire_type}</span>
-                                    <strong class="rate_money card-title text-warning">${board.board_rate}</strong>
-                                   
+                    postElement.innerHTML = `
+                        <div class="card_1">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="/market/show_mk?market_id=${board.market_id}">
+                                    <img src="/img/mk_img_mk/${board.market_id}" class="card_profile_img"></a>
+                                    <div class="card_profile_name ">
+                                        <strong>${board.market_name}</strong>
+                                        <span>${board.board_date}</span>
+                                    </div>
+                                    <img src="/img/board_hire/${board.board_id}" class="card_profile_img_role">
                                 </div>
-                                <div>
+                                <div class="card-body">
+                                    <img src="/img//board_img/${board.board_id}" class="card-img-body" alt="...">
+                                    <!-- link -->
+                                    <strong class="post-name card-text">${board.board_trailer}</strong>
+                                    <p class="post-description card-text">${board.board_discript}</p>
+                                </div>
+                                <div class="card-footer">
+                                <div class="d-flex justify-content-between">
+                                    <div class="rate">
+                                        <span style="color:gray; font-size: 14px; font-weight: 700; margin-top: -10px">ค่าจ้าง/${board.hire_type}</span>
+                                        <strong class="rate_money card-title ${board.hire_id === 1 ? 'text-yellow' : board.hire_id === 2 ? 'text-blue' : 'text-red'}">${board.board_rate}</strong>
+                                    </div>
+                                    <div>
                                     
                                     <a href="/market/explore/sh_job/${board.board_id}" class="btn" style="   display: block;
-    width: auto; /* หรือคุณสามารถตั้งค่าความกว้างที่ต้องการ */
-    position: relative;
-    margin-top: 20px;
-    right: -5%;
-    background-color: black;
-    color:white;
-    font-weight: 700;">รายละเอียด</a>
+                                        width: auto; /* หรือคุณสามารถตั้งค่าความกว้างที่ต้องการ */
+                                        position: relative;
+                                        margin-top: 20px;
+                                        right: -5%;
+                                        background-color: black;
+                                        color:white;
+                                        font-weight: 700;">รายละเอียด
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    </div>
   
-                `;
+                 `;
                 mainContent.appendChild(postElement);
             });
             addUsernameClickListeners();
 
-            currentPage++;
-            isFetching = false;
+            currentPageEx++;
+            isFetchingEx = false;
         });
 }
 
@@ -297,56 +1850,6 @@ window.onscroll = function() {
                 
             </script>
 
-            <script>
-
-function openCommentModal(postId) {
-    // โค้ดเพื่อดึงคอมเมนต์และแสดงใน Modal
-    document.getElementById('commentModal').style.display = 'block';
-}
-
-function closeCommentModal() {
-    document.getElementById('commentModal').style.display = 'none';
-}
-
-function submitComment(postId) {
-    let comment = document.getElementById('newComment').value;
-    
-    // ตรวจสอบว่าคอมเมนต์ไม่ว่างเปล่า
-    if (!comment) {
-        alert('กรุณาป้อนคอมเมนต์');
-        return;
-    }
-
-    // สร้างอ็อบเจกต์ข้อมูลที่จะส่ง
-    let data = {
-        postId: postId,
-        comment: comment
-    };
-
-    // สร้างคำขอ AJAX
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', '/submitComment', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // จัดการกับคำตอบจากเซิร์ฟเวอร์
-            let response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                // เพิ่มคอมเมนต์ไปยัง UI หรือแสดงผลอย่างอื่น
-                alert('คอมเมนต์ได้ถูกส่งแล้ว');
-                closeCommentModal();
-            } else {
-                // แสดงข้อผิดพลาด
-                alert('เกิดข้อผิดพลาดในการส่งคอมเมนต์');
-            }
-        }
-    };
-    xhr.send(JSON.stringify(data));
-}
-
-
-
-            </script>
 
 
 <script>
@@ -487,6 +1990,40 @@ window.onload = loadContentForWindowSize;
 
 // ตรวจสอบเมื่อขนาดหน้าจอเปลี่ยนแปลง
 window.onresize = loadContentForWindowSize;
+
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var path = window.location.pathname;
+    if (path === '/market/feed' || path === '/market/explore'|| path === '/market/profile') {
+        // ลบคลาส active-link จากทุก nav-link และลบคลาส iconbar จากทุก icons
+        document.querySelectorAll('.nav-link').forEach(function (link) {
+            link.classList.remove('active-link');
+            var icon = link.querySelector('.iconbar');
+            if (icon) {
+                icon.classList.remove('iconbar');
+            }
+            var text = link.querySelector('.aa');
+            if (text) {
+                text.classList.remove('active-text'); // สมมุติว่าคุณมีคลาส CSS ชื่อ .active-text
+            }
+        });
+
+        // เพิ่มคลาส active-link และ iconbar และ active-text ให้กับ nav-link และ elements ที่ตรงกับเส้นทาง
+        var activeLink = document.querySelector(`.nav-link[href="${path}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active-link');
+            var icon = activeLink.querySelector('img, i');
+            if (icon) {
+                icon.classList.add('iconbar');
+            }
+            var text = activeLink.querySelector('.aa');
+            if (text) {
+                text.classList.add('active-text'); // ใช้คลาสนี้เพื่อกำหนดสไตล์ให้กับข้อความ
+            }
+        }
+    }
+});
 
 </script>
 

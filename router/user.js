@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 let dbCon = require('../lib/db');
 const sessionConfig = require('../middleware/session-config')
-const { formatDate, calculateAge,formatDate2,formatTimeToZero } = require('../middleware/cal_Date_Age');
+const { formatDate, calculateAge,formatDate2,formatTimeToZero,formatCurrency  } = require('../middleware/cal_Date_Age');
 const { body } = require('express-validator');
 
 
@@ -14,7 +14,7 @@ router.use(sessionConfig);
 router.get('/feed', function(req, res, next) {
   console.log('----> req.session.user in =: ', req.session.userId);
 
-  dbCon.query(`SELECT market.* FROM market INNER JOIN user ON market.market_id = user.market_id WHERE user.user_id = ?`, [req.session.userId], (err, result) => {
+  dbCon.query(`SELECT * FROM market`, [req.session.userId], (err, result) => {
     if (err) {
       // จัดการกับข้อผิดพลาด
       return res.status(500).send(err.message);
@@ -37,7 +37,7 @@ router.get('/feed', function(req, res, next) {
         });
       });
     } else {
-      // จัดการสถานการณ์ที่ไม่มีข้อมูล
+ 
       res.render('user/feed_user', { 
         rows: [],
         market_name: '',
@@ -85,21 +85,6 @@ WHERE user.username LIKE ?;`
  });
 
 
- router.get('/feed', function(req, res, next) {
-    console.log('----> req.session.user in =: ', req.session.user);
-    res.render('user/feed_user', { user: req.session.user});
-  });
-  
-  router.get('/register/market', function(req, res, next) {
-      console.log('----> req.session.user in =: ', req.session.user);
-      res.render('user/register_market', {  user: "", search: "",about:""});
-    });
-  
-  
-
-
-
-  
   router.post('/update_profileEdit', (req, res, next) => {
   
 
@@ -193,19 +178,95 @@ WHERE
 
   `,[market_id], (err,rows) =>{
 
-      if (err) {
-          console.error(err);
-          // จัดการข้อผิดพลาด
-          res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
-          return;
-      }
-  
-      res.render('user/sh_mk_user', {
-          formatDate, calculateAge, formatDate2, formatTimeToZero,
-          rows: rows
+    
+
+
+          if (err) {
+              console.error(err);
+              // จัดการข้อผิดพลาด
+              res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+              return;
+          }
+      
+          res.render('user/sh_mk_user', {
+              formatDate, calculateAge, formatDate2, formatTimeToZero,
+          rows: rows,
+          userId: req.session.userId,
       });
   });
 });
+
+
+router.get('/explore', function(req, res, next) {
+  console.log('----> req.session.user in =: ', req.session.userId);
+
+  dbCon.query(`SELECT market.* FROM market INNER JOIN user ON market.market_id = user.market_id WHERE user.user_id = ?`, [req.session.userId], (err, result) => {
+    if (err) {
+      // จัดการกับข้อผิดพลาด
+      return res.status(500).send(err.message);
+    }
+
+    if (result.length > 0) {
+      // ดำเนินการต่อหากมีข้อมูล
+      dbCon.query('SELECT * FROM market ORDER BY RAND();', (err, rows) => {
+        if (err) {
+          // จัดการกับข้อผิดพลาด
+          return res.status(500).send(err.message);
+        }
+
+        // เรนเดอร์หน้าเพียงครั้งเดียวพร้อมข้อมูลที่จำเป็น
+        res.render('user/explore', { 
+          rows: rows,
+          market_name: result[0].market_name,
+          userId: req.session.userId,
+          market_id: result[0].market_id
+        });
+      });
+    } else {
+      // จัดการสถานการณ์ที่ไม่มีข้อมูล
+      res.render('user/explore', { 
+        rows: [],
+        market_name: '',
+        userId: req.session.userId,
+        market_id: ''
+      });
+    }
+  });
+});
+
+
+router.get('/explore/sh_job/:boardId',(req,res) => {
+
+  const boardId = req.params.boardId;
+
+  dbCon.query(`SELECT board.*, market.*, hire.*
+  FROM board
+  JOIN market ON board.market_id = market.market_id
+  JOIN hire ON board.hire_id = hire.hire_id
+  WHERE board.board_id = ?
+  
+  `,[boardId],(err,rows) => {
+
+     
+
+
+          res.render('user/sh_mk_job',{
+              formatDate, calculateAge,formatDate2,formatTimeToZero,formatCurrency,
+  
+          rows:rows,
+          userId: req.session.userId,
+          
+       
+
+      });
+
+     
+
+  });
+
+ 
+});
+
     
 
 module.exports = router;

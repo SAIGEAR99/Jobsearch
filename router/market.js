@@ -69,23 +69,35 @@ WHERE
 
 `
     ,user ,(err, rows) => {
-         if (err) {
-             console.error('Error retrieving data:', err);
-             res.render('market/edit_market', { 
-                formatDate , calculateAge,formatDate2,formatTimeToZero,
-                rows : rows ,
-                user: req.session.user 
-            });
-         } else {
-             console.log('Data from the database:', rows);
-             res.render('market/edit_market', {
-                formatDate , calculateAge,formatDate2,formatTimeToZero,
-                rows : rows ,
-                user: req.session.user
-            });
-         }
+
+        dbCon.query(`SELECT market.* FROM market INNER JOIN user ON market.market_id = user.market_id WHERE user.user_id = ?`, [req.session.userId], (err, result) => {
+
+            if (err) {
+                console.error('Error retrieving data:', err);
+                res.render('market/edit_market', { 
+                   formatDate , calculateAge,formatDate2,formatTimeToZero,
+                   rows : rows ,
+                   user: req.session.user 
+               });
+            } else {
+                console.log('Data from the database:', rows);
+                res.render('market/edit_market', {
+                   formatDate , calculateAge,formatDate2,formatTimeToZero,
+                   rows : rows ,
+                   user: req.session.user,
+                   market_name: result[0].market_name,
+                    userId: req.session.userId,
+                    market_id: result[0].market_id
+
+               });
+            }
+
+
+        });
      });
  });
+
+
 
 router.get('/profile/business', (req, res, next) => {
 
@@ -124,23 +136,97 @@ WHERE
     u.user_id = ?
 `
     ,user ,(err, rows) => {
-         if (err) {
-             console.error('Error retrieving data:', err);
-             res.render('market/edit_mk', { 
-                formatDate , calculateAge,formatDate2,formatTimeToZero,
-                rows : rows ,
-                user: req.session.user 
-            });
-         } else {
-             console.log('Data from the database:', rows);
-             res.render('market/edit_mk', {
-                formatDate , calculateAge,formatDate2,formatTimeToZero,
-                rows : rows ,
-                user: req.session.user
-            });
-         }
+
+        dbCon.query(`SELECT market.* FROM market INNER JOIN user ON market.market_id = user.market_id WHERE user.user_id = ?`, [req.session.userId], (err, result) => {
+
+
+            if (err) {
+                console.error('Error retrieving data:', err);
+                res.render('market/edit_mk', { 
+                   formatDate , calculateAge,formatDate2,formatTimeToZero,
+                   rows : rows ,
+                   user: req.session.user 
+               });
+            } else {
+                console.log('Data from the database:', rows);
+                res.render('market/edit_mk', {
+                   formatDate , calculateAge,formatDate2,formatTimeToZero,
+                   rows : rows ,
+                   user: req.session.user,
+                   market_name: result[0].market_name,
+                    userId: req.session.userId,
+                    market_id: result[0].market_id
+               });
+            }
+        });
      });
  });
+
+
+ router.get('/profile/business/board', (req, res, next) => {
+
+    const user = req.session.userId;
+   
+    dbCon.query(`SELECT 
+    u.*,
+    m.*,
+    r.role AS role_name,
+    tb.business_name AS business_name,
+    g.gender AS gender_name,
+    a.*,
+    s.name_in_thai AS subdistrict_name,
+    d.name_in_thai2 AS district_name,
+    p.name_in_thai AS province_name,
+    s.zip_code AS zip_code
+FROM 
+    user u
+JOIN 
+    market m ON u.market_id = m.market_id
+JOIN 
+    role r ON u.role = r.role_id
+JOIN 
+    typebusiness tb ON m.market_type = tb.business_id
+JOIN 
+    gender g ON u.gender = g.gender_id
+JOIN 
+    address a ON m.mk_address = a.address_id
+JOIN 
+    subdistricts s ON a.subdistrict_id = s.id
+JOIN 
+    districts d ON s.district_id = d.id
+JOIN 
+    provinces p ON d.province_id = p.id
+WHERE 
+    u.user_id = ?
+`
+    ,user ,(err, rows) => {
+
+        dbCon.query(`SELECT market.* FROM market INNER JOIN user ON market.market_id = user.market_id WHERE user.user_id = ?`, [req.session.userId], (err, result) => {
+
+
+            if (err) {
+                console.error('Error retrieving data:', err);
+                res.render('market/edit_board', { 
+                   formatDate , calculateAge,formatDate2,formatTimeToZero,
+                   rows : rows ,
+                   user: req.session.user 
+               });
+            } else {
+                console.log('Data from the database:', rows);
+                res.render('market/edit_board', {
+                   formatDate , calculateAge,formatDate2,formatTimeToZero,
+                   rows : rows ,
+                   user: req.session.user,
+                   market_name: result[0].market_name,
+                    userId: req.session.userId,
+                    market_id: result[0].market_id
+               });
+            }
+        });
+     });
+ });
+
+
 
 
 
@@ -422,26 +508,67 @@ WHERE
 
     `,[market_id], (err,rows) =>{
 
-        if (err) {
-            console.error(err);
-            // จัดการข้อผิดพลาด
-            res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
-            return;
-        }
-    
-        res.render('market/sh_mk', {
-            formatDate, calculateAge, formatDate2, formatTimeToZero,
-            rows: rows
+        dbCon.query(`SELECT market.* FROM market INNER JOIN user ON market.market_id = user.market_id WHERE user.user_id = ?`, [req.session.userId], (err, result) => {
+
+
+            if (err) {
+                console.error(err);
+                // จัดการข้อผิดพลาด
+                res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+                return;
+            }
+        
+            res.render('market/sh_mk', {
+                formatDate, calculateAge, formatDate2, formatTimeToZero,
+                rows: rows,
+                market_name: result[0].market_name,
+            userId: req.session.userId,
+            market_id: result[0].market_id
+            });
+
         });
     });
 });
 
 
 
-router.get('/explore',(req,res) => {
+router.get('/explore', function(req, res, next) {
+    console.log('----> req.session.user in =: ', req.session.userId);
+  
+    dbCon.query(`SELECT market.* FROM market INNER JOIN user ON market.market_id = user.market_id WHERE user.user_id = ?`, [req.session.userId], (err, result) => {
+      if (err) {
+        // จัดการกับข้อผิดพลาด
+        return res.status(500).send(err.message);
+      }
+  
+      if (result.length > 0) {
+        // ดำเนินการต่อหากมีข้อมูล
+        dbCon.query('SELECT * FROM market ORDER BY RAND();', (err, rows) => {
+          if (err) {
+            // จัดการกับข้อผิดพลาด
+            return res.status(500).send(err.message);
+          }
+  
+          // เรนเดอร์หน้าเพียงครั้งเดียวพร้อมข้อมูลที่จำเป็น
+          res.render('market/explore', { 
+            rows: rows,
+            market_name: result[0].market_name,
+            userId: req.session.userId,
+            market_id: result[0].market_id
+          });
+        });
+      } else {
+        // จัดการสถานการณ์ที่ไม่มีข้อมูล
+        res.render('market/explore', { 
+          rows: [],
+          market_name: '',
+          userId: req.session.userId,
+          market_id: ''
+        });
+      }
+    });
+  });
 
-    res.render('market/explore')
-});
 
 
 router.get('/explore/sh_job/:boardId',(req,res) => {
@@ -456,11 +583,21 @@ router.get('/explore/sh_job/:boardId',(req,res) => {
     
     `,[boardId],(err,rows) => {
 
-        res.render('market/sh_mk_job',{
-            formatDate, calculateAge,formatDate2,formatTimeToZero,formatCurrency,
+        dbCon.query(`SELECT market.* FROM market INNER JOIN user ON market.market_id = user.market_id WHERE user.user_id = ?`, [req.session.userId], (err, result) => {
 
-            rows:rows
-        })
+
+            res.render('market/sh_mk_job',{
+                formatDate, calculateAge,formatDate2,formatTimeToZero,formatCurrency,
+    
+                rows:rows,
+                market_name: result[0].market_name,
+            userId: req.session.userId,
+            market_id: result[0].market_id
+            })
+
+        });
+
+       
 
     });
 

@@ -166,7 +166,7 @@ router.post('/upload/market/bussiness', (req, res) => {
         let query = `UPDATE market 
         JOIN user ON market.market_id = user.market_id
         SET market.mk_img = ?
-        WHERE user._id = ?
+        WHERE user_id = ?
          `;
         dbCon.query(query, [uploadPath,user], (err, result) => {
             if (err) return res.status(500).send(err);
@@ -227,6 +227,33 @@ router.post('/upload/market/cover', (req, res) => {
         dbCon.query(query, [uploadPath,user], (err, result) => {
             if (err) return res.status(500).send(err);
             res.redirect('/market/profile')
+        });
+    });
+});
+
+
+router.post('/upload/user/cover', (req, res) => {
+    const user = req.session.userId;
+    const empY = req.session.isEmployer;
+   
+    
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+    }
+
+    let uploadedFile2 = req.files.uploadedFile2;
+
+    // สร้างตำแหน่งสำหรับเก็บไฟล์
+    const uploadPath = path.join('./middleware/img', uploadedFile2.name);
+
+    uploadedFile2.mv(uploadPath, err => {
+        if (err) return res.status(500).send(err);
+
+        let query = `UPDATE user SET img_cover = ? WHERE user_id = ?
+         `;
+        dbCon.query(query, [uploadPath,user], (err, result) => {
+            if (err) return res.status(500).send(err);
+            res.redirect('/user/profile')
         });
     });
 });

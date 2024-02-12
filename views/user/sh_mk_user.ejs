@@ -12,6 +12,7 @@
  
     <!-- Custom styles -->
     <style>
+ 
         .sidebar {
             height: 100vh;
             position: fixed;
@@ -236,6 +237,7 @@
     
     .dropdown-content a:hover { background-color: #f1f1f1; }
 
+
     </style>
 </head>
  
@@ -256,30 +258,187 @@
               <ul class="nav">
                 <li class="nav-item">
              
-                  <a href="/user/feed" class="nav-link active" aria-current="page">
-                     <img src="/public/img/homepage.png" alt="" style="width: 13%;">
-                    <span class="aa">หน้าหลัก</span>
-                  </a>
-               
-               
-                  <a href="#" class="nav-link active" aria-current="page">
+                    <a href="/user/feed" class="nav-link active" aria-current="page">
+                        <img src="/public/img/homepage.png" alt="" style="width: 13%;">
+                        <span class="aa">หน้าหลัก</span>
+                    </a>
+
+                   <a href="#" id="scan" class="nav-link link-body-emphasis">
                      <img src="/public/img/search.png" alt="" style="width: 12%;">
                      <span class="aa">ค้นหา </span>
                   </a>
+
+
+                  <style>
+                    .modal-content-a {
+                            background-color: #fefefe;
+                            margin: auto; /* จัดให้อยู่ตรงกลาง */
+                            padding: 20px;
+                            border-radius: 10px;
+                            border: 1px solid #888;
+                            width: 40%;
+                            height:80%;
+                            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            }
+
+
+                            .result-image {
+        width: 60px;      /* ตั้งค่าความกว้าง */
+        height: 60px;     /* ตั้งค่าความสูง */
+        border-radius: 50%; /* ทำให้มุมเป็นวงกลม */
+        object-fit: cover;  /* ให้ภาพปรับให้พอดีกับขนาด */
+        margin-bottom: 20px;
+       
+      
+    }
+
+    .modal {
+display: none; 
+position: fixed; /* ใช้ position fixed เพื่อให้อยู่ตรงกลาง */
+z-index: 1000;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: hidden; /* ป้องกันไม่ให้เลื่อนได้ */
+background-color: rgba(0, 0, 0, 0.6); 
+}
+
+    .result-text {
+        margin-left: 10px;
+        vertical-align:15px;
+        
+        
+        
+    }
+   .result-text2 {
+        display: block; /* ทำให้แต่ละ span แสดงในบรรทัดของตัวเอง */
+        margin-left: 71px;
+        margin-top: -50px;
+        color: gray;
+        font-size: 12px;
+        margin-bottom: 10px;
+
+    }
+    .profile-pic {
+        text-decoration: none; /* ลบเส้นใต้ของลิงก์ */
+        color: inherit; /* ใช้สีข้อความเดียวกับที่รอบๆ มัน */
+    }
+                  </style>
+
                
                
-                  <a href="#" class="nav-link">
+                  <div id="scan_m" class="modal">
+                    <div class="modal-content-a">
+                
+                        <label for="scan" class="form-label" style="margin-top: 10px;">ค้นหา</label>
+                        <input type="text" class="form-control" id="scans" name="scans" placeholder="คำค้นหา...">
+                        <div id="search-results-scan"  class="list-group"></div>
+                    </div>
+                </div>
+                
+                <script>
+                    function showModal(modalId) {
+                        var modal = document.getElementById(modalId);
+                        modal.style.display = "block";
+                        document.body.style.overflow = 'hidden';
+                    }
+                
+                    function hideModal(modalId) {
+                        var modal = document.getElementById(modalId);
+                        modal.style.display = "none";
+                        document.body.style.overflow = '';
+                    }
+                
+                    document.getElementById('scan').addEventListener('click', function () {
+                        showModal('scan_m');
+                    });
+                    // ซ่อน modal ค้นหาเมื่อคลิกนอกเขต modal
+window.onclick = function(event) {
+    var modal = document.getElementById('scan_m');
+    if (event.target == modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = '';
+    }
+}
+
+                
+                    // สคริปต์สำหรับการค้นหาที่อยู่
+                    document.getElementById('scans').addEventListener('input', function () {
+    var query = this.value;
+    var resultsDiv = document.getElementById('search-results-scan');
+
+    if (query.trim() !== '') {
+        fetch('/search/api/scan?query=' + encodeURIComponent(query))
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(function (data) {
+                resultsDiv.innerHTML = '';
+                data.results.forEach(function (result) {
+                    var resultItem = document.createElement('a');
+                    resultItem.href = "javascript:void(0);";
+                    resultItem.className = 'list-group-item list-group-item-action';
+
+                    // สร้างและเพิ่มภาพ
+                    var image = document.createElement('img');
+                    image.src = '/img/mk_img_mk/' + result.market_id;
+                    image.alt = 'Image';
+                    image.className = 'result-image';
+                    resultItem.appendChild(image);
+
+                    // สร้างและเพิ่มข้อความ (market_name)
+                    var text = document.createElement('span');
+                    text.className = 'result-text';
+                    text.appendChild(document.createTextNode(result.market_name));
+                    resultItem.appendChild(text);
+
+                    // สร้างและเพิ่มข้อความ (mk_discript)
+                    var descriptionText = document.createElement('span');
+                    descriptionText.className = 'result-text2';
+                    descriptionText.appendChild(document.createTextNode(result.business_name));
+                    resultItem.appendChild(descriptionText);
+
+                    resultItem.addEventListener('click', function () {
+                        document.getElementById('scan').value = result.textContent;
+                        resultsDiv.innerHTML = '';
+                        window.location.href = '/user/show_mk?market_id=' + encodeURIComponent(result.market_id);
+                    });
+
+                    resultsDiv.appendChild(resultItem);
+                });
+            })
+            .catch(function (error) {
+                console.error('Fetch error:', error);
+            });
+    } else {
+        resultsDiv.innerHTML = '';
+    }
+});
+
+                </script>
+                
+
+
+
+               
+               
+                  <a href="/user/explore" class="nav-link">
                      <img src="/public/img/compass.png" alt="" style="width: 12%;">
                      <span class="aa">สำรวจ</span>
                   </a>
-               
-               
-               
-   
+
  
                   <!-- Replace 'rounded-circle' with 'custom-rounded-img' -->
                      <a href="/user/profile" class="nav-link">
-                    <img src="/public/img/file" class="custom-rounded-img" alt="" style="width: 25px; height: 25px; margin-right: 6px; margin-left: 3px;">
+                    <img src="/img/file" class="custom-rounded-img" alt="" style="width: 25px; height: 25px; margin-right: 6px; margin-left: 3px;">
                         <span class="aa">โปรไฟล์</span>
                              </a>
  
@@ -295,8 +454,6 @@
                                    </ul>
                             </div>
    
-                    </li>        
-                    </div>
                
               </ul>
             </div>
@@ -463,12 +620,12 @@
             
                             postElement.innerHTML = `
                             <div class="post" style="margin-top: 0px; position: relative;">
-                                <div style="height:23px;"></div>
+                                <div style="height:23px"></div>
                     <div class="post-header" >
                         <img src="/img/select_b/${post.post_id}" alt="Profile Picture" class="profile-pic" style="object-fit:cover;" data-market-name="${post.market_id}" >
                         <div class="username" data-market-name="${post.market_id}" style="margin-top:-16px">${post.market_name}</div>
                         
-                    <div class="cross" style="position: absolute; top: 0; right: 1.2%; margin: 20px; padding-top: 10px; margin-top: 0px;">
+                    <div class="cross" style="position: absolute; top: 0; right: 1.2%; margin: 20px; padding-top: 17px; margin-top: 0px;">
                     <img src="/public/img/close.png" style="width: 25px;" class="hover-effect" onclick="toggleDropdown('${post.post_id}')">
 
                     <div class="dropdown-content" id="dropdown-content-${post.post_id}">
@@ -582,6 +739,39 @@
     }
     
     </script>
+
+
+<script>
+ 
+    document.addEventListener('DOMContentLoaded', function () {
+        var dropdown = document.querySelector('.dropdown');
+        var dropdownMenu = document.querySelector('.dropdown-menu');
+     
+        // เมื่อคลิกที่ปุ่ม dropdown
+        dropdown.addEventListener('click', function (event) {
+            // ป้องกันเหตุการณ์เริ่มต้นของลิงก์
+           
+           
+            // แสดงหรือซ่อน dropdown menu
+            if (dropdownMenu.style.display === 'block') {
+                dropdownMenu.style.display = 'none';
+            } else {
+                dropdownMenu.style.display = 'block';
+            }
+        });
+     
+        // ซ่อน dropdown เมื่อคลิกนอกเขต dropdown
+        document.addEventListener('click', function (event) {
+            var isClickInside = dropdown.contains(event.target);
+     
+            if (!isClickInside) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
+    });
+     
+           </script>
+     
  
        
 

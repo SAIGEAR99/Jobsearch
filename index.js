@@ -97,6 +97,6 @@ app.use((req, res, next) => {
 
 
 
-app.listen(3000,'localhost',()=> {
+app.listen(3000,'0.0.0.0',()=> {
     console.log('runnnnnnnnnnnnn now!')
 })
