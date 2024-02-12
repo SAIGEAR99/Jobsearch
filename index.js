@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 let root_path = path.resolve(__dirname,'');
 app.use(express.static(root_path));
 
-const indexRoutes = require('../my_EJS/router/index');
+
 const adminRoutes = require('./router/admin');
 const loginRoutes = require('../my_EJS/router/login');
 const registerRoutes = require('../my_EJS/router/register');
@@ -59,7 +59,7 @@ const apiExplore = require('../my_EJS/API/explore')
 
 //use
 
-app.use('/index',indexRoutes);
+
 app.use('/admin',checkAuth,adminRoutes);
 app.use('/login',loginRoutes);
 app.use('/register',registerRoutes);
@@ -72,6 +72,12 @@ app.use('/img',imgRoutes );
 app.use('/search',apiSearch );
 app.use('/post',apiPost);
 app.use('/explore',apiExplore);
+
+
+
+app.get('/', function(req, res, next) {
+    res.render('welcome/index');
+  });
 
 
 

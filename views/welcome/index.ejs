@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job-Search
+    </title>
+    <link rel="icon" href="/public/img/job-search.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.video-background {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+}
+
+video {
+    width: 100%;
+    height: auto;
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+button {
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: black; 
+    border: 2px solid #555555;
+}
+
+button:hover {
+    background-color: #555555;
+    color: white;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="video-background"  style="filter: brightness(50%); width: 100vw; object-fit: cover;">
+        <video autoplay loop muted>
+            <source src="/public/img/sss.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <style>
+        .KK {
+            width: 500px;
+    background-color: #ffffff; /* สีพื้นหลัง */
+   
+    padding: 15px 32px; /* ขนาด padding */
+    text-align: center; /* จัดข้อความตรงกลาง */
+    text-decoration: none; /* ไม่มีขีดเส้นใต้ข้อความ */
+    display: inline-block; /* แสดงในรูปแบบของบล็อก */
+    font-size: 30px; /* ขนาดของตัวอักษร */
+    font-weight: 800;
+    margin: 4px 2px; /* ระยะห่างรอบปุ่ม */
+    cursor: pointer; /* ให้เมาส์เปลี่ยนเป็นรูปมือเมื่อวางอยู่บนปุ่ม */
+    border-radius: 8px; /* ขอบมน */
+    border: none; /* ไม่มีเส้นขอบ */
+    transition: all 0.3s; /* เพิ่มการเปลี่ยนแปลงอย่างราบรื่น */
+    color: #000;
+}
+
+.KK:hover {
+    background-color: #000000; /* สีพื้นหลังเมื่อเมาส์วางอยู่บนปุ่ม */
+   
+  
+}
+.KK_img:hover{
+    filter: invert(100%);
+}
+    </style>
+    <div class="content">
+        <button class="KK" onclick="enterSite()"><img src="/public/img/ddddddd.png" style="width: 60%; vertical-align:middle;" class="KK_img"></button>
+    </div>
+
+    <script>
+        function enterSite() {
+    window.location.href = '/login'; // ใส่ลิงก์ของหน้าถัดไปที่คุณต้องการเปลี่ยนไป
+}
+
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
